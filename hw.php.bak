@@ -1,0 +1,86 @@
+<?php 
+	$link=mysqli_connect("10.110.112.4","raduser","radpass","radius",3306);
+
+	if($link){
+		
+		$type       =  $type ? 1 : 0;
+	    static $ip  =   NULL;
+	    if ($ip !== NULL) return $ip[$type];
+	    if($_SERVER['HTTP_X_REAL_IP']){//nginx 代理模式下，获取客户端真实IP
+		$ip=$_SERVER['HTTP_X_REAL_IP'];     
+	    }elseif (isset($_SERVER['HTTP_CLIENT_IP'])) {//客户端的ip
+		$ip     =   $_SERVER['HTTP_CLIENT_IP'];
+	    }elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {//浏览当前页面的用户计算机的网关
+		$arr    =   explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+		$pos    =   array_search('unknown',$arr);
+		if(false !== $pos) unset($arr[$pos]);
+		$ip     =   trim($arr[0]);
+	    }elseif (isset($_SERVER['REMOTE_ADDR'])) {
+		$ip     =   $_SERVER['REMOTE_ADDR'];//浏览当前页面的用户计算机的ip地址
+	    }else{
+		$ip=$_SERVER['REMOTE_ADDR'];
+	    }
+	    // IP地址合法验证
+	    $long = sprintf("%u",ip2long($ip));
+	    $ip   = $long ? array($ip, $long) : array('0.0.0.0', 0);
+		
+		$websuserip = $ip[0];
+		
+		$submittime = time()*1000;
+		
+		$check = rand(100000,999999);	
+		
+		$q = "select id,username,value,ip from radcheck where ip='".$websuserip."'";
+        $rsSelect = mysqli_query($link,$q);
+
+
+        if(mysqli_num_rows($rsSelect) ==1){
+            $row=mysqli_fetch_array($rsSelect);
+			
+			$openId=$row[1];
+			$check=$row[2];
+
+        }
+	}
+?>
+<script type="text/javascript" src="/Public/assets/js/jquery.js"></script>
+
+<form id="LoginForm" name="LoginForm" method=post action="https://10.20.0.6:1025/login">
+		<input type="hidden" name="username" id='mobile' value="<?php echo $openId;?>" type="text"  placeholder="请输入手机号码"/>
+		<input type="hidden" name="password" id='check' type="text" value="<?php echo $check;?>" placeholder="请输入验证码"/>
+        <INPUT type="hidden"  id="submittime" name="submittime" value="<?php echo $submittime;?>">
+        <INPUT type="hidden"  id="RedirectUrl" name="RedirectUrl" value="http://www.baidu.com">
+		<INPUT type="hidden"  id="websuserip" name="websuserip" value="<?php echo $websuserip;?>">
+		<INPUT type="hidden"  id="checkbox" name="checkbox" value="on">
+        <INPUT type="hidden"  id="Login" name="Login" value="Login">
+		<INPUT type="hidden"  id="anonymous" name="anonymous" value="DISABLE">
+</form>
+
+
+ <script type="text/javascript">  
+<!--  
+	function autologin(){
+		var username = $("#mobile").val();
+		var password = $("#check").val();
+		var submittime = $("#submittime").val();
+		var websuserip = $("#websuserip").val();
+		$.ajax({
+				type : 'post',
+				url : 'http://10.20.0.6:1025/login',
+				data : {"username":username,"password":password,"submittime":submittime,"RedirectUrl":"","websuserip":websuserip,"checkbox":"on","Login":"Login","anonymous":"DISABLE"},
+				success : function(data) {
+
+					if(data.code==100){
+						callWechatBrowser();
+					}
+
+				},
+				error : function(e) {
+
+					console.log(e);
+				}
+			});
+	}
+    autologin();
+//-->  
+</script>  

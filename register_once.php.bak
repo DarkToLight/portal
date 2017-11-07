@@ -1,0 +1,53 @@
+<?php
+	header ( "Content-type:text/html;charset=utf-8" );
+    header("Access-Control-Allow-Origin:*");
+
+	$link=mysqli_connect("10.110.112.4","raduser","radpass","radius",3306);
+
+	if($link){
+		$pagetype = $_GET["pagetype"];
+		$vlan = $_GET["vlan"];
+		$staMac = $_GET["staMac"];
+		$staIp = $_GET["staIp"];
+		$apMac = $_GET["apMac"];
+		$apIp = $_GET["apIp"];
+		
+	$check = rand(100000,999999);	
+		
+		$q = "select id from radcheck where username='".$staMac."'";
+        $rsSelect = mysqli_query($link,$q);
+
+		$code=100;
+		
+		$ip = "220.197.182.78";
+		$ip_first = explode('.',$staIp);
+		if($ip_first[0]=='10'){
+			$ip = '10.110.112.2';
+		}
+		
+        if(mysqli_num_rows($rsSelect) ==1){
+            $row=mysqli_fetch_array($rsSelect);
+
+            $q = "update radcheck set value='".$check."',modify_time=current_timestamp() where id=".$row[0];
+            $rs=mysqli_query($link,$q);
+
+            if(!$rs){
+                $code=104;
+            }
+
+        }else{
+
+			$q = "insert into radcheck(username,attribute,op,value,type) value('".$staMac."','User-Password',':=','".$check."',1)";
+            $rs = mysqli_query($link,$q);
+            if(!$rs){
+				
+                $code =103;
+            }
+		}
+		$curl = curl_init(); 
+		$url = "http://".$ip.":8088/portal/auth?Submit=Logon&authtype=3&username=".$staMac."&password=".$check."&pagetype=".$pagetype."&vlan=".$vlan."&staMac=".$staMac."&staIp=".$staIp."&apMac=".$apMac."&apIp=".$apIp;
+		
+		exit(json_encode(array('code'=>$code,'url'=>$url)));
+		
+	}
+

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="height=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/assets/css/shl_css.css">
+		<script type="text/javascript" src="__PUBLIC__/assets/js/jquery.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/assets/js/action.js"></script>
+<script type="text/javascript" src="__PUBLIC__/assets/js/wechatutil.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/assets/js/jquery.md5.js"></script>
+		<title>WIFI</title>
+	</head>
+	<body >
+	
+		<div id='GGwarp'>
+<img src="__PUBLIC__/{$adpath}" style="position:fixed; width:100%; height:100%;" >
+			
+			<p id="num" class="fontsize"></p>
+			<script type="text/javascript">
+
+				$(document).ready(function(){
+
+					checkLogin();
+				});
+
+				var timestart = 5 ; //起始秒数
+				var ele = document.getElementById("num");
+				setInterval(function(){
+					if(timestart==0){
+						if(USER_NAME!=''){
+							doGet(serverUrl, {"Submit":"Logon","authtype":"3", "username":USER_NAME, "password":PASS_WORD}, onSuccess, onFailed);
+						}else{
+							$('#GGwarp').css('display','none');
+							$('#warp').css('display','');
+						}
+						clearInterval();
+						
+					}
+					ele.innerHTML = timestart;
+					timestart--;
+				},1000);
+			</script>
+			
+		</div>
+	
+		<div  id="warp" style='display:none;position:fixed;width:100%;height:100%'>
+			<div style="height:30%">
+			<img src="__PUBLIC__/assets/images/authentication_image.png" class="firstimg" >
+			</div>
+			<div style="height:70%">
+			<div id="warpson" >
+				
+					<div class="sonwx" onclick='register_once()'>
+						<img src="__PUBLIC__/assets/images/wx.png">
+						<span>微信认证</span>
+					</div>
+					<div class="sontel">
+						<img src="__PUBLIC__/assets/images/tel.png">
+						<span style="font-size:16px">手机号认证</span>
+					</div>
+					<div class="wxinput">
+					<div >
+						<input id='mobile' type="text"  placeholder="请输入手机号码"/>
+						<button class="btn" onclick='ask_check(this)' style="font-size:12px">获取验证码</button>
+					</div>
+					<p id="log_msg">验证码为5小时内上网凭证</p>
+					<div>
+						<input id='check' type="text" placeholder="请输入验证码"/>
+						<button class="btn1" onclick='handleSubmit()'>登录</button>
+					</div>
+					<p>已有验证码可以直接登录</p>
+				</div>
+				<h5></h5>
+				<div class="wxcheck">
+					<input type="checkbox" />
+					<span>同意</span>
+					<span>无线网使用条款</span>
+					<span>English</span>
+				</div>
+				<footer>
+					<p>泛亚科技提供技术支持</p>
+					<p><span>客服电话：400-003-5060</span> <span>京ICP备12002594号-7</span></p>
+				</footer>
+			</div>
+		</div>
+		</div><script>function callWechatBrowser(){  		var urlPara = location.search;		var extend = 'test';			var locationStr = location.search;			var appId          = "wxb3151ceaf92f42c7";  	var secretkey      = "e7a0e49c71f8ecd287a62883db8a4740";      var timestamp      = new Date().getTime();　　　　//时间戳(毫秒)      var shop_id        = "3453137";            　　  //AP设备所在门店的ID      var authUrl        = "http://220.197.182.74/register_wechat.php?"+locationStr.substr(locationStr.indexOf('?')+1);        //服务器回调地址    var mac            = GetQueryString("staMac");  　　　//用户手机mac地址 安卓设备必需      var ssid           = "D-GuiYang";           //AP设备信号名称，非必须      var bssid          = GetQueryString("apMac");       //AP设备mac地址，非必须  	var extend = 'test';        var sign = $.md5(appId + extend + timestamp + shop_id + authUrl + mac + ssid + bssid + secretkey);        Wechat_GotoRedirect(appId, extend, timestamp, sign, shop_id, authUrl, mac, ssid, bssid);      }</script>
+	</body>
+</html>

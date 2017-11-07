@@ -1,0 +1,86 @@
+<?php
+	header ( "Content-type:text/html;charset=utf-8" );
+    header("Access-Control-Allow-Origin:*");
+
+	$link=mysqli_connect("10.20.1.66","raduser","radpass","radius",3306);
+
+	if($link){
+		$websuserip = $_GET["websuserip"];
+		
+		$openId = $_GET["openId"];
+		$extend= $_GET["extend"];   
+		$tid= $_GET["tid"]; //获取openId添加到数据库获取该用户的token
+		$url='http://10.20.1.66/clearTemp.php?staMac='.$websuserip;
+		$curl = curl_init(); 
+	// 设置你需要抓取的URL 
+		curl_setopt($curl, CURLOPT_URL, $url); 
+	// 设置header 响应头是否输出
+		curl_setopt($curl, CURLOPT_HEADER, 0); 
+	// 设置cURL 参数，要求结果保存到字符串中还是输出到屏幕上。
+	// 1如果成功只将结果返回，不自动输出任何内容。如果失败返回FALSE 
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
+	// 运行cURL，请求网页 
+		$data = curl_exec($curl); 
+	// 关闭URL请求 
+		curl_close($curl);
+
+		
+		
+		$check = rand(100000,999999);	
+		
+		$q = "select id from radcheck where username='".$openId."'";
+        $rsSelect = mysqli_query($link,$q);
+
+
+        if(mysqli_num_rows($rsSelect) ==1){
+            $row=mysqli_fetch_array($rsSelect);
+
+            $q = "update radcheck set value='".$check."',modify_time=current_timestamp() where id=".$row[0];
+            $rs=mysqli_query($link,$q);
+		$ip = "220.197.182.78";
+		$ip_first = explode('.',$staIp);
+		if($ip_first[0]=='10'){
+			$ip = '10.110.112.2';
+		}
+		$file = 'log.txt';
+			$content = "\r\n".date("h:i:sa")."\r\nLocation:http://".$ip.":8088/portal/auth?submit=Logon&authtype=3&username=".$openId."&password=".$check."&pagetype=".$pagetype."&vlan=".$vlan."&staMac=".$staMac."&staIp=".$staIp."&apMac=".$apMac."&apIp=".$apIp."\r\n".$ip_first[0];
+			file_put_contents($file,$content,FILE_APPEND);
+            if($rs){
+                exit(json_encode(array('code'=>104)));
+            }
+
+        }else{
+
+			$q = "insert into radcheck(username,attribute,op,value) value('".$openId."','User-Password',':=','".$check."')";
+            $rs = mysqli_query($link,$q);
+            if($rs){
+                exit(json_encode(array('code'=>103)));
+            }
+		}
+		
+		$curl = curl_init(); 
+		$url = "https://10.20.0.6:1025/login";
+		$post_data = array ("username" => $openid,"password" => $check,"websuserip"=>$websuserip,"submittime"=>time()*1000,"RedireUrl"=>"http://www.fyxtw.com","anonymous"=>"DISABLE","Login"=>"Login","checkbox"=>"on");
+		//$file = 'log.txt';
+		//$content = "\r\n".date("h:i:sa")."\r\nLocation:http://".$ip.":8088/portal/auth?submit=Logon&authtype=3&username=".$staMac."&password=".$check."&pagetype=".$pagetype."&vlan=".$vlan."&staMac=".$staMac."&staIp=".$staIp."&apMac=".$apMac."&apIp=".$apIp."\r\n".$ip_first[0];
+
+	// 设置你需要抓取的URL 
+		curl_setopt($curl, CURLOPT_URL, $url); 
+	// 设置参数
+		curl_setopt($curl, CURLOPT_POST, 1);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $post_data);
+	// 设置header 响应头是否输出
+		curl_setopt($curl, CURLOPT_HEADER, 0); 
+	// 设置cURL 参数，要求结果保存到字符串中还是输出到屏幕上。
+	// 1如果成功只将结果返回，不自动输出任何内容。如果失败返回FALSE 
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); 
+	// 运行cURL，请求网页 
+		$data = curl_exec($curl); 
+	// 关闭URL请求 
+		
+		exit(json_encode(array('code'=>100)));
+
+			
+		
+	}
+
