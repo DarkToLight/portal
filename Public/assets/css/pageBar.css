@@ -1,0 +1,260 @@
+/******index页面的样式***********/
+.floatLeft{
+    float: left;
+}
+.floatRight{
+    float: right;
+}
+.f12{
+    font-size: 12px;
+}
+.pL5{
+    padding-left: 5px;
+}
+.pL10{
+    padding-left: 10px;
+}
+.f14{
+    font-size: 14px;
+}
+.f16{
+    font-size: 16px;
+}
+.f18{
+    font-size: 18px;
+}
+.fb{
+    font-weight: bold;
+}
+.txtRight{
+    text-align: right;
+}
+.txtLeft{
+    text-align: left;
+}
+.headTitle{
+    line-height: 35px;
+    padding-left: 20px;
+    border-left: 5px solid #ff4343;
+    margin: 20px 0px;
+}
+.headTitle a{
+    color: #333;
+    text-decoration: none;
+}
+.cir-point{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ff4343;
+    border-radius: 50%;
+}
+.left-nav{
+    width: 100px;
+    border-top:1px solid #ddd;
+    position: relative;
+}
+.left-nav a{
+    display: block;
+    padding: 15px 0px;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-top:none;
+    background-color:#f1f0f1;
+    border-right:none;
+}
+.left-nav a.active{
+    border-right:none;
+    background-color: #fff;
+    width: 100px;
+}
+.left-nav a:hover{
+    border-right:none;
+    background-color: #fff;
+    width: 100px;
+
+}
+.right-contact{
+    width: 1076px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+/*********消息墙的样式***********/
+.page-block{
+    width: 100%;
+    height:auto;
+    overflow: hidden;
+}
+.msgtable{
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+.msgtable tr td{
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+}
+.page-head{
+    padding: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+.page-nav{
+    height: 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+.page-nav a{
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0px 20px;
+    color: #333;
+    text-decoration: none;
+}
+.page-nav a:hover{
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color:#fff;
+}
+.page-nav a.active{
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color:#fff;
+}
+.page{
+    display: inline-block;
+    height: auto;
+    overflow: hidden;
+}
+.textLeft{
+    text-align: right;
+}
+.page a{
+    display: inline-block;
+    font-size: 14px;
+    /*margin: 2px;*/
+    height: 30px;
+    line-height: 30px;
+    padding: 0px 10px;
+    border:1px solid #dddddd;
+    color: #333;
+    text-decoration: none;
+}
+.page a:hover{
+    background-color: #ccc;
+}
+.page a.atv{
+    background-color: #ccc;
+}
+.page a.tot{
+    background-color: #fff;
+}
+.page a.tot:hover{
+    background-color: #fff !important;
+}
+
+.page a.denyClick{
+    background:#f5f5f5!important;
+    color: #999!important;
+}
+.pageDiv{
+    height: auto;
+    overflow: hidden;
+    margin: 20px 0px;
+}
+
+/*******图片**********/
+.pic-box,.pic-list{
+    height: auto;
+    overflow: hidden;
+}
+.pic-iterm{
+    float: left;
+    position: relative;
+    width: 193px;
+    height:193px;
+    border: 1px solid #ddd;
+    padding: 5px;
+    margin: 5px;
+}
+.pic-iterm img{
+    width: 100%;
+    height: 100%;
+}
+.checkIcon{
+    position: absolute;
+    top:0px;
+    left: 0px;
+    width: 18px;
+    height: 18px;
+}
+.mask-box{
+    position:absolute;
+    top: 0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    background-color: rgba(255, 67, 67, 0.76);
+    padding-top: 40px;
+    display: none;
+}
+.radius-btn{
+    display: block;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #fff;
+    color: #fff;
+    border-radius: 10px;
+    margin: 12px auto;
+    text-decoration:none ;
+}
+.pic-iterm:hover .mask-box{
+    display:block;
+}
+/************弹窗样式**********************/
+.maskDiv{
+    position: fixed;
+    top:0px;
+    left:0px;
+    bottom: 0px;
+    right:0px;
+    background-color: rgba(53,47,46,0.76);
+    display: none;
+}
+
+.mask-contact{
+    width: 400px;
+    height:400px;
+    position:absolute;
+    left:50%;
+    margin-left:expression(this.offsetWidth()/2+"px");
+    display: none;
+}
+.mask-contact img {
+    width: 100%;
+    height: 100%;
+}
+.closeIcon{
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 26px;
+    background-color: #ff3b30;
+    font-size: 18px;
+    border-radius: 50%;
+    color: #fff;
+    cursor: pointer;
+}
+.select-box{
+    margin-bottom: 10px;
+}
+

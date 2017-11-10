@@ -1,6 +1,5 @@
 <?php 
 	$link=mysqli_connect("10.20.1.66","raduser","radpass","radius",3306);
-	ini_set("display_errors", "On");
 
 	if($link){
 		$websuserip = $_GET["user-ipaddress"];

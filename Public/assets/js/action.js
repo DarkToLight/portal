@@ -484,7 +484,9 @@ function ChangeButtonDisable()
 			alert("请检查手机号码及验证码是否输入");
 			return;
 		}
-				
+		
+		
+		
 		doGet(serverUrl, {"Submit":"Logon","authtype":"3", "username":mobile, "password":pwd}, onSuccess, onFailed); //
 		
     }
@@ -551,7 +553,7 @@ function ChangeButtonDisable()
 			}else{
 				$.ajax({
 					type : 'get',
-					url : 'http://10.20.1.64/register_msghw.php?mobile='+mobile+"&type=1&mac="+mac,
+					url : '/register_msghw.php?mobile='+mobile+"&type=1&mac="+mac,
 					dataType : 'json',
 					success : function(data) {
 						console.log(data.code);
@@ -560,7 +562,6 @@ function ChangeButtonDisable()
 							MOBILECK=data.check;
 							$("#password").val(mac);
 						}
-
 					},
 					error : function(e) {
 						alert(e);
@@ -580,7 +581,7 @@ function ChangeButtonDisable()
 			if(getcheck==MOBILECK){
 				
 				if(isiOS){
-					document.LoginForm.action="http://10.20.1.64/register_ios.php?mac="+GetQueryString("usermac");
+					document.LoginForm.action="http://10.110.112.3/register_ios.php?mac="+GetQueryString("usermac");
 					document.LoginForm.submit();
 				}else{
 					
@@ -595,27 +596,6 @@ function ChangeButtonDisable()
 			
 		
 		}
-		
-		function h3_msg_login(){
-			var getcheck = $("#check").val();
-			if(getcheck==MOBILECK){
-				
-				if(isiOS){
-					document.LoginForm.action="http://10.20.1.64/register_ios.php?mac="+GetQueryString("usermac");
-					document.LoginForm.submit();
-				}else{
-					
-					document.LoginForm.submit();
-				}
-				
-			}else{
-				alert("请检查您的验证码是否正确");
-			}
-			
-		
-		}
-		
-		
 		function judge_mobile(mobile_num){
 			
 			var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
@@ -667,60 +647,18 @@ function ChangeButtonDisable()
 		$.ajax({
 				type : 'post',
 				url : 'http://10.20.0.6:8000/login',
-				dataType: "html",
-				data : {"username":username,"password":PASS_WORD,"submittime":subtime,"websuserip":websuserip,"Login":"Login","checkbox":'on',"anonymous":"DISABLE","RedirectUrl":"http://baidu.com"},
+				dataType: "json",
+				data : {"username":username,"password":PASS_WORD,"submittime":subtime,"Login":"Login","checkbox":'on',"anonymous":"DISABLE","RedirectUrl":"http://baidu.com"},
 				success : function(data) {
+
 						callWechatBrowser();
+
 				},
 				error : function(e) {
-					callWechatBrowser();
-				}
-			});	
-	}
-	function checkLogin_h3(){
-		staMac = GetQueryString('wlanusermac');
-		$.ajax({
-				type : 'get',
-				url : '/auto_login_h3.php?staMac='+staMac,
-				dataType : "json",
-				success : function(data) {	
-					if(data.code==100){
-						USER_NAME = staMac;
-						PASS_WORD = data.check;
-						
-					}
-				},
-				error : function(e) {
-				}
-			});
-	}
-	function register_once_h3(){
-		/*var username = GetQueryString("wlanusermac");
-		var pwd = GetQueryString("wlanusermac");
-		var ptuser = document.getElementById("mobile");
-		ptuser.value = username;
-		var ptpwd = document.getElementById("check");
-		ptpwd.value = pwd;
-		document.LoginForm.action = document.LoginForm.action + location.search;
-		document.LoginForm.submit();*/
-		/*document.getElementById("iframe1").src = "http://10.20.0.8/portal/logon.cgi"+location.search+"&PtUser="+USER_NAME+"&PtPwd="+PASS_WORD+"&PtButton=Logon";
-		callWechatBrowser();
-		*/
-		/*if(isiOS){
-			callWechatBrowser();
-			return;
-		}*/
-		$.ajax({
-				type : 'post',
-				url : 'http://10.20.0.8/portal/logon.cgi'+location.search,
-				dataType: "html",
-				data : {"PtUser":USER_NAME,"PtPwd":PASS_WORD,"PtButton":"Logon"},
-				success : function(data) {
-						console.log(data);
-						callWechatBrowser();
-				},
-				error : function(e) {
-					console.log(e);
+					//test_ios();
+					//register_once_test();
+					//alert("username"+username+"&password"+PASS_WORD+"&submittime"+subtime+"&websuserip"+websuserip);
+
 					callWechatBrowser();
 				}
 			});
@@ -744,60 +682,5 @@ function ChangeButtonDisable()
 			 }
 			 alert('该浏览器不支持自动跳转微信请手动打开微信\n如果已跳转请忽略此提示');
 		 }
-	function save_pv_index(){
-		var user_mac = GetQueryString("wlanusermac");
-		var ad_name = "index";
-		$.ajax({
-				type : 'get',
-				url : 'http://10.20.1.64:8080/FanyaAuth/saveData.do?op=pv&user_mac='+user_mac+'&ad_name='+ad_name,
-				success : function() {
-						
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			});
-	}
-	function save_cv_index(){
-		var user_mac = GetQueryString("wlanusermac");
-		var ad_name = "index";
-		$.ajax({
-				type : 'get',
-				url : 'http://10.20.1.64:8080/FanyaAuth/saveData.do?op=cv&user_mac='+user_mac+'&ad_name='+ad_name,
-				success : function() {
-						
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			});
-	}
-	function save_pv_login(){
-		var user_mac = GetQueryString("wlanusermac");
-		var ad_name = "login";
-		$.ajax({
-				type : 'get',
-				url : 'http://10.20.1.64:8080/FanyaAuth/saveData.do?op=pv&user_mac='+user_mac+'&ad_name='+ad_name,
-				success : function() {
-						
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			});
-	}
-	function save_cv_login(){
-		var user_mac = GetQueryString("wlanusermac");
-		var ad_name = "login";
-		$.ajax({
-				type : 'get',
-				url : 'http://10.20.1.64:8080/FanyaAuth/saveData.do?op=cv&user_mac='+user_mac+'&ad_name='+ad_name,
-				success : function() {
-						
-				},
-				error : function(e) {
-					console.log(e);
-				}
-			});
-	}
+	
 	

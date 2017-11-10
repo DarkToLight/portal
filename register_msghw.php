@@ -2,7 +2,7 @@
 	header ( "Content-type:text/html;charset=utf-8" );
 	header("Access-Control-Allow-Origin:*"); 
 	
-	$link=mysqli_connect("10.20.1.66","raduser","radpass","radius",3306); 
+	$link=mysqli_connect("10.110.112.4","raduser","radpass","radius",3306); 
 	if($link){
 		
 		$mobile = @$_GET['mobile'] ? $_GET['mobile']:0;
