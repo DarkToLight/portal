@@ -15,13 +15,15 @@ class ApController extends CrudController
                 'mac' => "aa:bb:cc:df",
                 'address' => '关山湖区',
             ];
+            # 数据检查
+
             # 数据唯一性判断
             $where = ['name' => $_POST['name'], 'mac' => $_POST['mac'], ['_logic'] => 'OR'];
             if ($this->exists($where)) {
                 $this->ajaxReturn(['status' => -2, 'msg' =>'mac和地址都要唯一'], "JSON");
             }
         } else {
-            $this->assign('a','1');
+
         }
     }
 }

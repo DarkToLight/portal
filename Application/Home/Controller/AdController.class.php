@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 
-class Ad2Controller extends CrudController
+class AdController extends CrudController
 {
     public function _add()
     {
