@@ -9,6 +9,7 @@ class DeviceController  extends Controller
     public function login()
     {
         layout(false);
+
         $mac = isset($_GET['AP-MAC'])?trim($_GET['AP-MAC']):'00:00:00:00:00:00';
         $clientIp = get_client_ip();
 
