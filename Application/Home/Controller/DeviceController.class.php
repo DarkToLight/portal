@@ -13,7 +13,7 @@ class DeviceController  extends Controller
         $mac = isset($_GET['AP-MAC'])?trim($_GET['AP-MAC']):'00:00:00:00:00:00';
         $clientIp = get_client_ip();
 
-        $mAp = M("ap2");
+        $mAp = M("ap");
         $apInfo = $mAp->where("mac='{$mac}'")->find();
 
         $mArea = M('area');
@@ -27,7 +27,7 @@ class DeviceController  extends Controller
         } else {
             $adWhere = ['is_default' => 1]; # 没有就放默认广告
         }
-        $mAd = M("ad2");
+        $mAd = M("ad");
         $adInfo = $mAd->where($adWhere)->select();
         $adInfo = $this->weightChoose($adInfo); # 一个区域根据权重来随机展示广告
 

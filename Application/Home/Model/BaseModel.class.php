@@ -3,7 +3,8 @@ namespace Home\Model;
 
 use Think\Model;
 
-class AreaModel extends Model {
+class BaseModel extends Model
+{
     public function exists($where)
     {
         $data = $this->where($where)->find();

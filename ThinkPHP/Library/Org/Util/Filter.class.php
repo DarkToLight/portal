@@ -27,15 +27,24 @@ class Filter
     {
         self::$get = &$_GET;
         self::$post= &$_POST;
+        $tmp = array();
         foreach($must as  $key => $val) {
-            if (is_numeric($key) && empty(self::$$type[$val])) {
-                throw new \Exception($val."参数不能为空");
+            if (is_numeric($key)) {
+                if (empty(self::$$type[$val])) {
+                    throw new \Exception($val."参数不能为空");
+                } else {
+                    $tmp[] = self::$$type[$val];
+                }
             }else{
                 if(empty(self::$$type[$key])){
                     # 设置默认值
                     self::$$type[$key] = $val;
+                    $tmp[] = $val;
+                } else {
+                    $tmp[] = self::$$type[$key];
                 }
             }
         }
+        return $tmp;
     }
 }
