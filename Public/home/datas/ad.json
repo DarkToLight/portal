@@ -1,0 +1,55 @@
+{
+    "code": 0,
+    "msg": "成功",
+    "count": 8,
+    "data": [
+        {
+            "id": "1",
+            "name": "南明区",
+            "parent_id": "0",
+            "is_del": "0"
+        },
+        {
+            "id": "4",
+            "name": "观山湖区",
+            "parent_id": "0",
+            "is_del": "0"
+        },
+        {
+            "id": "13",
+            "name": "八匹马",
+            "parent_id": "4",
+            "is_del": "0"
+        },
+        {
+            "id": "18",
+            "name": "蔡家关",
+            "parent_id": "10",
+            "is_del": "0"
+        },
+        {
+            "id": "19",
+            "name": "金源国际",
+            "parent_id": "13",
+            "is_del": "0"
+        },
+        {
+            "id": "20",
+            "name": "金源国际子分类",
+            "parent_id": "19",
+            "is_del": "0"
+        },
+        {
+            "id": "21",
+            "name": "孙子分类",
+            "parent_id": "20",
+            "is_del": "0"
+        },
+        {
+            "id": "22",
+            "name": "孙子分类2",
+            "parent_id": "20",
+            "is_del": "0"
+        }
+    ]
+}

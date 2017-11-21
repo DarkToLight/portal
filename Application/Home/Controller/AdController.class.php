@@ -12,4 +12,9 @@ class AdController extends CrudController
            # 渲染界面时获取相关数据
         }
     }
+    public function index()
+    {
+        layout(false);
+        $this->display("All/ManageAD/orderAD");
+    }
 }

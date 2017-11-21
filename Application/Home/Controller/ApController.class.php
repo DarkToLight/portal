@@ -1,13 +1,16 @@
 <?php
 namespace Home\Controller;
 
+use Org\Util\Filter;
+use Org\Util\UnlimitedClassification;
+
 class ApController extends CrudController
 {
     public function _add()
     {
-        if (1) {
+        if (IS_AJAX) {
             $_POST = [
-                'name' => 'Tp-link250',
+                'name' => 'edfdf',
                 'status' => 1,
                 'create_time' =>date("Y-m-d H:i:s"),
                 'ad_num' => 0,
@@ -15,15 +18,23 @@ class ApController extends CrudController
                 'mac' => "aa:bb:cc:df",
                 'address' => '关山湖区',
             ];
-            # 数据检查
+            try{
+                # 数据检查
+                $must = ['name', 'ap_area_id' => 0, 'mac'];
+                list($name, $ap_area_id, $mac) = Filter::notEmpty($must);
 
-            # 数据唯一性判断
-            $where = ['name' => $_POST['name'], 'mac' => $_POST['mac'], ['_logic'] => 'OR'];
-            if ($this->exists($where)) {
-                $this->ajaxReturn(['status' => -2, 'msg' =>'mac和地址都要唯一'], "JSON");
+                # 数据唯一性判断
+                $where = ['name' => $_POST['name'], 'mac' => $_POST['mac'], ['_logic'] => 'OR'];
+                if ($this->exists($where)) {
+                    throw new \Exception("mac地址和AP名称都要唯一");
+                }
+            } catch(\Exception $e) {
+                $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
             }
         } else {
-
+            $area = D("area");
+            $this->ajaxReturn(UnlimitedClassification::recursion($area->select(), 0));
+            exit;
         }
     }
 }

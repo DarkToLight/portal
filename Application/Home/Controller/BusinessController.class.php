@@ -12,13 +12,11 @@ class BusinessController extends CrudController
 {
     public function _add()
     {
-        if (1) {
+        if (IS_AJAX) {
             # 新增数据唯一性判断
-            $_POST['name'] = '建行';
-            $_POST['description'] = '建设银行';
             $_POST['create_time'] = date("Y-m-d H:i:s");
 
-            $where = ['name' => $_POST['name']];
+            $where = ['name' => $_POST['name'], 'is_del' => 0];
             if ($this->exists($where)) {
                 $this->ajaxReturn(['status' => -2, 'msg' =>'名称不能重复'], "JSON");
             }

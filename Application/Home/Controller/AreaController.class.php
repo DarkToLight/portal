@@ -9,16 +9,15 @@
 namespace Home\Controller;
 
 use Org\Util\Filter;
+use Org\Util\Tree;
+use Org\Util\UnlimitedClassification;
 
 class AreaController extends CrudController
 {
     public function _add()
     {
         if (IS_AJAX) {
-            $_POST['name'] = "泛亚科技";
-            $_POST['parent_id'] = "2";
             $_POST['create_time'] = date("Y-m-d H:i:s");
-
             try{
                 $must = ['name', 'parent_id' => 0];
                 list(, $parent_id) = Filter::notEmpty($must);
@@ -30,7 +29,7 @@ class AreaController extends CrudController
                 }
 
                 # 数据唯一性判断
-                $where = ['name' => $_POST['name'], 'parent_id' => $_POST['parent_id']];
+                $where = ['name' => $_POST['name'], 'parent_id' => $_POST['parent_id'], 'is_del' => 0];
                 if ($this->exists($where)) {
                     throw new \Exception("不能添加重复的区域或场景！");
                 }
@@ -38,12 +37,29 @@ class AreaController extends CrudController
                 $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
             }
         } else {
-
+            $area = D("area");
+            $areaTree = Tree::tree($area->where(['is_del' => 0])->select());
+            layout(false);
+            $this->assign('area', $areaTree);
+            $this->display("FyrzAD/ManageAP/sceneManageAP");
+            exit;
         }
     }
-    public function _edit()
+    public function _del($id)
     {
-        $_POST['name'] = '更新测试';
-        $_POST['id']  = 2;
+        # 删除之前检查关联
+        try{
+           $mAp = M("ap");
+           $exists = $mAp->where(['ap_area_id' => $id,  'is_del' => 0])->find();
+           if (!empty($exists)) {
+               throw new \Exception("场景或者区域下有AP设备，不能删除！");
+           }
+
+           if ($this->exists(['parent_id' => $id, 'is_del' => 0])) {
+               throw new \Exception("此分类存在下级分类，不能删除");
+           }
+        } catch (\Exception $e) {
+           $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
+        }
     }
 }

@@ -9,4 +9,5 @@ return array(
 	'DB_PORT'   => 3306, // 端口
 	'DB_PREFIX' => 'fy_', // 数据库表前缀
 	'LAYOUT_ON' => true,
+    "LAYOUT" => false,
 );

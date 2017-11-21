@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>订单列表</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/common/layui/css/layui.css" media="all">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/common/bootstrap/css/bootstrap.min.css" media="all">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/common/css/global.css" media="all">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/home/css/common.css" media="all">
+
+</head>
+<body>
+<section class="larry-grid">
+    <div class="larry-personal">
+    
+		 <blockquote class="layui-elem-quote layui-text">
+		   <legend>
+		            <div class="layui-row">
+		                  <div class="layui-col-md4"> 订单列表</div>
+		                  <div class="layui-col-md4 layui-col-md-offset4">
+		                         <span class="layui-breadcrumb" lay-separator=">">
+		                             <span > <i class="layui-icon">&#xe715;</i>当前位置：</span>
+		                              <a href="">广告管理</a>
+		                              <a><cite>订单管理</cite></a>
+		                         </span>
+		                  </div>  
+		                </div>
+		    </legend>
+		</blockquote>
+        <div class="larry-separate"></div>
+    </div>
+ 
+
+    <div class="larry-personal">
+      <form class="layui-form" action="">
+        <div class="demoTable">            
+			  订单名称（订单ID）：
+			  <div class="layui-inline">
+			     <input class="layui-input" name="id" id="demoReload" autocomplete="off">
+			  </div>
+			  广告商：
+				   <div class="layui-inline">
+				        
+				        <select name="quiz"  lay-verify="required" lay-search="">
+				           <option value="">直接选择或搜索选择</option>
+				          <optgroup label="1000">
+				            <option value="1002">1002</option>
+				            <option value="1003">1003</option>
+				            <option value="1004">1004</option>
+				          </optgroup>
+				          <optgroup label="2000">
+				            <option value="2001">2001</option>
+				            <option value="2002">2002</option>
+				          </optgroup>
+				        </select>
+				   </div>
+                                    时间：
+                <div class="layui-input-inline">
+			        <input type="text" class="layui-input" id="test10" placeholder=" - ">
+			     </div>
+			  <button class="layui-btn" data-type="reload">搜索</button>
+			  <button class="layui-btn layui-btn-normal"lay-filter="add">添加</button>
+			</div>
+        </form>
+            <table class="layui-hide" id="order" lay-filter="user"></table> 
+ 
+    </div>
+</section>
+<script src="__PUBLIC__/common/frame/layui/layui.all.js"></script>
+ <script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+ 
+<script>
+layui.config({
+  version: '1510717147129' //为了更新 js 缓存，可忽略
+});
+ 
+layui.use([], function(){
+	  var laydate = layui.laydate //日期
+	  ,form = layui.form
+	  ,laypage = layui.laypage //分页
+	  ,layer = layui.layer //弹层
+	  ,table = layui.table //表格
+	  ,carousel = layui.carousel //轮播
+	  ,upload = layui.upload //上传
+	  ,element = layui.element; //元素操作
+	
+	  //时间范围
+	  laydate.render({
+	    elem: '#test9'
+	    ,type: 'time'
+	    ,range: true
+	  });
+	  
+	  //日期时间范围
+	  laydate.render({
+	    elem: '#test10'
+	    ,type: 'datetime'
+	    ,range: true
+	  });
+
+	  
+	  //向世界问个好
+	  layer.msg('Hello World');
+	  
+  
+
+  
+  //执行一个 table 实例
+  table.render({
+    elem: '#order'
+      //,url:'../Public/home/datas/order.json'
+      ,url:'/Public/home/datas/order.json'
+    ,page: true //开启分页
+    ,cols: [[ //表头
+        {checkbox: true, fixed: true}
+      ,{field: 'id', title: '订单ID', width:'5%', sort: true, fixed: 'left'}
+      ,{field: 'username', title: '订单名称', width:'15%', align:'center',sort: true}
+      ,{field: 'username', title: '创建时间', width:'15%', align:'center',sort: true}
+      ,{field: 'sex', title: '广告商', width:'15%', align:'center',sort: true}
+      ,{field: 'city', title: '广告数', width:'10%', align:'center',sort: true} 
+      ,{fixed: 'right', title: '操作',width:'20%', align:'center', toolbar: '#barDemo'}
+    ]]
+        ,id: 'testReload'
+	    ,page: true
+	    ,height: 400
+	  });
+  /*查询*/
+  var $ = layui.$, active = {
+		    reload: function(){
+		      var demoReload = $('#demoReload');
+		      layer.msg(demoReload.val());  //测试
+		      table.reload('testReload', {
+		        where: {
+		          key: {
+		            id: demoReload.val()
+		          }
+		        }
+		      });
+		    }
+		  };
+		  
+		  $('.demoTable .layui-btn').on('click', function(){
+		    var type = $(this).data('type');
+		    active[type] ? active[type].call(this) : '';
+		  });
+		
+ 
+  //监听工具条
+  table.on('tool(demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    var data = obj.data //获得当前行数据
+    ,layEvent = obj.event; //获得 lay-event 对应的值
+    if(layEvent === 'detail'){
+      layer.msg('查看操作');
+    } else if(layEvent === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        obj.del(); //删除对应行（tr）的DOM结构
+        layer.close(index);
+        //向服务端发送删除指令
+      });
+    } else if(layEvent === 'edit'){
+      layer.msg('编辑操作');
+    }
+  });
+  
+
+
+  
+  //分页
+  laypage.render({
+    elem: 'pageDemo' //分页容器的id
+    ,count: 100 //总页数
+    ,skin: '#1E9FFF' //自定义选中色值
+    //,skip: true //开启跳页
+    ,jump: function(obj, first){
+      if(!first){
+        layer.msg('第'+ obj.curr +'页');
+      }
+    }
+  });
+  
+
+//监听提交
+  form.on('submit(add)', function(data){
+    layer.alert(JSON.stringify(data.field), {
+      title: '最终的提交信息'
+    })
+    return false;
+  });
+});
+</script>
+</body>
+</html>        
+        

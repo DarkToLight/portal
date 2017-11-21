@@ -11,7 +11,6 @@ namespace Org\Util;
  |main:过滤非法的表单数据,给数据赋默认值值
  +----------------------------------------
 */
-use Think\Exception;
 
 class Filter
 {

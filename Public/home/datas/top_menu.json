@@ -1,0 +1,27 @@
+[
+  {
+    "title": "系统管理",
+    "icon": "larry-xitongshezhi1",
+    "pid": "2"
+  },
+    {
+    "title": "区域管理",
+    "icon": "larry-wangzhanditu1",
+    "pid": "20"
+  },
+  {
+    "title": "广告管理",
+    "icon": "larry-neirongguanli",
+    "pid": "30"
+  },
+  {
+    "title": "统计分析",
+    "icon": "larry-weixingongzhongpingtai",
+    "pid": "40"
+  },
+  {
+    "title": "广告商管理",
+    "icon": "larry-ht_expand",
+    "pid": "50"
+  }
+]

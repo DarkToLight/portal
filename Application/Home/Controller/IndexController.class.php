@@ -5,7 +5,8 @@ class IndexController extends Controller {
 	
     public function index()
     {
-		$this->redirect('index/login');
+        layout(false);
+		$this->display('All/login');
 
 	}
 
@@ -47,10 +48,8 @@ class IndexController extends Controller {
 
     public function postLogin()
     {
-        $username = I('post.username','');
+        $username = I('post.name','');
         $password = I('post.password','');
-		
-		
         if ($password == '' or $username == '') {
             $this->redirect('index/login', 'status=2');
         } else {
@@ -66,7 +65,7 @@ class IndexController extends Controller {
 				switch(session('level')){					
 					case 0:
 						session('level', '超级管理员');	
-						$this->redirect('Dashboard/dashboard');
+						$this->redirect('Ad/index');
 					break;
 				}
             } else {
@@ -83,6 +82,4 @@ class IndexController extends Controller {
             $this->redirect('index/login');
         }
     }
-	
-	
 }

@@ -22,7 +22,6 @@ class CrudController extends Controller
     {
         parent::__construct();
         foreach ($_POST as &$p) {
-            echo $p;
             $p = trim($p);
         }
         foreach ($_GET as &$g) {
@@ -36,7 +35,7 @@ class CrudController extends Controller
         if(method_exists($this,"_add")) {
             $this->_add();
         }
-        if(1) {
+        if(IS_AJAX) {
             if($addId = $this->model->add($_POST)){
                 $result['status'] = 1;
                 $result['msg'] = "新增成功！";
@@ -62,7 +61,7 @@ class CrudController extends Controller
         if(method_exists($this,"_edit")) {
             $this->_edit();
         }
-        if (0) {
+        if (IS_AJAX) {
             if($this->model->where($where)->save($_POST)) {
                 $result['status'] = -1;
                 $result['msg'] = "更新成功！";
@@ -85,8 +84,8 @@ class CrudController extends Controller
     # 删除数据
     public function del()
     {
-        if (1) {
-            $id = $_REQUEST['id'];
+        if (IS_AJAX) {
+            $id = (int)$_REQUEST['id'];
             $truth = $_REQUEST['truth'];
             if(method_exists($this,"_del")) {
                 $this->_del($id);
@@ -116,10 +115,11 @@ class CrudController extends Controller
     # 分页列出数据
     public function lists()
     {
-        $tgtPage = abs(I('get.tgtPage', 1));
+        $tgtPage = abs(I('get.page', 1));
+        $pageSize = abs(I('get.limit', 10));
 
         $rowCnt = $this->model->count('id');
-        $pageSize  = 10;
+
         $total = ceil($rowCnt / $pageSize);
         if ($tgtPage > $total) {
             $tgtPage = $total;
@@ -129,9 +129,13 @@ class CrudController extends Controller
         $crtData = $this->model->where('is_del = 0')->limit($offset, $pageSize)->select();
 
         $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
-        var_dump($pageBar->data);
-        $this->assign('pageBar', $pageBar);
-        $this->assign('data', $pageBar->data);
+
+        $back = new \stdClass();
+        $back->code = $tgtPage -1;
+        $back->count = $pageBar->rowCnt;
+        $back->msg = "成功";
+        $back->data = $pageBar->data;
+        $this->ajaxReturn($back, "JSON");
         $this->display(CONTROLLER_NAME."/".ACTION_NAME);
     }
     public function exists($where)
