@@ -78,7 +78,7 @@ class FyrzADController extends Controller {
 
     public function main(){
         layout(false);
-        $this->display();
+        $this->display("FyrzAD/main");
     }
 	public function changepwd(){
 			layout(false);
@@ -122,10 +122,7 @@ class FyrzADController extends Controller {
     }
 
 /* AP管理*/
-    public function ManageAP(){//AP维护管理
-        layout(false);
-        $this->display("FyrzAD/ManageAP/ManageAP");
-    }
+
     public function districtManageAP(){//区域维护管理
         layout(false);
         $this->display("FyrzAD/ManageAP/districtManageAP");
@@ -134,7 +131,10 @@ class FyrzADController extends Controller {
         layout(false);
         $this->display("FyrzAD/ManageAP/sceneManageAP");
     }
-
+    public function ManageAP(){//AP维护管理
+        layout(false);
+        $this->display("FyrzAD/ManageAP/ManageAP");
+    }
 
 }
 

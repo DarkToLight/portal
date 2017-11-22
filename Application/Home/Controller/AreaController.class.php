@@ -14,6 +14,15 @@ use Org\Util\UnlimitedClassification;
 
 class AreaController extends CrudController
 {
+    public function index()
+    {
+        $this->display('FyrzAD/index');
+
+    }
+    public function main(){
+        layout(false);
+        $this->display("FyrzAD/main");
+    }
     public function _add()
     {
         if (IS_AJAX) {
@@ -42,6 +51,7 @@ class AreaController extends CrudController
             layout(false);
             $this->assign('area', $areaTree);
             $this->display("FyrzAD/ManageAP/sceneManageAP");
+            //$this->display();
             exit;
         }
     }

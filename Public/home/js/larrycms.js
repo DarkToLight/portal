@@ -28,7 +28,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
         larry = layui.larry(),
         form = layui.form(),
         common = layui.common;
-    navtab = layui.navtab({
+        navtab = layui.navtab({
         elem: '#larry-tab'
     });
 
@@ -60,9 +60,9 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
 		var result = [
 			{
 			"title": "主菜单",
-			"icon": "http://portal.cn/index.php/Enter/main.html",
+			"icon": "",
 			"pid": "0",
-			"href": ""
+			"href": "http://portal.cn/index.php/Enter/main.html"
 			},{
                 "title": "AP管理",
                 "icon": "larry-wangzhanditu1",
@@ -123,7 +123,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "title": "后台首页",
     			    "icon": "larry-houtaishouye",
     			    
-    			    "href": "http://portal.cn/index.php/Enter/main.html"
+    			    "href": "../FyrzAD/main.html"
     			}, {
     			    "pid": "101",
     			    "title": "我的面板",
@@ -132,15 +132,15 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "个人信息",
     			        "icon": "larry-gerenxinxi1",
-    			        "href": "personInfo.html",
+    			        "href": "../FyrzAD/personInfo.html",
     			    }, {
     			        "title": "修改密码",
     			        "icon": "larry-xiugaimima2",
-    			        "href": "changepwd.html"
+    			        "href": "../FyrzAD/changepwd.html"
     			    }, {
     			        "title": "日志信息",
     			        "icon": "larry-rizhi2",
-    			        "href": "myloginfo.html"
+    			        "href": "../FyrzAD/myloginfo.html"
     			    }]
     			},{
                     "pid": "102",
@@ -150,15 +150,15 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "区域管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "http://portal.cn/index.php/Area/add"
+                        "href": "../FyrzAD/districtManageAP"
                     }, {
                         "title": "场景管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "sceneManageAP.html"
+                        "href": "../FyrzAD/sceneManageAP.html"
                     }, {
                         "title": "AP设置",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "ManageAP.html"
+                        "href": "../FyrzAD/ManageAP.html"
                     }]
                 }, {
     			    "pid": "103",
