@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>增加AP</title>
-</head>
-<body>
-增加AP界面{$a}
-</body>
-</html>
+{$layUI}
+<script>
+    layui.use('form', function() {
+    });
+</script>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item" style="margin: 20px 0;">
+        <label class="layui-form-label">选择区域</label>
+        <div class="layui-input-inline" >
+            <select name="ap_area_id" lay-filter="aihao">
+               <volist name="area" id="vo">
+                   <option value="{$vo.id}">{$vo.name}</option>
+               </volist>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">名称</label>
+        <div class="layui-input-inline">
+            <input name="name" value="" lay-verify="required" placeholder="AP名称" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">mac地址</label>
+        <div class="layui-input-inline">
+            <input  name="mac" value="" lay-verify="required" placeholder="Mac地址" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">地址</label>
+        <div class="layui-input-inline">
+            <input   name="address" value=""  placeholder="详细地址" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">经度</label>
+        <div class="layui-input-inline">
+            <input   name="longitude" value=""  placeholder="经度" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">纬度</label>
+        <div class="layui-input-inline">
+            <input   name="latitude" value=""  placeholder="纬度" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">状态</label>
+        <div class="layui-input-block">
+            <input name="status" value="1" title="正常" checked="" type="radio">
+            <input name="status" value="-1" title="异常" type="radio">
+            <input name="status" value="-2" title="维修中" type="radio">
+        </div>
+    </div>
+</form>

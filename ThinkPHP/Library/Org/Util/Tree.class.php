@@ -13,14 +13,18 @@ class Tree {
      * @param Int $count       //第几级分类
      * @return Array $treeList
      */
-    static public function tree(&$data,$pid = 0,$count = 1) {
+    static public function tree(&$data, $pid = 0, $count = 1, $parent_name) {
         foreach ($data as $key => $value){
             if($value['parent_id']==$pid){
                 $value['count'] = $count;
-                $value['text_indent'] = "├".str_repeat("─", $count*2);
+                if ($pid != 0) {
+                    $value['name'] =  $parent_name . "->" .$value['name'];
+                }
+                //$value['text_indent'] = str_repeat("&nbsp;", $count*3) . '┗';
+
                 self::$treeList []=$value;
                 unset($data[$key]);
-                self::tree($data,$value['id'],$count+1);
+                self::tree($data,$value['id'],$count+1, $value['name']);
             }
         }
         return self::$treeList ;

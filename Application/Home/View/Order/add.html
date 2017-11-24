@@ -1,0 +1,212 @@
+<layout name="layout1" />
+
+<style>
+    .layui-input-block{
+        width: 75%;
+    }
+</style>
+<blockquote class="layui-elem-quote">订单管理</blockquote>
+<form class="layui-form layui-form-pane" action="">
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>基本信息</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">投广名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="username" lay-verify="required" placeholder="请输入广告名称" autocomplete="off" class="layui-input">
+                </div>
+            <label class="layui-form-label">站点选择：</label>
+                <div class="layui-input-inline">
+                    <select name="business"  lay-verify="required" lay-search="">
+                        <option value="">直接选择或搜索选择</option>
+                        <option value="1002">1002</option>
+                        <option value="1003">1003</option>
+                        <option value="1004">1004</option>
+                        <option value="2001">2001</option>
+                        <option value="2002">2002</option>
+                    </select>
+                </div>
+          </div>
+        <div class="layui-form-item">
+        <label class="layui-form-label">上刊广告位：</label>
+        <div class="layui-input-inline">
+            <select name="business"  lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+            </select>
+        </div>
+        <label class="layui-form-label">投放时段：</label>
+        <div class="layui-input-inline">
+            <input type="text" class="layui-input" name="time" id="daytime" placeholder=" 请选择时间段 ">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">投放渠道：</label>
+        <div class="layui-input-inline">
+            <select name="business"  lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+            </select>
+        </div>
+        <label class="layui-form-label">前置广告：</label>
+        <div class="layui-input-inline">
+            <select name="business"  lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">投放比例：</label>
+        <div class="layui-input-inline">
+            <select name="business"  lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+            </select>
+        </div>
+        <label class="layui-form-label">默认广告：</label>
+        <div class="layui-input-inline">
+            <input name="status" value="1" title="否" checked="" type="radio">
+            <input name="status" value="-1" title="是" type="radio">
+
+        </div>
+    </div>
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>投放信息</legend>
+        </fieldset>
+    <div class="layui-form-item">
+        <label class="layui-form-label">设备类型：</label>
+        <div class="layui-input-inline">
+            <select name="business"  lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+            </select>
+        </div>
+        <label class="layui-form-label">上刊类型：</label>
+        <div class="layui-input-inline">
+            <select name="business"  lay-verify="required" lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1002">1002</option>
+                <option value="1003">1003</option>
+                <option value="1004">1004</option>
+                <option value="2001">2001</option>
+                <option value="2002">2002</option>
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">点击链接：</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入单击连接" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">PV监测链接：：</label>
+        <div class="layui-input-block">
+            <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入PV监测链接：" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">曝光时段：</label>
+        <div class="layui-input-block">
+            <input type="text" class="layui-input" name="time" id="datetime" placeholder=" 请选择时间段 ">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">日投放量：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入日投放量" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">控屏曝光次数：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入控屏曝光次数" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+            <legend>图片选择</legend>
+        </fieldset>
+    <div class="layui-form-item">
+        <div class="layui-upload-drag" id="test10">
+            <i class="layui-icon"></i>
+            <p>点击上传，或将文件拖拽到此处</p>
+            <p>  这里以限制 60KB 为例</p>
+        </div>
+    </div>
+    <button class="layui-btn" lay-submit="" lay-filter="submit">提交</button>
+    <a href="{:U('Order/index')}" class="layui-btn" lay-filter="add">返回</a>
+</form>
+<script>
+    layui.use(['form','layer','layedit','laydate','upload'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,layedit = layui.layedit
+            ,laydate = layui.laydate;
+            var $ = layui.jquery
+            ,upload = layui.upload;
+        //时间范围
+        laydate.render({
+            elem: '#daytime'
+            ,range: true
+        });
+        //时间范围
+        laydate.render({
+            elem: '#daytime1'
+            ,range: true
+        });
+
+        //日期时间范围
+        laydate.render({
+            elem: '#datetime'
+            ,type: 'datetime'
+            ,range: true
+        });
+        //设定文件大小限制
+        upload.render({
+            elem: '#test7'
+            ,url: '/upload/'
+            ,size: 60 //限制文件大小，单位 KB
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+        //拖拽上传
+        upload.render({
+            elem: '#test10'
+            ,url: '/upload/'
+            ,size: 60 //限制文件大小，单位 KB
+            ,done: function(res){
+                console.log(res)
+            }
+        });
+        //监听提交
+        form.on('submit(submit)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+</script>

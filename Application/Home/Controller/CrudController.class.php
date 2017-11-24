@@ -22,10 +22,10 @@ class CrudController extends Controller
     {
         parent::__construct();
         foreach ($_POST as &$p) {
-            $p = trim($p);
+            $p = str_replace(" ","", $p);
         }
         foreach ($_GET as &$g) {
-            $g = trim($g);
+            $p = str_replace(" ","", $g);
         }
         $this->model = M(CONTROLLER_NAME);
     }
@@ -63,19 +63,25 @@ class CrudController extends Controller
         }
         if (IS_AJAX) {
             if($this->model->where($where)->save($_POST)) {
-                $result['status'] = -1;
+                $result['status'] = 1;
                 $result['msg'] = "更新成功！";
+                if(method_exists($this,"edit_")) {
+                    $this->edit_();
+                }
                 $this->ajaxReturn($result,"JSON");
             }else {
                 $result['status'] = -1;
-                $result['msg'] = "更新失败！";
+                $result['msg'] = "更新失败或未作修改！";
                 $this->ajaxReturn($result,"JSON");
             }
         } else {
             if($info = $this->exists($where)) {
                 $this->assign('data', $info);
-                var_dump($info);
-                $this->display(CONTROLLER_NAME."/".ACTION_NAME);
+                if(method_exists($this,"redirect_view")) { # 跳转到其他界面
+                    $this->redirect_view();
+                } else {
+                    $this->display(CONTROLLER_NAME."/".ACTION_NAME);
+                }
             } else {
                 echo "<script>history.back()</script>";
             }
@@ -115,28 +121,39 @@ class CrudController extends Controller
     # 分页列出数据
     public function lists()
     {
+        if(method_exists($this,'_lists')){
+            $this->_lists();
+        }
         $tgtPage = abs(I('get.page', 1));
         $pageSize = abs(I('get.limit', 10));
-
-        $rowCnt = $this->model->count('id');
-
-        $total = ceil($rowCnt / $pageSize);
-        if ($tgtPage > $total) {
-            $tgtPage = $total;
+        $getAll = abs(I('get.getAll', false));
+        # 获取所有
+        if ($getAll == "true") {
+            $crtData = $this->model->where('is_del = 0')->select();
+            $back = new \stdClass();
+            $back->code = 0;
+            $back->msg = "成功";
+            $back->data = $crtData;
+        } else {   # 分页获取
+            $rowCnt = $this->model->count('id');
+            $total = ceil($rowCnt / $pageSize);
+            if ($tgtPage > $total) {
+                $tgtPage = $total;
+            }
+            $offset = ($tgtPage - 1) * $pageSize;
+            $crtData = $this->model->where('is_del = 0')->limit($offset, $pageSize)->select();
+            $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
+            $back = new \stdClass();
+            $back->code = $tgtPage -1;
+            $back->count = $pageBar->rowCnt;
+            $back->msg = "成功";
+            $back->data = $pageBar->data;
         }
 
-        $offset = ($tgtPage - 1) * $pageSize;
-        $crtData = $this->model->where('is_del = 0')->limit($offset, $pageSize)->select();
-
-        $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
-
-        $back = new \stdClass();
-        $back->code = $tgtPage -1;
-        $back->count = $pageBar->rowCnt;
-        $back->msg = "成功";
-        $back->data = $pageBar->data;
+        if(method_exists($this,'lists_')){
+            $this->lists_($back);
+        }
         $this->ajaxReturn($back, "JSON");
-        $this->display(CONTROLLER_NAME."/".ACTION_NAME);
     }
     public function exists($where)
     {

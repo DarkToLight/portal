@@ -3,21 +3,21 @@
 		<!-- 左侧导航区域（可配合layui已有的垂直导航） -->
 		<ul class="layui-nav layui-nav-tree"  lay-filter="test">
 			<li class="layui-nav-item layui-nav-itemed">
-				<a class="" href="javascript:;">AP管理</a>
-				<dl class="layui-nav-child">
-					<dd><a href="{:U('Area/index')}">区域/场景</a></dd>
-					<dd><a href="{:U('Ap/index')}">AP列表</a></dd>
-				</dl>
+				<a class="" href="{:U('Ap/index')}">AP管理</a>
+				<a href="{:U('Area/index')}">区域/场景管理</a>
 			</li>
+			
 			<li class="layui-nav-item">
-				<a href="javascript:;">用户管理</a>
-				<dl class="layui-nav-child">
-					<dd><a href="javascript:;">增加用户</a></dd>
-					<dd><a href="javascript:;">用户列表</a></dd>
-				</dl>
+				<a href="{:U('User/index')}">用户管理</a>
 			</li>
-			<li class="layui-nav-item"><a href="">云市场</a></li>
-			<li class="layui-nav-item"><a href="">发布商品</a></li>
+
+			<li class="layui-nav-item">
+				<a href="{:U('Business/index')}">广告商管理</a>
+			</li>
+
+			<li class="layui-nav-item">
+				<a href="{:U('Ad/index')}">广告管理</a>
+			</li>
 		</ul>
 	</div>
 </div>

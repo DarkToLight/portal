@@ -1,0 +1,18 @@
+<layout name="layout1" />
+<script>
+    layui.use('form', function() {
+    });
+</script>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item" style="margin: 20px 0;">
+        <label class="layui-form-label">选择策略</label>
+        <div class="layui-input-inline" >
+            <select name="ap_area_id" lay-filter="aihao">
+                <volist name="area" id="vo">
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$data.id}">
+</form>

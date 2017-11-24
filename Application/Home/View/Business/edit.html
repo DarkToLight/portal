@@ -1,0 +1,28 @@
+{$layUI}
+<script>
+    layui.use('form', function() {
+    });
+</script>
+<style>
+    div{
+        margin-top:20px;
+    }
+</style>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告商名称</label>
+        <div class="layui-input-inline">
+            <input name="username" value="{$data.name}" lay-verify="required" placeholder="广告商名称" class="layui-input" type="text">
+        </div>
+
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">广告商说明</label>
+        <div class="layui-input-inline">
+            <textarea  name="description" placeholder="请输入广告商说明" class="layui-textarea">
+                {$data.description}
+            </textarea>
+        </div>
+    </div>
+    <input type="hidden" name="id" value="{$data.id}">
+</form>

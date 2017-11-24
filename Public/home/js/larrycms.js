@@ -62,12 +62,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
 			"title": "主菜单",
 			"icon": "",
 			"pid": "0",
-			"href": "http://portal.cn/index.php/Enter/main.html"
 			},{
-                "title": "AP管理",
+                "title": "区域|场景|AP管理",
                 "icon": "larry-wangzhanditu1",
                 "pid": "10",
-                "href": "districtManageAP.html"
+                "href": ""
             },{
 			"title": "广告管理",
 			"icon": "larry-neirongfenx",
@@ -129,36 +128,37 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "title": "我的面板",
     			    "icon": "larry-gerenxinxi5",
     			    "spread": "true",
-    			    "children": [{
-    			        "title": "个人信息",
-    			        "icon": "larry-gerenxinxi1",
-    			        "href": "../FyrzAD/personInfo.html",
+    			    "children": [
+                        {
+                        	"title": "用户管理",
+                            "icon": "larry-gerenxinxi1",
+                            "href": "../User/index.html",
+                        },{
+							"title": "个人信息",
+							"icon": "larry-gerenxinxi1",
+							"href": "../User/personInfo.html",
     			    }, {
-    			        "title": "修改密码",
-    			        "icon": "larry-xiugaimima2",
-    			        "href": "../FyrzAD/changepwd.html"
+							"title": "修改密码",
+							"icon": "larry-xiugaimima2",
+							"href": "../User/changepwd.html"
     			    }, {
-    			        "title": "日志信息",
-    			        "icon": "larry-rizhi2",
-    			        "href": "../FyrzAD/myloginfo.html"
+							"title": "日志信息",
+							"icon": "larry-rizhi2",
+							"href": "../User/myloginfo.html"
     			    }]
     			},{
                     "pid": "102",
-                    "title": "AP管理",
+                    "title": "区域|场景|AP管理",
                     "icon": "larry-10103",
                     "spread": "true",
                     "children": [{
-                        "title": "区域管理",
+                        "title": "区域|场景管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "../FyrzAD/districtManageAP"
-                    }, {
-                        "title": "场景管理",
+                        "href": "../Area/index"
+                    },{
+                        "title": "AP管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "../FyrzAD/sceneManageAP.html"
-                    }, {
-                        "title": "AP设置",
-                        "icon": "larry-iconguanggaoguanli",
-                        "href": "../FyrzAD/ManageAP.html"
+                        "href": "../Ap/index"
                     }]
                 }, {
     			    "pid": "103",
@@ -168,16 +168,20 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "订单管理",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "orderAD.html"
+    			        "href": "../Ad/index"
     			    }, {
     			        "title": "默认广告",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "defaultAD.html"
+    			        "href": "../Ad/index"
     			    }, {
     			        "title": "广告查询",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "requestAD.html"
-    			    }]
+    			        "href": "../Ad/index"
+    			    }, {
+                        "title": "当前广告",
+                        "icon": "larry-iconguanggaoguanli",
+                        "href": "../Ad/show"
+                    }]
     			},{
     			    "pid": "104",
     			    "title": "统计分析",
@@ -200,11 +204,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "广告商维护",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
-    			    }, {
-    			        "title": "新建广告商",
-    			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "../Business/index"
     			    }]
     			},{
     			    "pid": "106",
@@ -256,7 +256,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			}];
                 var pid_10 = [{
                     "pid": "101",
-                    "title": "区域管理",
+                    "title": "区域|场景管理",
                     "icon": "larry-iconguanggaoguanli",
                     "spread": "true",
                     "children": [{
@@ -273,40 +273,22 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                         "href": "ManageAP.html"
                     }]
                 },{
-                	"pid": "102",
-                    "title": "场景管理",
-                    "icon": "larry-iconguanggaoguanli",
-                    "spread": "true",
-                    "children": [{
-                    "title": "新增",
-                    "icon": "larry-iconguanggaoguanli",
-                    "href": "temp.html"
-                }, {
-                    "title": "编辑",
-                    "icon": "larry-iconguanggaoguanli",
-                    "href": "temp.html"
-                }, {
-                    "title": "删除",
-                    "icon": "larry-iconguanggaoguanli",
-                    "href": "temp.html"
-                }]
-                },{
-                    "pid": "103",
+                    "pid": "102",
                     "title": "AP管理",
                     "icon": "larry-iconguanggaoguanli",
                     "spread": "true",
                     "children": [{
                         "title": "新增",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "apManageAP.html"
                     }, {
                         "title": "编辑",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "apManageAP.html"
                     }, {
                         "title": "删除",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "apManageAP.html"
                     }]
                 }];
                 var pid_20 = [{

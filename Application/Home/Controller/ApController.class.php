@@ -2,25 +2,24 @@
 namespace Home\Controller;
 
 use Org\Util\Filter;
-use Org\Util\UnlimitedClassification;
+use Org\Util\Tree;
+use Org\Util\UI;
 
 class ApController extends CrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        layout(false);
+        $this->assign('layUI',   UI::get());
+    }
     public function _add()
     {
         if (IS_AJAX) {
-            $_POST = [
-                'name' => 'edfdf',
-                'status' => 1,
-                'create_time' =>date("Y-m-d H:i:s"),
-                'ad_num' => 0,
-                'ap_area_id' => 1,
-                'mac' => "aa:bb:cc:df",
-                'address' => '关山湖区',
-            ];
+            $_POST['create_time'] = date("Y-m-d H:i:s");
             try{
                 # 数据检查
-                $must = ['name', 'ap_area_id' => 0, 'mac'];
+                $must = ['name', 'ap_area_id', 'mac', 'longitude' =>  0, 'latitude' => 0];
                 list($name, $ap_area_id, $mac) = Filter::notEmpty($must);
 
                 # 数据唯一性判断
@@ -33,8 +32,43 @@ class ApController extends CrudController
             }
         } else {
             $area = D("area");
-            $this->ajaxReturn(UnlimitedClassification::recursion($area->select(), 0));
-            exit;
+            $this->assign("area", Tree::tree($area->where(['is_del' => 0])->select(), 0));
+        }
+    }
+    public function index()
+    {
+        layout(false);
+        $this->assign('layUI',   UI::get());
+        $this->display();
+    }
+    public function _edit()
+    {
+        try {
+            if (IS_AJAX) {
+                # 数据检查
+                $must = ['name', 'ap_area_id', 'mac', 'longitude' => 0, 'latitude' => 0];
+                Filter::notEmpty($must);
+            }
+            $area = D("area");
+            $this->assign("area", Tree::tree($area->where(['is_del' => 0])->select(), 0));
+        }catch (\Exception $e) {
+            $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
+        }
+    }
+    public function lists_(&$back)
+    {
+        foreach ($back->data as $key => &$val) {
+            switch ($val['status']){
+                case "1":
+                    $val['status'] = "正常";
+                    break;
+                case "-1":
+                    $val['status'] = "异常";
+                    break;
+                case "-2":
+                    $val['status'] = "维修中";
+                    break;
+            }
         }
     }
 }
