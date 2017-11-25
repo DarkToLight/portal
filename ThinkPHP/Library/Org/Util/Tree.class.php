@@ -20,10 +20,10 @@ class Tree {
                 if ($pid != 0) {
                     $value['name'] =  $parent_name . "->" .$value['name'];
                 }
-                //$value['text_indent'] = str_repeat("&nbsp;", $count*3) . '┗';
+                $value['text_indent'] = str_repeat("&nbsp;", $count*3) . '┗';
 
                 self::$treeList []=$value;
-                unset($data[$key]);
+                //unset($data[$key]);
                 self::tree($data,$value['id'],$count+1, $value['name']);
             }
         }

@@ -37,22 +37,21 @@ class AreaController extends CrudController
         if (IS_AJAX) {
             $_POST['create_time'] = date("Y-m-d H:i:s");
             try{
-                $must = ['name', 'parent_id' => 0];
-                list(, $parent_id) = Filter::notEmpty($must);
-
+               $must = ['name', 'parent_id' => 0];
+               list($name, $parent_id) = Filter::notEmpty($must);
                 # 上级分类存在判断
                 $mArea = D('area');
-                if($parent_id != 0 && !$mArea->exists(['id' => $parent_id])) {
+                if(!$mArea->exists(['id' => $parent_id, 'is_del' => 0])) {
                     throw new \Exception("上级分类不存在！");
                 }
 
                 # 数据唯一性判断
-                $where = ['name' => $_POST['name'], 'parent_id' => $_POST['parent_id'], 'is_del' => 0];
+                $where = ['name' => $name, 'parent_id' => $parent_id, 'is_del' => 0];
                 if ($this->exists($where)) {
                     throw new \Exception("不能添加重复的区域或场景！");
                 }
             }catch (\Exception $e) {
-                $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
+               $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
             }
         }
     }
