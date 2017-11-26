@@ -55,6 +55,7 @@ class AreaController extends CrudController
             }
         }
     }
+    # 无限极分类格式化输出
     public function lists_(&$backData)
     {
         $areaTree = Tree::tree($backData->data);
