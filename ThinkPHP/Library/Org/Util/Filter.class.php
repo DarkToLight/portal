@@ -14,9 +14,6 @@ namespace Org\Util;
 
 class Filter
 {
-    private static $get;
-    private static $post;
-
     /**
      * @param $must 不能为空的表单项
      * @param string $type 传入方式，默认post
@@ -24,23 +21,25 @@ class Filter
      */
     public static function notEmpty(Array $must, $type = 'post')
     {
-        self::$get = &$_GET;
-        self::$post= &$_POST;
-        $tmp = array();
+        if ($type == "post") {
+            $type = &$_POST;
+        } else {
+            $type = &$_GET;
+        }
         foreach($must as  $key => $val) {
             if (is_numeric($key)) {
-                if (empty(self::$$type[$val])) {
+                if (empty($type[$val])) {
                     throw new \Exception($val."参数不能为空");
                 } else {
-                    $tmp[] = self::$$type[$val];
+                    $tmp[] = $type[$val];
                 }
             }else{
-                if(empty(self::$$type[$key])){
+                if(empty($type[$key])){
                     # 设置默认值
-                    self::$$type[$key] = $val;
+                    $type[$key] = $val;
                     $tmp[] = $val;
                 } else {
-                    $tmp[] = self::$$type[$key];
+                    $tmp[] = $type[$key];
                 }
             }
         }
