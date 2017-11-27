@@ -29,14 +29,13 @@
             <input type="text" class="layui-input" name="time"id="daytime" placeholder=" - ">
         </div>
         <button class="layui-btn" lay-submit="" lay-filter="submit">查询</button>
-        <a href="{:U('Order/add')}" class="layui-btn" lay-filter="add">新增</a>
+        <a href="{:U('Ad/add')}" class="layui-btn" lay-filter="add">新增</a>
 
     </div>
 </form>
 <table id="order" lay-filter="order-manage"></table>
 <script type="text/html" id="barDemo">
-    <a href="{:U('Order/look')}"class="layui-btn layui-btn-xs layui-btn-normal" lay-event="look">查看</a>
-    <a href="{:U('Order/edit')}"class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a href="{:U('Ad/edit')}"class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
@@ -104,6 +103,7 @@
                 ,{field: 'start_time', title: '开始时间', width:'10%', align:'center'}
                 ,{field: 'over_time', title: '结束时间', width:'10%', align:'center'}
                 ,{field: 'exposure_time', title: '曝光时段', width:'10%', align:'center'}
+                ,{field: 'ad_area', title: '投放区域', width:'15%', align:'center'}
                 ,{field: 'business_id', title: '广告商', width:'10%', align:'center'}
                 ,{fixed: 'right', title: '操作',width:'300', align:'center', toolbar: '#barDemo'}
 
@@ -115,7 +115,7 @@
             if(layEvent === 'add'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '增加区域/场景'
+                    ,title: '增加广告'
                     ,area: ['390px', '260px']
                     ,shade: 0
                     ,maxmin: true
@@ -127,7 +127,7 @@
                         var name = $(input).val();
                         $.ajax({
                             type: "post",
-                            url: "{:U('Order/add')}",
+                            url: "{:U('Ad/add')}",
                             data: {parent_id:data.id, name:name},
                             dataType: "json",
                             success: function(data){
@@ -155,7 +155,7 @@
                 layer.confirm('真的删除行么', function(index){
                     $.ajax({
                         type: "post",
-                        url: "{:U('Order/del')}",
+                        url: "{:U('Ad/del')}",
                         data: {id: data.id},
                         dataType: "json",
                         success: function(data){
@@ -179,7 +179,7 @@
                     ,maxmin: true
                     ,offset: [
                     ]
-                    ,content: "{:U('Order/edit')}"+"?id=" + data.id
+                    ,content: "{:U('Ad/edit')}"+"?id=" + data.id
                     ,btn: ['确定', '放弃'] //只是为了演示
                     ,yes: function(){
                         var input = $("#layui-layer-iframe1").contents().find("input");

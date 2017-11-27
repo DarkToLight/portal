@@ -6,7 +6,7 @@ class IndexController extends Controller {
     public function index()
     {
         layout(false);
-		$this->display('All/login');
+		$this->display('../FyrzAD/login');
 
 	}
 

@@ -1,0 +1,77 @@
+{$layUI}
+<div class="layui-form-item">
+    <div class="layui-btn" id="dateTimeAdd">
+        <i class="layui-icon">&#xe608;</i> 选择添加
+    </div>
+    <label class="layui-form-label">曝光时段：</label>
+    <div class="layui-input-block">
+        <input type="text" class="layui-input" name="datetime" id="datetime" placeholder=" 请选择时间段 ">
+    </div>
+</div>
+<div id="star">开始</div>
+<button id="btn1">之后插入</button><form action="" method="post" enctype="multipart/form-data">
+    <label>请选择上传的图片</label>
+    <a href="javascript:addimg()" >增加图片</a>
+    <div id="mdiv">
+        <div >
+            <input type="file" name="img[]" /><a href="#" name="rmlink">X</a>
+        </div>
+    </div>
+    <input type="submit" name="submit" value="上传图片" />
+</form>
+<script>
+    layui.use(['form','layer','layedit','laydate','upload'], function() {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //时间范围
+        laydate.render({
+            elem: '#daytime'
+            , range: true
+        });
+        //时间范围
+        laydate.render({
+            elem: '#daytime1'
+            , range: true
+        });
+
+        //日期时间范围
+        laydate.render({
+            elem: '#datetime'
+            , type: 'datetime'
+            , range: true
+        });
+
+
+        $(document).ready(function(){
+            $("#btn1").click(function(){
+                $("#star").after("<i>之后</i> <i id=\"bin2\">删除</i>");
+            });
+            $("#bin2").click(function () {
+                $("#star").remove();
+            })
+        });
+
+    })
+
+    $(document).ready(function(){
+        bindListener();
+    })
+
+    function addimg(){
+        $("#mdiv").append('<div ><input type="file" name="img[]" /><a href="#" name="rmlink">X</a></div>');
+
+        // 为新元素节点添加事件侦听器
+        bindListener();
+    }
+
+    // 用来绑定事件(使用unbind避免重复绑定)
+    function bindListener(){
+        $("a[name=rmlink]").unbind().click(function(){
+            $(this).parent().remove();
+        })
+    }
+</script>

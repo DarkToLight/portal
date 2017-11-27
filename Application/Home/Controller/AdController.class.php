@@ -1,9 +1,9 @@
 <?php
 namespace Home\Controller;
 
-use Org\Util\Filter;
 use Org\Util\Tree;
 use Org\Util\UI;
+use Org\Util\Filter;
 
 class AdController extends CrudController
 {
@@ -12,6 +12,11 @@ class AdController extends CrudController
         parent::__construct();
         layout(false);
         $this->assign('layUI',   UI::get());
+    }
+    public function index()
+    {
+        $this->assign('layUI',   UI::get());
+        $this->display();
     }
     public function _add()
     {
@@ -22,11 +27,13 @@ class AdController extends CrudController
         $area = M('area');
         if (IS_AJAX) {
             try{
-               // $_POST['start_time'] = substr($_POST['time'], 0, 10);
-                //$_POST['over_time'] = substr($_POST['time'], -1, 10);
+                $_POST['create_time'] = date("Y-m-d H:i:s");
+                $_POST['resource'] = date("Y-m-d H:i:s");
+                $_POST['start_time'] = substr($_POST['daytime'], 0, 10);
+                $_POST['over_time'] = substr($_POST['daytime'], -10, 10);
 
-              //  $must = ['name', 'start_time', 'over_time', 'ad_area_id', 'ad_type_id', 'ad_position_id', 'weight' => 1];
-              //  Filter::notEmpty($must);
+                $must = ['name', 'start_time', 'over_time', 'area_id', 'ad_type_id', 'ad_position_id', 'weight' => 1];
+                Filter::notEmpty($must);
             } catch (\Exception  $e) {
                 $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
             }
@@ -42,19 +49,52 @@ class AdController extends CrudController
     public function add_($id)
     {
         $data['ad_id'] = $id;
-        $data['area_id'] = $_POST['area_id'];
+        $arrAreaId = explode(',', $_POST['area_id']);
         $mAreaAd = M("area_ad");
-        $mAreaAd->add($data);
-        echo $mAreaAd->getLastSql();
+        foreach ($arrAreaId as $key => $val) {
+            if (!empty($val)) {
+                $data['area_id'] = $val;
+                $mAreaAd->add($data);
+            }
+            continue;
+        }
+
     }
-    public function index()
+    public function _del()
     {
-        $this->assign('layUI',   UI::get());
-        $this->display();
+        # 删除广告之前，先删除广告投放区域
+        $areaAd = M("area_ad");
+        $id = (int)$_REQUEST['id'];
+        $truth = $_REQUEST['truth'];
+        if ($truth == 'true') { # 真正的从数据库删除
+            $areaAd->where("ad_id={$id}")->delete();
+        } else { # 软删除
+            $areaAd->is_del = 1;
+            $areaAd->where("ad_id={$id}")->save();
+        }
     }
-    public function show()
+    public function lists_(&$backData)
     {
-        $this->assign('layUI',   UI::get());
-        $this->display();
+        # 获取投放区域的名称
+        $area = M("area");
+        $where['is_del'] = 0;
+        $areaTree = Tree::tree($area->where($where)->select(), 0);
+        $areaTree = array_column($areaTree, 'name', 'id');
+
+        # 获取广告商名称
+       $business = M("business");
+       $areaAd = M("area_ad");
+       $businessList = $business->where("is_del = 0")->field("id, name")->select();
+       $businessList = array_column($businessList, 'name', 'id');
+
+       foreach ($backData->data as $key => &$val) {
+           $val['business_id'] = $businessList[$val['business_id']];
+           # 获取广告投放区域
+           $where = ['is_del' => 0, 'ad_id' => $val['id']];
+           $adArea = $areaAd->where($where)->select();
+           foreach ($adArea as $key1 => $val1) {
+               $val['ad_area'] .= $areaTree[$val1['area_id']] . "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+           }
+       }
     }
 }

@@ -9,7 +9,8 @@
         <div class="layui-input-inline" >
             <select name="ap_area_id" lay-filter="aihao">
                 <volist name="area" id="vo">
-                    <option value="{$vo.id}">{$vo.name}</option>
+                    <option value="{$vo.id}"  <if condition="$vo.id eq $data.ap_area_id ">selected</if>>{$vo.name}
+                    </option>
                 </volist>
             </select>
         </div>
@@ -47,9 +48,9 @@
     <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
-            <input name="status" value="1" title="正常" checked="" type="radio">
-            <input name="status" value="-1" title="异常" type="radio">
-            <input name="status" value="-2" title="维修中" type="radio">
+            <input name="status" value="1" title="正常" <if condition="$data.status eq 1 ">checked</if> type="radio">
+            <input name="status" value="-1" title="异常" <if condition="$data.status eq -1 ">checked</if> type="radio">
+            <input name="status" value="-2" title="维修中" <if condition="$data.status eq -2 ">checked</if> type="radio">
         </div>
     </div>
     <input type="hidden" name="id" value="{$data.id}">

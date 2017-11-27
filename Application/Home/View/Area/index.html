@@ -15,9 +15,9 @@
             ,height: 'auto'
             ,url: "{:U('/Area/lists')}" + "?getAll=true"//数据接口
             ,cols: [[ //表头
-                {field: 'id', title: 'ID', width:100}
-                ,{field: 'name', title: '区域',width:400}
-                ,{fixed: 'right', title: '操作', align:'left', width:200,toolbar: '#barDemo'}
+                {field: 'id', title: 'ID', width:"5%",align:'center'}
+                ,{field: 'name', title: '区域',width:"70%"}
+                ,{fixed: 'right', title: '操作', align:'center', width:200,toolbar: '#barDemo'}
             ]]
         });
         table.on('tool(area-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -30,8 +30,7 @@
                     ,area: ['390px', '260px']
                     ,shade: 0.5
                     ,maxmin: true
-                    ,offset: [
-                    ]
+                    ,offset: []
                     ,content: "{:U('Area/add')}"
                     ,btn: ['确定', '放弃'] //只是为了演示
                     ,yes: function(layero){

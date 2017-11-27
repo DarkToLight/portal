@@ -18,6 +18,24 @@ class FyrzADController extends Controller {
         $this->display();
        // $this->display("FyrzAD/index");
     }
+    public function main(){
+        layout(false);
+        $this->display();
+    }
+    public function changepwd(){
+        layout(false);
+        //$this->display("changepwd");
+        $this->display();
+    }
+    /*用户设置*/
+    public function myloginfo(){
+        layout(false);
+        $this->display();
+    }
+    public function personInfo(){
+        layout(false);
+        $this->display();
+    }
 
 }
 

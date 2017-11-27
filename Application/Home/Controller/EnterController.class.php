@@ -4,7 +4,7 @@ use Think\Controller;
 class EnterController extends Controller {
     public function index()
     {
-        $this->display('FyrzAD/index');
+        $this->display('index/index');
 
     }
     public function main(){

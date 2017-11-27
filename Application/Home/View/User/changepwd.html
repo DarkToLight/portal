@@ -55,7 +55,7 @@
 				</div>
 			</form>
 			<div class="col-lg-4 col-md-5 col-sm-6 ">
-			<div class="layui-btn" id="add_tab" lay-filter="larry">查看用户列表</div></div>
+			<!--<div class="layui-btn" id="add_tab" lay-filter="larry">查看用户列表</div></div>-->
 		</div>
 	</div>
 </section>
@@ -67,7 +67,7 @@ layui.use(['form','upload','jquery'],function(){
          // 子页面添加选项卡
          $('#add_tab').click(function(){
          	   title = $(this).text();
-         	   href = 'myloginfo.html';
+         	   href = 'myloginfo';
          	   icon = 'larry-yonghuliebiao1';
          	   var data = {
                     href: href,

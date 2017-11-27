@@ -122,7 +122,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "title": "后台首页",
     			    "icon": "larry-houtaishouye",
     			    
-    			    "href": "../FyrzAD/main.html"
+    			    "href": "../index/main"
     			}, {
     			    "pid": "101",
     			    "title": "我的面板",
@@ -132,19 +132,19 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                         {
                         	"title": "用户管理",
                             "icon": "larry-gerenxinxi1",
-                            "href": "../User/index.html",
+                            "href": "../User/index",
                         },{
 							"title": "个人信息",
 							"icon": "larry-gerenxinxi1",
-							"href": "../User/personInfo.html",
+							"href": "../User/personInfo",
     			    }, {
 							"title": "修改密码",
 							"icon": "larry-xiugaimima2",
-							"href": "../User/changepwd.html"
+							"href": "../User/changepwd"
     			    }, {
 							"title": "日志信息",
 							"icon": "larry-rizhi2",
-							"href": "../User/myloginfo.html"
+							"href": "../User/myloginfo"
     			    }]
     			},{
                     "pid": "102",
@@ -166,22 +166,10 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "icon": "larry-10103",
     			    "spread": "true",
     			    "children": [{
-    			        "title": "订单管理",
+    			        "title": "广告管理",
     			        "icon": "larry-iconguanggaoguanli",
     			        "href": "../Ad/index"
-    			    }, {
-    			        "title": "默认广告",
-    			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "../Ad/index"
-    			    }, {
-    			        "title": "广告查询",
-    			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "../Ad/index"
-    			    }, {
-                        "title": "当前广告",
-                        "icon": "larry-iconguanggaoguanli",
-                        "href": "../Ad/show"
-                    }]
+    			    }]
     			},{
     			    "pid": "104",
     			    "title": "统计分析",
@@ -260,9 +248,9 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "icon": "larry-iconguanggaoguanli",
                     "spread": "true",
                     "children": [{
-                        "title": "新增",
+                        "title": "查看",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "ManageAP.html"
+                        "href": "../Area/index"
                     }, {
                         "title": "编辑",
                         "icon": "larry-iconguanggaoguanli",

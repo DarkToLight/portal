@@ -1,11 +1,38 @@
 {$layUI}
 
+<link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/icon.css">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
+<script type="text/javascript" src="http://www.jeasyui.net/Public/js/easyui/jquery.easyui.min.js"></script>
+<div id="selectAreaTree" style="margin:20px 0;">
+    <ul id="tt" class="easyui-tree"
+        data-options="url:'{:U('Area/getTree')}',method:'get',animate:true,lines:true,dnd:true"
+        checkbox="true"
+    >
+    </ul>
+    <div style="margin:20px 0;">
+
+        <button class="layui-btn" onclick="getChecked()">选择确定</button>
+        <button class="layui-btn layui-btn-normal"onclick="expandAll()">打开树</button>
+        <button class="layui-btn layui-btn-warm"  onclick="collapseAll()">关闭树</button>
+
+    </div>
+</div>
 <style>
     .layui-input-block{
-        width: 75%;
+        width: 500px;
     }
-</style>
-<blockquote class="layui-elem-quote">订单管理</blockquote>
+    #selectArea{
+        width:108px;
+    }
+    li{
+        line-height:1.2em!important;
+    }
+    .tree-title{
+        font-size: 1.2em!important;
+    }
+    </style>
+<blockquote class="layui-elem-quote">新增广告</blockquote>
 <form class="layui-form layui-form-pane" action="{:U('Ad/add')}">
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -29,12 +56,6 @@
                     </volist>
                 </select>
             </div>
-            <label class="layui-form-label">投放区域：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="area_id" lay-verify="required" placeholder="请输入广告名称" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-form-label">上刊广告位：</label>
             <div class="layui-input-inline">
                 <select name="ad_position_id"  lay-verify="required" lay-search="">
@@ -44,35 +65,37 @@
                     </volist>
                 </select>
             </div>
-            <label class="layui-form-label">投放时段：</label>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input" name="daytime" id="daytime" placeholder=" 请选择时间段 ">
+
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择投放区域：</label>
+            <div class="layui-btn" id="selectArea">
+                 <i class="layui-icon">&#xe608;</i> 添加区域
+                <input type="hidden" name="area_id" id="area_id" value=""/>
             </div>
+        </div>
+        <div class="layui-form-item">
+            <div id="area_name"></div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">投放渠道：</label>
             <div class="layui-input-inline">
                 <select name="delivery_to_channel"  lay-verify="required" lay-search="">
                     <option value="all">所有渠道</option>
-                    <option value="wap">1002</option>
-                    <option value="wab">1003</option>
+                    <option value="wap">WEB</option>
+                    <option value="wab">安卓</option>
+                    <option value="wab">ios</option>
                 </select>
             </div>
-            <label class="layui-form-label">前置广告：</label>
+            <label class="layui-form-label">投放时段：</label>
             <div class="layui-input-inline">
-                <select name="business"  lay-verify="required" lay-search="">
-                    <option value="1002">1002</option>
-                    <option value="1003">1003</option>
-                    <option value="1004">1004</option>
-                    <option value="2001">2001</option>
-                    <option value="2002">2002</option>
-                </select>
+                <input type="text" class="layui-input test-item" name="daytime"  placeholder=" 请选择时间段 ">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">投放比例：</label>
             <div class="layui-input-inline">
-                <input type="text" name="weight" lay-verify="required" placeholder="投放比例" autocomplete="off" class="layui-input">
+                <input type="text" name="weight" value="1" lay-verify="required" placeholder="投放比例" autocomplete="off" class="layui-input">
             </div>
 
             <label class="layui-form-label">默认广告：</label>
@@ -97,7 +120,7 @@
             </div>
             <label class="layui-form-label">上刊类型：</label>
             <div class="layui-input-inline">
-                <select name="ad_type"  lay-verify="required" lay-search="">
+                <select name="ad_type_id"  lay-verify="required" lay-search="">
                     <option value="">请选择</option>
                     <volist name="adType" id="vo">
                         <option value="{$vo.id}">{$vo.name}</option>
@@ -111,18 +134,28 @@
                 <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入单击连接" class="layui-input">
             </div>
         </div>
+        <!--
         <div class="layui-form-item">
             <label class="layui-form-label">PV监测链接：：</label>
             <div class="layui-input-block">
                 <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入PV监测链接：" class="layui-input">
             </div>
         </div>
+        -->
         <div class="layui-form-item">
             <label class="layui-form-label">曝光时段：</label>
-            <div class="layui-input-block">
-                <input type="text" class="layui-input" name="datetime" id="datetime" placeholder=" 请选择时间段 ">
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input checkedTime" name="checkedTimeStar"  placeholder=" 请选择时间段 ">
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" class="layui-input checkedTime" name="checkedTimeEnd"  placeholder=" 请选择时间段 ">
+            </div>
+            <div class="layui-btn" id="timeChecked">
+                <i class="layui-icon">&#xe608;</i> 选择添加
             </div>
         </div>
+        <div class="layui-form-item" id="timeAdd"></div>
+        <!--
         <div class="layui-form-item">
             <label class="layui-form-label">日投放量：</label>
             <div class="layui-input-inline">
@@ -133,7 +166,7 @@
                 <input type="text" name="username" lay-verify="required" placeholder="请输入控屏曝光次数" autocomplete="off" class="layui-input">
             </div>
         </div>
-
+-->
 
         <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
             <legend>图片选择</legend>
@@ -145,11 +178,12 @@
                 <p>  这里以限制 60KB 为例</p>
             </div>
         </div>
-        <button class="layui-btn" lay-submit="" lay-filter="submit">提交</button>
-      <!--  <a  class="layui-btn" lay-filter="submit" id="submit">提交</a>-->
-        <a href="{:U('Order/index')}" class="layui-btn" lay-filter="add">返回</a>
+        <!--  <button class="layui-btn" lay-submit="" lay-filter="submit">提交</button>-->
+       <a  class="layui-btn" lay-filter="submit" id="submit">提交</a>
+        <a href="{:U('Ad/index')}" class="layui-btn" lay-filter="add">返回</a>
 </form>
 <script>
+    $("#selectAreaTree").hide();
     layui.use(['form','layer','layedit','laydate','upload'], function(){
         var form = layui.form
             ,layer = layui.layer
@@ -173,6 +207,23 @@
             elem: '#datetime'
             ,type: 'datetime'
             ,range: true
+        });
+//时间选择器
+        laydate.render({
+            elem: '#test4'
+            ,type: 'time'
+        });
+        laydate.render({
+            elem: '#test5'
+            ,type: 'time'
+        });
+        //同时绑定多个
+        lay('.checkedTime').each(function(){
+            laydate.render({
+                elem: this
+                ,type: 'time'
+                ,trigger: 'click'
+            });
         });
         //设定文件大小限制
         upload.render({
@@ -198,14 +249,14 @@
             return false;
         });
 
-        $("#submit").on("click", function(){
+        $("#submit").on("click", function() {
             var data = $('form').serialize();
             $.ajax({
                 type: "post",
                 url: "{:U('Ad/add')}",
                 data: data,
                 dataType: "text",
-                success: function(data){
+                success: function (data) {
                     alert.msg(data.msg);
                     if (data.status > 0) {
                         layer.msg(data.msg);
@@ -213,7 +264,91 @@
                 }
             });
         });
-    });
+        //区域选择添加弹窗
+        $("#selectArea").on("click", function() {
+            //捕获页
+            layer.open({
+                type: 1,
+                shade: false
+                ,title:  "场景选择"
+                //,area: ['420px', 'auto']
+                ,content: $('#selectAreaTree') //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
+                ,cancel: function(){
+                    layer.msg('成功', {time: 5000, icon:6});
+                }
+            });
+        });
+            // 曝光时间添加
+        $(document).on("click", "#timeChecked", function(){
+            var checked = '<div class="layui-form-item">' +
+                '<label class="layui-form-label">曝光时段：</label>' +
+                '<div class="layui-input-inline">' +
+                '<input class="layui-input checkedTime" type="text"  name="checkedTimeStar"></input></div>' +
+                '<div class="layui-input-inline">' +
+                '<input class="layui-input checkedTime" type="text"  name="checkedTimeEnd"></input></div>' +
+                '<div class="layui-btn layui-btn-danger" id="del">删除</div></div>';
+            $("#timeAdd").append(checked);
 
+        });//曝光时间添加结束
 
+        $(document).on("click", "#del", function(){
+            $(this).parent().remove();
+        });
+    })//layui结束
+    //关闭所有树形
+    function collapseAll(){
+        $('#tt').tree('collapseAll');
+    }
+    //打开所有树形
+    function expandAll(){
+        $('#tt').tree('expandAll');
+    }
+    //得到单选数据
+    function getSelected(){
+        var node = $('#tt').tree('getSelected');
+        if (node){
+            var s = node.text;
+            if (node.attributes){
+                s += ","+node.attributes.p1+","+node.attributes.p2;
+            }
+
+            alert(s);
+        }
+
+    }
+    //得到复选框数据
+    function getChecked(){
+        var nodes = $('#tt').tree('getChecked');
+        var id = '';
+        var s = '';
+        $("#area_name").html('');
+        for(var i=0; i<nodes.length; i++){
+            if (s != '')
+                s += ',';
+            s +="--->"+(nodes[i].id)+"--->"+ (nodes[i].text);
+            id += ',';
+            id+=(nodes[i].id);
+            var checked = '<div class="layui-btn layui-btn-sm layui-btn-normal">'+nodes[i].text+'</div>';
+            $("#area_name").append(checked);
+        }
+        $("#area_id").val(id);
+
+        /*
+        $.ajax({
+            type: "post",
+            url: "{:U('Ad/add')}",
+            data: formData,
+            dataType: "json",
+            success: function(data){
+                if (data.status > 0) {
+                    window.setTimeout(function () {
+                        layer.closeAll();
+                        location.reload();
+                    }, 1000);
+                }
+                layer.msg(data.msg);
+            }
+        });*/
+        //alert(s);
+    }
 </script>

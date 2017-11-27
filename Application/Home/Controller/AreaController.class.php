@@ -10,6 +10,7 @@ namespace Home\Controller;
 
 use Org\Util\Filter;
 use Org\Util\Tree;
+use Org\Util\UnlimitedClassification;
 use Org\Util\UI;
 
 
@@ -77,5 +78,14 @@ class AreaController extends CrudController
         } catch (\Exception $e) {
             $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
         }
+    }
+    public function getTree()
+    {
+        $area = M("area");
+        $where['is_del'] = 0;
+        $areaTree = UnlimitedClassification::recursion($area->where($where)->select(), 0);
+        $areaTree = json_encode($areaTree);
+        $areaTree = str_replace("name", "text", $areaTree);
+        die($areaTree);
     }
 }

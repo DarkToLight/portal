@@ -22,6 +22,7 @@
             ,cols: [[ //表头
                 {field: 'left', type:'checkbox'}
                 ,{field: 'name', title: '设备名称',sort:'true'}
+                ,{field: 'status', title: '设备状态',sort:'true'}
                 ,{field: 'mac', title: 'MAC地址',sort:'true'}
                 ,{field: 'ap_area_id', title: '所属区域',sort:'true'}
                 ,{field: 'longitude', title: '经度'}
@@ -57,12 +58,10 @@
                             dataType: "json",
                             success: function(data){
                                 if (data.status > 0) {
-                                    window.setTimeout(function () {
-                                        layer.closeAll();
-                                        location.reload();
-                                    }, 1000);
+                                    layer.closeAll();
                                 }
                                 layer.msg(data.msg);
+                                location.reload();
                             }
                         });
                     }
@@ -116,6 +115,7 @@
                                     layer.close(layero);
                                 }
                                 layer.msg(data.msg);
+                                location.reload();
                             }
                         });
                     }

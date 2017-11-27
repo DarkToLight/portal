@@ -1,0 +1,41 @@
+[{
+	"id":100,
+	"text":"Foods",
+	"children":[{
+		"id":20,
+		"text":"Fruits",
+		"state":"closed",
+		"children":[{
+			"id":30,
+			"text":"apple",
+			"checked":true
+		},{	
+			"id":411,
+			"text":"orange"
+		}]
+	},{
+		"id":5,
+		"text":"Vegetables",
+		"state":"open",
+		"children":[{
+			"id":6,
+			"text":"tomato",
+			"checked":true
+		},{
+			
+			"id":7,
+			"text":"carrot",
+			"checked":true
+		},{	
+			"id":874515,
+			"text":"cabbage"
+		},{	
+			"id":9,
+			"text":"potato",
+			"checked":true
+		},{
+			"id":10111,
+			"text":"lettuce"
+		}]
+	}]
+}]
