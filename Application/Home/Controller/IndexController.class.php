@@ -5,11 +5,31 @@ class IndexController extends Controller {
 	
     public function index()
     {
-        layout(false);
-		$this->display('../FyrzAD/login');
-
+        $this->display("Index/index");
+        /*
+        if (!empty(session("login_user"))) {
+            $this->display("Index/index");
+        } else {
+            layout(false);
+            $this->display('Index/login');
+        }
+        */
 	}
-
+	//主页面  信息统计
+    public function main(){
+        layout(false);
+        $this->display();
+    }
+    //404页面
+    public function web404(){
+        layout(false);
+        $this->display("Index/404");
+    }
+    //temp页面
+    public function temp(){
+        layout(false);
+        $this->display();
+    }
     public function login($status = '1')
     {
 		layout(false);
@@ -62,10 +82,11 @@ class IndexController extends Controller {
                 $user_level = $user[0]['level'];
                 session('username', $user_name);
                 session('level', $user_level);
-				switch(session('level')){					
+                session('login_user', $user[0]);
+				switch(session('level')){
 					case 0:
 						session('level', '超级管理员');	
-						$this->redirect('Ad/index');
+						$this->redirect('Index/index');
 					break;
 				}
             } else {

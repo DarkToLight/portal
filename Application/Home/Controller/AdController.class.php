@@ -31,7 +31,10 @@ class AdController extends CrudController
                 $_POST['resource'] = date("Y-m-d H:i:s");
                 $_POST['start_time'] = substr($_POST['daytime'], 0, 10);
                 $_POST['over_time'] = substr($_POST['daytime'], -10, 10);
-
+                foreach ($_POST['checkedTimeStar'] as $key => $val) {
+                    $exposureTime[] = array('start_time' => $val, 'over_time' => $_POST['checkedTimeEnd'][$key]);
+                }
+                $_POST['exposure_time'] = json_encode($exposureTime);
                 $must = ['name', 'start_time', 'over_time', 'area_id', 'ad_type_id', 'ad_position_id', 'weight' => 1];
                 Filter::notEmpty($must);
             } catch (\Exception  $e) {
@@ -48,6 +51,7 @@ class AdController extends CrudController
     }
     public function add_($id)
     {
+        # 循环增加投放区域
         $data['ad_id'] = $id;
         $arrAreaId = explode(',', $_POST['area_id']);
         $mAreaAd = M("area_ad");
@@ -59,6 +63,25 @@ class AdController extends CrudController
             continue;
         }
 
+    }
+    public function _edit() {
+        # 渲染界面时获取相关数据
+
+        $where['is_del'] = 0;
+        $apPosition = D('ad_position');
+        $business = D('business');
+        $adType = M('ad_type');
+        $area = M('area');
+
+        $this->assign('area', Tree::tree($area->where($where)->select()));
+        $this->assign('adPosition', $apPosition->where($where)->select());
+        $this->assign('business', $business->where($where)->select());
+        $this->assign('adType', $adType->where($where)->select());
+    }
+    # 数据edit进行处理
+    public function edit_(&$data)
+    {
+        $this->assign("exposure_time",json_decode($data['exposure_time'], true));
     }
     public function _del()
     {
@@ -87,8 +110,28 @@ class AdController extends CrudController
        $businessList = $business->where("is_del = 0")->field("id, name")->select();
        $businessList = array_column($businessList, 'name', 'id');
 
+       # 获取广告位名称
+        $adPosition = M("ad_position");
+        $adPositionList = $adPosition->where("is_del = 0")->field("id, name")->select();
+        $adPositionList = array_column($adPositionList, 'name', 'id');
+
+        # 获取广告类型名称
+        $adType = M("ad_type");
+        $adTypeList = $adType->where("is_del = 0")->field("id, name")->select();
+        $adTypeList = array_column($adTypeList, 'name', 'id');
+
        foreach ($backData->data as $key => &$val) {
            $val['business_id'] = $businessList[$val['business_id']];
+           $val['ad_position_id'] =  $adPositionList[$val['ad_position_id']];
+           $val['ad_type_id'] =  $adTypeList[$val['ad_type_id']];
+           $val['start_time_over_time'] = $val['start_time'] . "至" .$val['over_time'];
+           $exposureTime = json_decode($val['exposure_time']);
+           if (is_array($exposureTime)) {
+               $val['exposure_time'] = '';
+               foreach ($exposureTime as $key2 => $val2){
+                   $val['exposure_time'] .= $val2->start_time . "至" . $val2->over_time . str_repeat("&nbsp;", 6);
+               }
+           }
            # 获取广告投放区域
            $where = ['is_del' => 0, 'ad_id' => $val['id']];
            $adArea = $areaAd->where($where)->select();

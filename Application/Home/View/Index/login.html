@@ -4,14 +4,14 @@
 	<meta charset="UTF-8">
 	<title>登录-泛亚.AD广告投放系统</title>
 	<meta name="keywords" content="泛亚.AD广告投放系统" />
-    <meta name="description" content="fyrz.AD Version:1.01" />
+	<meta name="description" content="fyrz.AD Version:1.01" />
 	<meta name="Author" content="梁大波" />
-	<meta name="renderer" content="webkit">	
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black">	
-	<meta name="apple-mobile-web-app-capable" content="yes">	
-	<meta name="format-detection" content="telephone=no">	
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
 	<link rel="Shortcut Icon" href="__PUBLIC__/favicon.ico" />
 	<!-- load css -->
 	<link rel="stylesheet" type="text/css" href="__PUBLIC__/common/layui/css/layui.css" media="all">
@@ -21,34 +21,34 @@
 <div class="larry-canvas" id="canvas"></div>
 <div class="layui-layout layui-layout-login">
 	<h1>
-		 <strong>泛亚.AD广告投放系统</strong>
-		 <em>用户登录</em>
+		<strong>泛亚.AD广告投放系统</strong>
+		<em>用户登录</em>
 	</h1>
-	<form class="layui-form" action="">
-	<div class="layui-user-icon larry-login">
-		 <input type="text" placeholder="请输入账号" class="login_txtbx"/>
+	<form class="layui-form" method="post" action="http://portal.cn/index.php/Home/index/postLogin">
+		<div class="layui-user-icon larry-login">
+			<input type="text" name="name" placeholder="请输入账号" class="login_txtbx"/>
+		</div>
+		<div class="layui-pwd-icon larry-login">
+			<input type="password" name="password" placeholder="请输入密码" class="login_txtbx"/>
+		</div>
+		<!--
+        <div class="layui-val-icon larry-login">
+            <div class="layui-code-box">
+                <input type="text" id="code" name="code" placeholder="验证码" maxlength="4" class="login_txtbx">
+                <img src="__PUBLIC__/home/images/verifyimg.png" alt="" class="verifyImg" id="verifyImg" onclick="javascript:this.src='xxx'+Math.random();">
+            </div>
+        </div>
+        -->
+		<div class="layui-submit larry-login">
+			<input class="layui-btn" id="submit_btn"lay-submit="" lay-filter="submit_btn" value="立即登陆"/>
+			<button type="reset" class="layui-btn  submit_reset">重置</button>
+		</div>
+	</form>
+	<div class="layui-login-text">
+		<p><a href="login.html" title="">泛亚.AD广告投放系统</a></p>
+		<p>| Copyright © 2016-2017 |</p>
+		<p><a href="http://www.fyxtw.com/" target="_blank" title="贵州泛亚信通网络科技有限公司版权所有">贵州泛亚信通网络科技有限公司版权所有 </a></p>
 	</div>
-	<div class="layui-pwd-icon larry-login">
-		 <input type="password" placeholder="请输入密码" class="login_txtbx"/>
-	</div>
-	<!--  
-    <div class="layui-val-icon larry-login">
-    	<div class="layui-code-box">
-    		<input type="text" id="code" name="code" placeholder="验证码" maxlength="4" class="login_txtbx">
-            <img src="__PUBLIC__/home/images/verifyimg.png" alt="" class="verifyImg" id="verifyImg" onclick="javascript:this.src='xxx'+Math.random();">
-    	</div>
-    </div>
-    -->
-    <div class="layui-submit larry-login">
-    	<input type="button" value="立即登陆" class="submit_btn"/>
-    	 <button type="reset" class="layui-btn  submit_reset">重置</button>
-    </div>
-    </form>
-    <div class="layui-login-text">
-    	<p><a href="login.html" title="">泛亚.AD广告投放系统</a></p>
-        <p>| Copyright © 2016-2017 |</p>
-        <p><a href="http://www.fyxtw.com/" title="">贵州泛亚信通网络科技有限公司版权所有 </a></p>
-    </div>
 </div>
 <script type="text/javascript" src="__PUBLIC__/common/layui/layui.js"></script>
 <script type="text/javascript" src="__PUBLIC__/common/js/jquery-1.12.4.min.js"></script>

@@ -1,13 +1,11 @@
 {$layUI}
-<script>
-    layui.use('form', function() {
-    });
-</script>
+
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item" style="margin: 20px 0;">
         <label class="layui-form-label">选择区域</label>
         <div class="layui-input-inline" >
-            <select name="ap_area_id" lay-filter="aihao">
+            <select name="ap_area_id" lay-filter="area">
+                <option value="">请选择</option>
                 <volist name="area" id="vo">
                     <option value="{$vo.id}"  <if condition="$vo.id eq $data.ap_area_id ">selected</if>>{$vo.name}
                     </option>
@@ -55,3 +53,7 @@
     </div>
     <input type="hidden" name="id" value="{$data.id}">
 </form>
+<script>
+    layui.use('form', function() {
+    });
+</script>

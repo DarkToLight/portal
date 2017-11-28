@@ -57,15 +57,17 @@ class ApController extends CrudController
     }
     public function lists_(&$back)
     {
-        #获取Ap所在区域名称
+
         $area = M("area");
         $where['is_del'] = 0;
         $areaTree = Tree::tree($area->where($where)->select(), 0);
         $areaTree = array_column($areaTree, 'name', 'id');
-
-        # 状态对应的值
+        
         foreach ($back->data as $key => &$val) {
             $val['ap_area_id'] = $areaTree[$val['ap_area_id']]; # 设置AP区域名称的值
+
+            $val['ap_area_id'] = $areaTree[$val['ap_area_id']];
+
             switch ($val['status']){
                 case "1":
                     $val['status'] = "正常";

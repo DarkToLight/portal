@@ -34,14 +34,18 @@ layui.use(['jquery','layer','form'],function(){
         });
     });
 //监听提交
-    form.on('submit(submit_btn)', function(data){
+    //form.on('submit(submit_btn)', function(data){
+
+     //layer.msg("账户或者密码错误，请重新输入");
+        /*
         layer.alert(JSON.stringify(data.field), {
             title: '最终的提交信息'
         })
         return false;
-    });
+        */
+  //  });
     //向世界问个好
-    layer.msg('Hello World');
+    //layer.msg('Hello World');
 });
 /*
 $(".submit_btn").on("click", function(){

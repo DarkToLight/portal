@@ -24,12 +24,12 @@
 		 <strong>泛亚.AD广告投放系统</strong>
 		 <em>用户登录</em>
 	</h1>
-	<form class="layui-form" action="">
+	<form class="layui-form" method="post" action="http://portal.cn/index.php/Home/index/postLogin">
 	<div class="layui-user-icon larry-login">
-		 <input type="text" placeholder="请输入账号" class="login_txtbx"/>
+		 <input type="text" name="name" placeholder="请输入账号" class="login_txtbx"/>
 	</div>
 	<div class="layui-pwd-icon larry-login">
-		 <input type="password" placeholder="请输入密码" class="login_txtbx"/>
+		 <input type="password" name="password" placeholder="请输入密码" class="login_txtbx"/>
 	</div>
 	<!--  
     <div class="layui-val-icon larry-login">
@@ -40,7 +40,7 @@
     </div>
     -->
     <div class="layui-submit larry-login">
-    	<input type="button" value="立即登陆" class="submit_btn"/>
+    	<input type="submit" value="立即登陆" class="submit_btn"/>
     	 <button type="reset" class="layui-btn  submit_reset">重置</button>
     </div>
     </form>

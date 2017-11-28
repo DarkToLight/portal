@@ -15,13 +15,30 @@
     checkbox="true"
 >
 </ul>
+<<<<<<< HEAD
 
 <div style="margin:20px 0;">
+=======
+
+<div style="margin:20px 0;">
+
+    <button class="layui-btn">选择确定</button>
+    <button class="layui-btn layui-btn-normal">打开树</button>
+    <button class="layui-btn layui-btn-warm">关闭树</button>
+    <button class="layui-btn layui-btn-danger">退出选择</button>
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
 
     <button class="layui-btn" onclick="getChecked()">选择确定</button>
     <button class="layui-btn layui-btn-normal"onclick="expandAll()">打开树</button>
     <button class="layui-btn layui-btn-warm"  onclick="collapseAll()">关闭树</button>
 
+<<<<<<< HEAD
+=======
+    <a href="#" class="easyui-linkbutton" onclick="collapseAll()">CollapseAll</a>
+    <a href="#" class="easyui-linkbutton" onclick="expandAll()">ExpandAll</a>
+    <a href="#" class="easyui-linkbutton" onclick="getSelected()">GetSelected</a>
+    <a href="#" class="easyui-linkbutton" onclick="getChecked()">GetChecked</a>
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
 </div>
 <script type="text/javascript">
     //关闭所有树形
@@ -53,6 +70,7 @@
                     s += ',';
                 s +="--->"+(nodes[i].id)+"--->"+ (nodes[i].text);
             }
+<<<<<<< HEAD
             /*
             $.ajax({
                 type: "post",
@@ -69,6 +87,8 @@
                     layer.msg(data.msg);
                 }
             });*/
+=======
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
             alert(s);
         }
 </script>

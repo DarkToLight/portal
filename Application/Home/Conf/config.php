@@ -11,6 +11,7 @@ return array(
 	'LAYOUT_ON' => true,
     "LAYOUT" => false,
 
+
     'FILE_UPLOAD_CONFIG'=>array(
         'mimes' => '', //允许上传的文件MiMe类型
         'maxSize' => 6 * 1024 * 1024, //上传的文件大小限制 (0-不做限制)

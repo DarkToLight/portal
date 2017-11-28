@@ -1,4 +1,5 @@
 {$layUI}
+<<<<<<< HEAD
 
 <link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="http://www.jeasyui.net/Public/js/easyui/themes/icon.css">
@@ -19,8 +20,9 @@
     </div>
 </div>
 <style>
-    .layui-input-block{
-        width: 500px;
+    .layui-form-pane .layui-input-block{
+        width: 520px;
+        margin-left: 134px;
     }
     #selectArea{
         width:108px;
@@ -31,7 +33,19 @@
     .tree-title{
         font-size: 1.2em!important;
     }
-    </style>
+    .layui-form-pane .layui-form-label{
+        width:132px;
+
+=======
+<style>
+    .layui-input-block{
+        width: 500px;
+    }
+    #selectArea{
+        width:108px;
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
+    }
+</style>
 <blockquote class="layui-elem-quote">新增广告</blockquote>
 <form class="layui-form layui-form-pane" action="{:U('Ad/add')}">
 
@@ -68,10 +82,18 @@
 
         </div>
         <div class="layui-form-item">
+<<<<<<< HEAD
             <label class="layui-form-label">选择投放区域：</label>
             <div class="layui-btn" id="selectArea">
                  <i class="layui-icon">&#xe608;</i> 添加区域
                 <input type="hidden" name="area_id" id="area_id" value=""/>
+=======
+            <div class="layui-btn" id="selectArea">
+                 <i class="layui-icon">&#xe608;</i> 选择添加
+            </div>
+            <div class="layui-input-block" style="margin-top: -36px">
+                <input type="text" name="area_id" lay-verify="required" placeholder="请输入广告名称" autocomplete="off" class="layui-input">
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
             </div>
         </div>
         <div class="layui-form-item">
@@ -89,7 +111,11 @@
             </div>
             <label class="layui-form-label">投放时段：</label>
             <div class="layui-input-inline">
-                <input type="text" class="layui-input test-item" name="daytime"  placeholder=" 请选择时间段 ">
+<<<<<<< HEAD
+                <input type="text" class="layui-input test-item" id="daytime" name="daytime"  placeholder=" 请选择时间段 ">
+=======
+                <input type="text" class="layui-input" name="daytime" id="daytime" placeholder=" 请选择时间段 ">
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
             </div>
         </div>
         <div class="layui-form-item">
@@ -178,8 +204,8 @@
                 <p>  这里以限制 60KB 为例</p>
             </div>
         </div>
-        <!--  <button class="layui-btn" lay-submit="" lay-filter="submit">提交</button>-->
-       <a  class="layui-btn" lay-filter="submit" id="submit">提交</a>
+        <!--  <button class="layui-btn" lay-submit="" id="submit" lay-filter="submit">提交</button>-->
+        <a  class="layui-btn" lay-filter="submit" id="submit">提交</a>
         <a href="{:U('Ad/index')}" class="layui-btn" lay-filter="add">返回</a>
 </form>
 <script>
@@ -264,6 +290,7 @@
                 }
             });
         });
+<<<<<<< HEAD
         //区域选择添加弹窗
         $("#selectArea").on("click", function() {
             //捕获页
@@ -332,7 +359,7 @@
             $("#area_name").append(checked);
         }
         $("#area_id").val(id);
-
+            layer.closeAll();
         /*
         $.ajax({
             type: "post",
@@ -351,4 +378,62 @@
         });*/
         //alert(s);
     }
+=======
+        //添加弹窗
+        $("#selectArea").on("click", function() {
+
+            layer.open({
+                type: 2 //此处以iframe举例
+                ,title: '区域选择'
+                ,area: ['420px', '500px']
+                ,shade: 0.8
+                ,maxmin: true
+                ,offset: [
+                ]
+                ,content: "{:U('Area/tree')}"
+                /*
+                ,return//退出
+                ,btn: ['确定', '放弃'] //只是为了演示
+                ,yes: function(layero){
+                    var index = "#layui-layer-iframe" + layero;
+                    var input = $(index).contents();
+                   // var data = input.find('#tt li .tree-checkbox1');
+                    var data = input.find('#tt');
+                    $(data).tree('getChecked');
+                    $(data).each(function(){
+                        console.log($(this).parent().attr('id'));
+                        console.log($(this).parent().parent().attr('id'));
+                        console.log($(this).next().text());
+                    });
+
+
+                    $.ajax({
+                        type: "post",
+                        url: "{:U('Ad/add')}",
+                        data: formData,
+                        dataType: "json",
+                        success: function(data){
+                            if (data.status > 0) {
+                                window.setTimeout(function () {
+                                    layer.closeAll();
+                                    location.reload();
+                                }, 1000);
+                            }
+                            layer.msg(data.msg);
+                        }
+                    });
+                }
+                ,btn2: function(){
+                    layer.closeAll();
+                }
+                ,zIndex: layer.zIndex //重点1
+                ,success: function(layero){
+
+                }
+                */
+            });
+        });
+
+    })
+>>>>>>> c3517871786312a4724e20e0b9bbba03546f7f39
 </script>

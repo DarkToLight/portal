@@ -58,6 +58,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
         });*/
 
 		var result = [
+
 			{
 			"title": "主菜单",
 			"icon": "",
@@ -122,7 +123,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "title": "后台首页",
     			    "icon": "larry-houtaishouye",
     			    
-    			    "href": "../index/main"
+    			    "href": "index/main"
     			}, {
     			    "pid": "101",
     			    "title": "我的面板",
@@ -132,19 +133,19 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                         {
                         	"title": "用户管理",
                             "icon": "larry-gerenxinxi1",
-                            "href": "../User/index",
+                            "href": "./index.php/User/index.html"
                         },{
 							"title": "个人信息",
 							"icon": "larry-gerenxinxi1",
-							"href": "../User/personInfo",
+							"href": "./index.php/User/personInfo",
     			    }, {
 							"title": "修改密码",
 							"icon": "larry-xiugaimima2",
-							"href": "../User/changepwd"
+							"href": "./index.php/User/changepwd"
     			    }, {
 							"title": "日志信息",
 							"icon": "larry-rizhi2",
-							"href": "../User/myloginfo"
+							"href": "./index.php/User/myloginfo"
     			    }]
     			},{
                     "pid": "102",
@@ -154,11 +155,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "区域|场景管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "../Area/index"
+                        "href": "./index.php/Area/index"
                     },{
                         "title": "AP管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "../Ap/index"
+                        "href": "./index.php/Ap/index"
                     }]
                 }, {
     			    "pid": "103",
@@ -168,7 +169,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "广告管理",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "../Ad/index"
+    			        "href": "./index.php/Ad/index"
     			    }]
     			},{
     			    "pid": "104",
@@ -178,11 +179,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "当日数据",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "历史数据",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			},{
     			    "pid": "105",
@@ -202,45 +203,45 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "系统基本参数",
     			        "icon": "larry-circularxiangxi",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "SQL命令行工具",
     			        "icon": "larry-sql2",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "系统日志管理",
     			        "icon": "larry-xitongrizhi1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "验证安全管理",
     			        "icon": "larry-yanzheng",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "图片水印设置",
     			        "icon": "larry-shuiyin",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "安全字典设置",
     			        "icon": "larry-zidian",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "短信接口配置",
     			        "icon": "larry-duanxin1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "系统错误修复",
     			        "icon": "larry-xiufu",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "数据库管理",
     			        "icon": "larry-sql1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			}, {
     			    "pid": "107",
     			    "title": "友链管理",
     			    "icon": "larry-a157",
-    			    "href": "temp.html"
+    			    "href": "./index.php/index/temp.html"
     			}];
                 var pid_10 = [{
                     "pid": "101",
@@ -250,15 +251,15 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "查看",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "../Area/index"
+                        "href": "./index.php/Area/index"
                     }, {
                         "title": "编辑",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "ManageAP.html"
+                        "href": "./index.php/Area/index"
                     }, {
                         "title": "删除",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "ManageAP.html"
+                        "href": "./index.php/Area/index"
                     }]
                 },{
                     "pid": "102",
@@ -268,15 +269,15 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "新增",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "apManageAP.html"
+                        "href": "./index.php/Ap/index"
                     }, {
                         "title": "编辑",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "apManageAP.html"
+                        "href": "./index.php/Ap/index"
                     }, {
                         "title": "删除",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "apManageAP.html"
+                        "href": "./index.php/Ap/index"
                     }]
                 }];
                 var pid_20 = [{
@@ -287,11 +288,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "查看订单",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "新增订单",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			},{
                     "pid": "202",
@@ -301,11 +302,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "查看广告",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }, {
                         "title": "新增广告",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }]
                 },{
                     "pid": "203",
@@ -315,11 +316,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "查看广告",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }, {
                         "title": "预览广告",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }]
                 }
     			];
@@ -331,11 +332,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "订单数据",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "广告数据",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			},{
                     "pid": "302",
@@ -345,11 +346,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                         "children": [{
                         "title": "订单数据",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }, {
                         "title": "广告数据",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }]
                 }]
 
@@ -361,11 +362,11 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "查询广告商",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "编辑广告商",
     			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			},{
                     "pid": "402",
@@ -375,15 +376,15 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
                     "children": [{
                         "title": "新增广告商",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }, {
                         "title": "查看广告商",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     },{
                         "title": "删除广告商",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "temp.html"
+                        "href": "./index.php/index/temp.html"
                     }]
                 }];
 
@@ -395,39 +396,39 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "系统基本参数",
     			        "icon": "larry-circularxiangxi",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "SQL命令行工具",
     			        "icon": "larry-sql2",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "系统日志管理",
     			        "icon": "larry-xitongrizhi1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "验证安全管理",
     			        "icon": "larry-yanzheng",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "图片水印设置",
     			        "icon": "larry-shuiyin",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "安全字典设置",
     			        "icon": "larry-zidian",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "短信接口配置",
     			        "icon": "larry-duanxin1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "系统错误修复",
     			        "icon": "larry-xiufu",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "数据库管理",
     			        "icon": "larry-sql1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			},{
     				"pid": "992",
@@ -437,27 +438,27 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "网站栏目管理",
     			        "icon": "larry-lanmuguanli",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "所有文章列表",
     			        "icon": "larry-iconfontfilesfill",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "待审核的文章",
     			        "icon": "larry-daishenhe1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "我发布的文章",
     			        "icon": "larry-fabu2",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "Tags管理",
     			        "icon": "larry-tags",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "内容回收站",
     			        "icon": "larry-iconfonthuishouzhan",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			}, {
     				"pid": "993",
@@ -467,23 +468,23 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "内容模型管理",
     			        "icon": "larry-moxing1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "单页文档管理",
     			        "icon": "larry-danye",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "联动类别管理",
     			        "icon": "larry-liandong",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "自由列表管理",
     			        "icon": "larry-zidingyicaidan1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "自定义表单",
     			        "icon": "larry-iconzidingyibiaodan",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			}, {
     				"pid": "994",
@@ -493,15 +494,15 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "上传新文件",
     			        "icon": "larry-shangchuanfujian",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "附件数据管理",
     			        "icon": "larry-fujian",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "文件管理器",
     			        "icon": "larry-wenjianguanli2",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			}, {
     				"pid": "995",
@@ -511,23 +512,23 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "采集节点管理",
     			        "icon": "larry-shujucaiji",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "临时内容管理",
     			        "icon": "larry-linshi1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "导入采集规则",
     			        "icon": "larry-guize",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "监控采集模式",
     			        "icon": "larry-jiankong1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "采集未下载内容",
     			        "icon": "larry-xiazai2",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }]
     			},{
     				"pid": "996",
@@ -537,48 +538,48 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "children": [{
     			        "title": "一键更新网站",
     			        "icon": "larry-yijian",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "更新系统缓存",
     			        "icon": "larry-xitonghuancun",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "更新主页HTML",
     			        "icon": "larry-tubiaozitimoban",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "更新栏目HTML",
     			        "icon": "larry-lanmu1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "更新文档HTML",
     			        "icon": "larry-wendang",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "更新网站地图",
     			        "icon": "larry-wangzhanditu",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "重复文档检测",
     			        "icon": "larry-zhongfu",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "数据库内容替换",
     			        "icon": "larry-tihuan1",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "自动摘要",
     			        "icon": "larry-zhaiyao",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    }, {
     			        "title": "搜索关键词维护",
     			        "icon": "larry-guanjianci",
-    			        "href": "temp.html"
+    			        "href": "./index.php/index/temp.html"
     			    },{
         			    "pid": "997",
         			    "title": "友链管理",
         			    "icon": "larry-a157",
-        			    "href": "temp.html"
+        			    "href": "./index.php/index/temp.html"
         			}]
     			}]
     			

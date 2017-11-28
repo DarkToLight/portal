@@ -62,11 +62,14 @@ class CrudController extends Controller
             $this->_edit();
         }
         if (IS_AJAX) {
+            if(method_exists($this,"_saveEdit")){ # 保存数据前对数据进行处理
+                $this->_saveEdit();
+            }
             if($this->model->where($where)->save($_POST)) {
                 $result['status'] = 1;
                 $result['msg'] = "更新成功！";
-                if(method_exists($this,"edit_")) {
-                    $this->edit_();
+                if(method_exists($this,"saveEdit_")) {
+                    $this->saveEdit_();
                 }
                 $this->ajaxReturn($result,"JSON");
             }else {
@@ -77,11 +80,10 @@ class CrudController extends Controller
         } else {
             if($info = $this->exists($where)) {
                 $this->assign('data', $info);
-                if(method_exists($this,"redirect_view")) { # 跳转到其他界面
-                    $this->redirect_view();
-                } else {
-                    $this->display(CONTROLLER_NAME."/".ACTION_NAME);
+                if(method_exists($this,"edit_")){ # edit数据处理
+                    $this->edit_($info);
                 }
+                $this->display(CONTROLLER_NAME."/".ACTION_NAME);
             } else {
                 echo "<script>history.back()</script>";
             }
