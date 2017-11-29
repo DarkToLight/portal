@@ -60,29 +60,29 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
 		var result = [
 
 			{
-			"title": "主菜单",
+			"title": "",
 			"icon": "",
 			"pid": "0",
 			},{
-                "title": "区域|场景|AP管理",
-                "icon": "larry-wangzhanditu1",
+                "title": "",
+                "icon": "",
                 "pid": "10",
                 "href": ""
             },{
-			"title": "广告管理",
-			"icon": "larry-neirongfenx",
+			"title": "",
+			"icon": "",
 			"pid": "20"
 		  },{
-			"title": "统计分析",
-			"icon": "larry-neirongfenx",
+			"title": "",
+			"icon": "",
 			"pid": "30"
 		  },{
-			"title": "广告商管理",
-			"icon": "larry-huiyuanguanli2",
+			"title": "",
+			"icon": "",
 			"pid": "40"
 		  },{
-				"title": "系统管理",
-				"icon": "larry-xitongshezhi1",
+				"title": "",
+				"icon": "",
 				"pid": "99"
 		  }
 		]
@@ -123,55 +123,30 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "title": "后台首页",
     			    "icon": "larry-houtaishouye",
     			    
-    			    "href": "index/main"
+    			    "href": "../index/main.html"
     			}, {
     			    "pid": "101",
-    			    "title": "我的面板",
-    			    "icon": "larry-gerenxinxi5",
-    			    "spread": "true",
-    			    "children": [
-                        {
-                        	"title": "用户管理",
-                            "icon": "larry-gerenxinxi1",
-                            "href": "./index.php/User/index.html"
-                        },{
-							"title": "个人信息",
-							"icon": "larry-gerenxinxi1",
-							"href": "./index.php/User/personInfo",
-    			    }, {
-							"title": "修改密码",
-							"icon": "larry-xiugaimima2",
-							"href": "./index.php/User/changepwd"
-    			    }, {
-							"title": "日志信息",
-							"icon": "larry-rizhi2",
-							"href": "./index.php/User/myloginfo"
-    			    }]
+                     "title": "用户管理",
+                      "icon": "larry-gerenxinxi1",
+                      "href": "../User/index.html"
     			},{
                     "pid": "102",
-                    "title": "区域|场景|AP管理",
-                    "icon": "larry-10103",
-                    "spread": "true",
-                    "children": [{
                         "title": "区域|场景管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "./index.php/Area/index"
-                    },{
+                        "href": "../Area/index"
+                },{
+                        "pid": "103",
                         "title": "AP管理",
                         "icon": "larry-iconguanggaoguanli",
-                        "href": "./index.php/Ap/index"
-                    }]
-                }, {
-    			    "pid": "103",
+                        "href": "../Ap/index"
+				},{
+    			    "pid": "104",
     			    "title": "广告管理",
-    			    "icon": "larry-10103",
-    			    "spread": "true",
-    			    "children": [{
-    			        "title": "广告管理",
-    			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "./index.php/Ad/index"
-    			    }]
-    			},{
+					"icon": "larry-iconguanggaoguanli",
+					"href": "../Ad/index"
+
+    			},
+				/*{
     			    "pid": "104",
     			    "title": "统计分析",
     			    "icon": "larry-10103",
@@ -185,17 +160,14 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			        "icon": "larry-iconguanggaoguanli",
     			        "href": "./index.php/index/temp.html"
     			    }]
-    			},{
+    			},
+    			*/{
     			    "pid": "105",
     			    "title": "广告商管理",
-    			    "icon": "larry-10103",
-    			    "spread": "true",
-    			    "children": [{
-    			        "title": "广告商维护",
-    			        "icon": "larry-iconguanggaoguanli",
-    			        "href": "../Business/index"
-    			    }]
-    			},{
+					"icon": "larry-iconguanggaoguanli",
+    			    "href": "../Business/index.html"
+    			}
+    			/*,{
     			    "pid": "106",
     			    "title": "系统设置",
     			    "icon": "larry-xitongshezhi1",
@@ -242,7 +214,8 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
     			    "title": "友链管理",
     			    "icon": "larry-a157",
     			    "href": "./index.php/index/temp.html"
-    			}];
+    			}
+    			*/];
                 var pid_10 = [{
                     "pid": "101",
                     "title": "区域|场景管理",
@@ -583,7 +556,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
         			}]
     			}]
     			
-    			
+
 				var result;
 				if(id == 0)
 					result = pid_0;
@@ -915,7 +888,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
 
     // 登出系统
     $('#logout').on('click', function () {
-        var url = 'login.html';
+        var url = './index.php/index/resetLogin';
         common.logOut('退出登陆提示！', '你真的确定要退出系统吗？', url);
     })
     // 左侧导航菜单控制

@@ -33,7 +33,9 @@
     }
     .layui-form-pane .layui-form-label{
         width:132px;
-
+    }
+    img {
+        width:180px;
     }
 </style>
 <blockquote class="layui-elem-quote">编辑广告</blockquote>
@@ -76,11 +78,15 @@
             <label class="layui-form-label">选择投放区域：</label>
             <div class="layui-btn" id="selectArea">
                 <i class="layui-icon">&#xe608;</i> 添加区域
-                <input type="hidden" name="area_id" id="area_id" value=""/>
+                <input type="hidden" name="area_id" id="area_id" value="{$data.area_id}"/>
             </div>
         </div>
         <div class="layui-form-item">
-            <div id="area_name"></div>
+            <div id="area_name">
+                <volist name="area_ad" id="area">
+                    <div class="layui-btn layui-btn-sm layui-btn-normal">{$area}</div>
+                </volist>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">投放渠道：</label>
@@ -104,8 +110,8 @@
 
             <label class="layui-form-label">默认广告：</label>
             <div class="layui-input-inline">
-                <input name="is_default" value="1" title="否" <if condition="$data.is_default eq 1 ">checked</if> type="radio">
-                <input name="is_default" value="0" title="是" <if condition="$data.is_default eq 0 ">checked</if> type="radio">
+                <input name="is_default" value="0" title="否" <if condition="$data.is_default eq 0 ">checked</if> type="radio">
+                <input name="is_default" value="1" title="是" <if condition="$data.is_default eq 1 ">checked</if> type="radio">
 
             </div>
         </div>
@@ -147,33 +153,26 @@
         -->
         <div class="layui-form-item">
             <label class="layui-form-label">曝光时段：</label>
-                <div class="layui-input-inline">
-                <input type="text" class="layui-input checkedTime" value="" name="checkedTimeStar[]" />
-            </div>
-            <div class="layui-input-inline">
-                <input type="text" class="layui-input checkedTime" value="" name="checkedTimeEnd[]" />
-            </div>
             <div class="layui-input-inline">
                 <div class="layui-btn" id="timeChecked">
-                    <i class="layui-icon">&#xe608;</i> 选择添加
+                    <i class="layui-icon">&#xe608;</i> 增加曝光时段
                 </div>
             </div>
         </div>
-        <volist name="exposure_time" id="vo">
-            <div class="layui-form-item">
-                <label class="layui-form-label">曝光时段：</label>
-                <div class="layui-input-inline">
-                     <input type="text" class="layui-input checkedTime" value="{$vo.start_time}" name="checkedTimeStart[]" />
+        <div class="layui-form-item" id="timeAdd">
+            <volist name="exposure_time" id="vo">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">曝光时段：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input checkedTime" value="{$vo.start_time}" name="checkedTimeStart[]" />
+                    </div>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input checkedTime" value="{$vo.over_time}" name="checkedTimeEnd[]" />
+                    </div>
+                    <div class="layui-btn layui-btn-danger checkedDel" lay-submit lay-filter="del">删除</div>
                 </div>
-                <div class="layui-input-inline">
-                       <input type="text" class="layui-input checkedTime" value="{$vo.over_time}" name="checkedTimeEnd[]" />
-                </div>
-                <div class="layui-input-inline">
-                    <div class="layui-btn layui-btn-danger" lay-submit lay-filter="del" class="checkedDel">删除</div>
-                </div>
-            </div>
-        </volist>
-        <div class="layui-form-item" id="timeAdd"></div>
+            </volist>
+        </div>
         <!--
         <div class="layui-form-item">
             <label class="layui-form-label">日投放量：</label>
@@ -192,9 +191,13 @@
         </fieldset>
         <div class="layui-form-item">
             <div class="layui-upload-drag" id="test10">
-                <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
-                <p>  这里以限制 60KB 为例</p>
+                <if condition="$data.resource">
+                    <img  src="{$data.resource}"/>
+                    <else/>
+                    <i class="layui-icon"></i>
+                    <p>点击上传，或将文件拖拽到此处</p>
+                    <p>jpg,png,gif文件限制10M</p>
+                </if>
             </div>
         </div>
     <!--  <button class="layui-btn" lay-submit="" id="submit" lay-filter="submit">提交</button>-->
@@ -244,23 +247,14 @@
                 ,trigger: 'click'
             });
         });
-        //设定文件大小限制
-        upload.render({
-            elem: '#test7'
-            ,url: '/upload/'
-            ,size: 60 //限制文件大小，单位 KB
-            ,done: function(res){
-                console.log(res)
-            }
-        });
         //拖拽上传
         upload.render({
             elem: '#test10'
             ,url: "{:U('Upload/up')}"
-            ,size: 60 //限制文件大小，单位 KB
+            ,size: 1024*10 //限制文件大小，单位 KB
             ,done: function(res){
-                console.log(res)
-                // name resource
+                var resource = "<input type='hidden' value='" + res.img_path +  "' name='resource' />";
+                $('.layui-upload-drag').html("<img src="+res.img_path+">" + resource);
             }
         });
         //监听提交
@@ -276,12 +270,9 @@
                 type: "post",
                 url: "{:U('Ad/edit')}",
                 data: data,
-                dataType: "text",
+                dataType: "json",
                 success: function (data) {
-                    alert.msg(data.msg);
-                    if (data.status > 0) {
-                        layer.msg(data.msg);
-                    }
+                    layer.msg(data.msg);
                 }
             });
         });
@@ -304,10 +295,10 @@
             var checked = '<div class="layui-form-item">' +
                 '<label class="layui-form-label">曝光时段：</label>' +
                 '<div class="layui-input-inline">' +
-                '<input class="layui-input checkedTime" id="test4" type="text"  name="checkedTimeStar[]"></input></div>' +
+                '<input class="layui-input checkedTime" id="test4" type="text"  name="checkedTimeStart[]"></input></div>' +
                 '<div class="layui-input-inline">' +
                 '<input class="layui-input checkedTime" id="test5" type="text"  name="checkedTimeEnd[]"></input></div>' +
-                '<div class="layui-btn layui-btn-danger" class="checkedDel">删除</div></div>';
+                '<div class="layui-btn layui-btn-danger checkedDel">删除</div></div>';
             $("#timeAdd").append(checked);
 
         });//曝光时间添加结束

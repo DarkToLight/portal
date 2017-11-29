@@ -28,6 +28,12 @@ class CrudController extends Controller
             $p = str_replace(" ","", $g);
         }
         $this->model = M(CONTROLLER_NAME);
+        if (!empty(session("login_user"))) {
+            $this->display();
+        } else {
+            layout(false);
+            $this->display('Index/login');
+        }
     }
     # 新增数据
     public function add()
@@ -128,7 +134,7 @@ class CrudController extends Controller
         }
         $tgtPage = abs(I('get.page', 1));
         $pageSize = abs(I('get.limit', 10));
-        $getAll = abs(I('get.getAll', false));
+        $getAll = I('get.getAll', false);
         # 获取所有
         if ($getAll == "true") {
             $crtData = $this->model->where('is_del = 0')->select();
@@ -137,7 +143,7 @@ class CrudController extends Controller
             $back->msg = "成功";
             $back->data = $crtData;
         } else {   # 分页获取
-            $rowCnt = $this->model->count('id');
+            $rowCnt = $this->model->where("is_del = 0")->count('id');
             $total = ceil($rowCnt / $pageSize);
             if ($tgtPage > $total) {
                 $tgtPage = $total;

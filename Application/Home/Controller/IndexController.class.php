@@ -5,31 +5,21 @@ class IndexController extends Controller {
 	
     public function index()
     {
-        $this->display("Index/index");
-        /*
+
         if (!empty(session("login_user"))) {
-            $this->display("Index/index");
+          $this->display();
         } else {
             layout(false);
             $this->display('Index/login');
         }
-        */
 	}
-	//主页面  信息统计
-    public function main(){
-        layout(false);
-        $this->display();
+    public function main()
+    {
+            layout(false);
+            $this->display();
+
     }
-    //404页面
-    public function web404(){
-        layout(false);
-        $this->display("Index/404");
-    }
-    //temp页面
-    public function temp(){
-        layout(false);
-        $this->display();
-    }
+
     public function login($status = '1')
     {
 		layout(false);
