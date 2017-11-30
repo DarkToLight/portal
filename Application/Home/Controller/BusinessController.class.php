@@ -20,6 +20,11 @@ class BusinessController extends CrudController
         layout(false);
         $this->assign('layUI',   UI::get());
     }
+    public function index()
+    {
+        layout(true);
+        $this->display();
+    }
     public function _add()
     {
         if (IS_AJAX) {
@@ -32,7 +37,6 @@ class BusinessController extends CrudController
             if ($this->exists($where)) {
                 $this->ajaxReturn(['status' => -2, 'msg' =>'名称不能重复'], "JSON");
             }
-
         }
     }
 }

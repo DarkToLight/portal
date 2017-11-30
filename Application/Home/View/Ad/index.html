@@ -35,7 +35,7 @@
 </form>
 <table id="order" lay-filter="order-manage"></table>
 <script type="text/html" id="barDemo">
-    <a href="{:U('Ad/edit')}"class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
@@ -172,45 +172,7 @@
                     //向服务端发送删除指令
                 });
             } else if(layEvent === 'edit'){
-                var that = this;
-                layer.open({
-                    type: 2 //此处以iframe举例
-                    ,title: '修改区域名称'
-                    ,area: ['390px', '260px']
-                    ,shade: 0
-                    ,maxmin: true
-                    ,offset: [
-                    ]
-                    ,content: "{:U('Ad/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
-                    ,yes: function(){
-                        var input = $("#layui-layer-iframe1").contents().find("input");
-                        var name = $(input).val();
-                        $.ajax({
-                            type: "post",
-                            url: "{:U('Area/edit')}",
-                            data: {id:data.id, name: name},
-                            dataType: "json",
-                            success: function(data){
-                                if (data.status > 0) {
-
-                                }
-                                layer.msg(data.msg);
-                                window.setTimeout(function () {
-                                    layer.closeAll();
-                                    location.reload();
-                                }, 1000);
-                            }
-                        });
-                    }
-                    ,btn2: function(){
-                        layer.closeAll();
-                    }
-                    ,zIndex: layer.zIndex //重点1
-                    ,success: function(layero){
-
-                    }
-                });
+                window.location.href="{:U('Ad/edit')}"+"?id=" + data.id;
             }
         });
         $('#layerDemo .layui-btn').on('click', function(){

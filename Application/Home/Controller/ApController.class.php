@@ -15,7 +15,7 @@ class ApController extends CrudController
     }
     public function index()
     {
-        layout(false);
+        layout(true);
         $this->assign('layUI',   UI::get());
         $this->display();
     }

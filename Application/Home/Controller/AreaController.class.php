@@ -24,14 +24,12 @@ class AreaController extends CrudController
     }
     public function index()
     {
+        layout(true);
         $area = D("area");
         $areaTree = Tree::tree($area->where(['is_del' => 0])->select());
         $this->assign('area', $areaTree);
         $this->assign('layUI',   UI::get());
         $this->display();
-    }
-    public function main(){
-        $this->display("FyrzAD/main");
     }
     public function _add()
     {

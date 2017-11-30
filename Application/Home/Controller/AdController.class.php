@@ -15,11 +15,13 @@ class AdController extends CrudController
     }
     public function index()
     {
+        layout(true);
         $this->assign('layUI',   UI::get());
         $this->display();
     }
     public function _add()
     {
+        layout(true);
         $where['is_del'] = 0;
         $apPosition = D('ad_position');
         $business = D('business');
@@ -64,6 +66,7 @@ class AdController extends CrudController
 
     }
     public function _edit() {
+        layout(true);
         # 渲染界面时获取相关数据
 
         $where['is_del'] = 0;

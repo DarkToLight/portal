@@ -19,23 +19,9 @@ class UserController extends CrudController
         layout(false);
         $this->assign('layUI',   UI::get());
     }
-
-    /*用户设置*/
-    public function index(){
-        layout(false);
-        $this->display();
-    }
-    public function myloginfo(){
-        layout(false);
-        $this->display();
-    }
-    public function changepwd(){
-        layout(false);
-        //$this->display("changepwd");
-        $this->display();
-    }
-    public function personInfo(){
-        layout(false);
+    public function index()
+    {
+        layout(true);
         $this->display();
     }
     public function _add() {
@@ -54,30 +40,6 @@ class UserController extends CrudController
             } catch (\Exception $e) {
                 $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
             }
-        }
-    }
-    public function login()
-    {
-        if (IS_AJAX) {
-            $_POST['name'] = "admin";
-            $_POST['password'] = "admin";
-            try{
-                $must = ['name', 'password'];
-                list($name, $password) = Filter::notEmpty($must);
-
-                # 数据唯一性判断
-                $where = ['name' => $name, 'password' => md5($password)];
-                if ($userInfo = $this->exists($where)) {
-                   session("userInfo", $userInfo);
-                    $this->ajaxReturn(['status' => 1, 'msg' => "登录成功"]);
-                } else {
-                    throw new  \Exception("用户名或者密码错误");
-                }
-            }catch (\Exception $e) {
-                $this->ajaxReturn(['status' => -1, 'msg' => $e->getMessage()]);
-            }
-        } else {
-
         }
     }
 }

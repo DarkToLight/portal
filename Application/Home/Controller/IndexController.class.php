@@ -7,7 +7,7 @@ class IndexController extends Controller {
     {
 
         if (!empty(session("login_user"))) {
-          $this->display();
+            redirect(U("Business/index"));
         } else {
             layout(false);
             $this->display('Index/login');
@@ -89,7 +89,7 @@ class IndexController extends Controller {
     public function resetLogin()
     {	
 		layout(false);
-        if (! session('user_name', null)) {           
+        if (! session('login_user', null)) {
             $this->redirect('index/login');
         }
     }
