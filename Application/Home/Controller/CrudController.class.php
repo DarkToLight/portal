@@ -28,10 +28,7 @@ class CrudController extends Controller
             $p = str_replace(" ","", $g);
         }
         $this->model = M(CONTROLLER_NAME);
-        if (!empty(session("login_user"))) {
-            $this->display();
-        } else {
-            layout(false);
+        if (empty(session("login_user"))) {
             $this->display('Index/login');
         }
     }

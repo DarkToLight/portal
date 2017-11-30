@@ -42,7 +42,6 @@ class AdController extends CrudController
             }
         } else {
            # 渲染界面时获取相关数据
-
             $this->assign('area', Tree::tree($area->where($where)->select()));
             $this->assign('adPosition', $apPosition->where($where)->select());
             $this->assign('business', $business->where($where)->select());
