@@ -1,14 +1,26 @@
 <?php
 namespace Home\Controller;
 
+use Org\Util\UI;
+use Org\Util\Filter;
+
 class  AdTypeController extends CrudController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        layout(false);
+        $this->assign('layUI',   UI::get());
+    }
+    public function index()
+    {
+        layout(true);
+        $this->assign('layUI',   UI::get());
+        $this->display();
+    }
     public function _add()
     {
-        $_POST['name'] = "云岩区";
-        $_POST['identifier'] = "YYQ";
-
-        if (1) {
+        if (IS_AJAX) {
             # 新增数据唯一性判断
             $where = ['name' => $_POST['name']];
             if ($this->exists($where)) {

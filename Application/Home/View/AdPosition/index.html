@@ -1,0 +1,128 @@
+{$layUI}
+<blockquote class="layui-elem-quote">上刊广告位位置管理</blockquote>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">增加</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<table id="positon" lay-filter="area-manage"></table>
+
+<script>
+    //一般直接写在一个js文件中
+    layui.use(['form', 'table'], function(){
+        var layer = layui.layer
+        var table = layui.table, $ = layui.jquery;
+        //第一个实例
+        table.render({
+            elem: '#positon'
+            ,height: 'auto'
+            ,url: "{:U('AdPosition/lists')}" //数据接口
+            ,page: false //开启分页
+            ,cols: [[ //表头
+                {field: 'id', title: 'id'}
+                ,{field: 'name', title: '上刊广告位置'}
+                ,{field: 'identifier', title: '位置标识符'}
+                ,{fixed: 'right', title: '操作', align:'left', width:200,toolbar: '#barDemo'}
+            ]]
+        });
+        table.on('tool(area-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'add'){
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '增加上刊广告位位置'
+                    ,area: ['300px', '250px']
+                    ,shade: 0.5
+                    ,maxmin: true
+                    ,offset: [
+                    ]
+                    ,content: "{:U('AdPosition/add')}"
+                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,yes: function(layero){
+                        var index = "#layui-layer-iframe" + layero;
+                        var input = $(index).contents();
+                        var formData = $(input).find("form").serialize();
+
+                        $.ajax({
+                            type: "post",
+                            url: "{:U('AdPosition/add')}",
+                            data: formData,
+                            dataType: "json",
+                            success: function(data){
+                                if (data.status > 0) {
+                                    layer.closeAll();
+                                    location.reload();
+                                }
+                                layer.msg(data.msg);
+                            }
+                        });
+                    }
+                    ,btn2: function(){
+                        layer.closeAll();
+                    }
+                    ,zIndex: layer.zIndex //重点1
+                    ,success: function(layero){
+
+                    }
+                });
+            } else if(layEvent === 'del'){
+                layer.confirm('真的删除?', function(index){
+                    $.ajax({
+                        type: "post",
+                        url: "{:U('AdPosition/del')}",
+                        data: {id: data.id},
+                        dataType: "json",
+                        success: function(data){
+                            if (data.status > 0) {
+                                obj.del(); //删除对应行（tr）的DOM结构
+                            }
+                            layer.msg(data.msg);
+                        }
+                    });
+                    layer.close(index);
+                    //向服务端发送删除指令
+                });
+            } else if(layEvent === 'edit'){
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    ,title: '修改AdPosition信息'
+                    ,area: ['300px', '250px']
+                    ,shade: 0.5
+                    ,maxmin: true
+                    ,offset: [
+                    ]
+                    ,content: "{:U('AdPosition/edit')}"+"?id=" + data.id
+                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,yes: function(layero){
+                        var index = "#layui-layer-iframe" + layero;
+                        var input = $(index).contents();
+                        var formData = $(input).find("form").serialize();
+                        $.ajax({
+                            type: "post",
+                            url: "{:U('AdPosition/edit')}",
+                            data: formData,
+                            dataType: "json",
+                            success: function(data){
+                                if (data.status > 0) {
+                                    layer.close(layero);
+                                    location.reload();
+                                }
+                                layer.msg(data.msg);
+                            }
+                        });
+                    }
+                    ,btn2: function(layero){
+                        layer.close(layero);
+                    }
+                    ,zIndex: layer.zIndex //重点1
+                });
+            }
+        });
+        $('#layerDemo .layui-btn').on('click', function(){
+            var othis = $(this), method = othis.data('method');
+            active[method] ? active[method].call(this, othis) : '';
+        });
+
+    });
+</script>

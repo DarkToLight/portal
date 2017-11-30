@@ -1,0 +1,19 @@
+{$layUI}
+<script>
+    layui.use('form', function() {
+    });
+</script>
+<style>
+    div{
+        margin-top:20px;
+    }
+</style>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">类型</label>
+        <div class="layui-input-inline">
+            <input name="name" value="{$data.name}" lay-verify="required" placeholder="类型" class="layui-input" type="text">
+        </div>
+        <input type="hidden" name="id" value="{$data.id}">
+    </div>
+</form>
