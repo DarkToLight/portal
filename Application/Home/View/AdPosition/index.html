@@ -1,27 +1,29 @@
 {$layUI}
-<blockquote class="layui-elem-quote">上刊广告位位置管理</blockquote>
+<blockquote class="layui-elem-quote">上刊广告位置管理</blockquote>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">增加</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<table id="positon" lay-filter="area-manage"></table>
+<button class="layui-btn layui-btn-danger" id="getCheckData"data-type="getCheckData">删除所选</button>
+<button class="layui-btn" id="add" >新增位置</button>
+<table id="dataTable" lay-filter="area-manage"></table>
 
 <script>
     //一般直接写在一个js文件中
     layui.use(['form', 'table'], function(){
-        var layer = layui.layer
+        var layer = layui.layer;
         var table = layui.table, $ = layui.jquery;
         //第一个实例
         table.render({
-            elem: '#positon'
+            elem: '#dataTable'
             ,height: 'auto'
             ,url: "{:U('AdPosition/lists')}" //数据接口
             ,page: false //开启分页
             ,cols: [[ //表头
-                {field: 'id', title: 'id'}
-                ,{field: 'name', title: '上刊广告位置'}
-                ,{field: 'identifier', title: '位置标识符'}
+                {field: 'left', type:'checkbox'}
+                ,{field: 'id', title: 'id',width:80,sort:'true'}
+                ,{field: 'name', title: '上刊广告位置',sort:'true'}
+                ,{field: 'identifier', title: '位置标识符',sort:'true'}
                 ,{fixed: 'right', title: '操作', align:'left', width:200,toolbar: '#barDemo'}
             ]]
         });
@@ -119,6 +121,52 @@
                 });
             }
         });
+        /*新增*/
+        $(document).on("click", "#add", function() {
+            layer.open({
+                type: 2 //此处以iframe举例
+                , title: '增加上刊广告位位置'
+                , area: ['300px', '250px']
+                , shade: 0.5
+                , maxmin: true
+                , offset: []
+                , content: "{:U('AdPosition/add')}"
+                , btn: ['确定', '放弃'] //只是为了演示
+                , yes: function (layero) {
+                    var index = "#layui-layer-iframe" + layero;
+                    var input = $(index).contents();
+                    var formData = $(input).find("form").serialize();
+
+                    $.ajax({
+                        type: "post",
+                        url: "{:U('AdPosition/add')}",
+                        data: formData,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status > 0) {
+                                layer.closeAll();
+                                location.reload();
+                            }
+                            layer.msg(data.msg);
+                        }
+                    });
+                }
+                , btn2: function () {
+                    layer.closeAll();
+                }
+                , zIndex: layer.zIndex //重点1
+                , success: function (layero) {
+                }
+            })
+        });
+//得到复选框数据
+        $('#getCheckData').on('click', function(){
+            var checkStatus = table.checkStatus('dataTable')
+                ,data = checkStatus.data;
+            ///layer.alert(JSON.stringify(data));
+            layer.alert((JSON.stringify(data)));
+        });
+
         $('#layerDemo .layui-btn').on('click', function(){
             var othis = $(this), method = othis.data('method');
             active[method] ? active[method].call(this, othis) : '';

@@ -17,6 +17,11 @@ class ApController extends CrudController
     {
         layout(true);
         $this->assign('layUI',   UI::get());
+        $area = M('area');
+        $where['is_del'] = 0;
+        # 渲染界面时获取相关数据
+        $areaTree = Tree::tree($area->where($where)->select());
+        $this->assign('area', $areaTree);
         $this->display();
     }
 
@@ -60,6 +65,15 @@ class ApController extends CrudController
     {
         # 删除之前检查AP下是否有广告
 
+    }
+    public function _lists(&$where)
+    {
+        $area = $_REQUEST['area_id'];
+        if (!empty($area)) {
+            $where['area_id'] = $area;
+        }
+        $area = M('area');
+        $this->assign('area', $area->where('is_del=0')->select());
     }
     public function lists_(&$back)
     {

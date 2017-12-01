@@ -16,7 +16,17 @@ class AdController extends CrudController
     public function index()
     {
         layout(true);
-        $this->assign('layUI',   UI::get());
+        $where['is_del'] = 0;
+
+        $business = D('business');
+
+        $area = M('area');
+        # 渲染界面时获取相关数据
+        $areaTree = Tree::tree($area->where($where)->select());
+        $this->assign('area', $areaTree);
+
+        $this->assign('business', $business->where($where)->select());
+
         $this->display();
     }
     public function _add()
@@ -125,6 +135,17 @@ class AdController extends CrudController
         $id = (int)$_REQUEST['id'];
         $areaAd->where("ad_id={$id}")->delete();
     }
+
+    public function _lists(&$where)
+    {
+        $area = $_REQUEST['area_id'];
+        if (!empty($area)) {
+            $where['area_id'] = $area;
+        }
+        $area = M('area');
+        $this->assign('area', $area->where('is_del=0')->select());
+    }
+
     public function lists_(&$backData)
     {
         # 获取投放区域的名称
@@ -132,7 +153,6 @@ class AdController extends CrudController
         $where['is_del'] = 0;
         $areaTree = Tree::tree($area->where($where)->select(), 0);
         $areaTree = array_column($areaTree, 'name', 'id');
-
         # 获取广告商名称
        $business = M("business");
        $areaAd = M("area_ad");

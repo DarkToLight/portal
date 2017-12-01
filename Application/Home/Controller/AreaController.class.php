@@ -64,6 +64,9 @@ class AreaController extends CrudController
     {
         # 删除之前检查关联
         try {
+            if((int)$id === 1) {
+                throw new \Exception("不能删除根节点");
+            }
             $mAp = M("ap");
             $exists = $mAp->where(['ap_area_id' => $id, 'is_del' => 0])->find();
             if (!empty($exists)) {

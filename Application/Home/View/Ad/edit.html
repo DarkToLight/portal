@@ -12,9 +12,10 @@
     <div style="margin:20px 0;">
 
         <button class="layui-btn" onclick="getChecked()">选择确定</button>
+        <!--
         <button class="layui-btn layui-btn-normal"onclick="expandAll()">打开树</button>
         <button class="layui-btn layui-btn-warm"  onclick="collapseAll()">关闭树</button>
-
+        -->
     </div>
 </div>
 <style>
@@ -283,7 +284,7 @@
                 type: 1,
                 shade: false
                 ,title:  "场景选择"
-                //,area: ['420px', 'auto']
+                ,area: ['240px', 'auto']
                 ,content: $('#selectAreaTree') //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
                 ,cancel: function(){
                     layer.msg('选择成功', {time: 1000, icon:6});

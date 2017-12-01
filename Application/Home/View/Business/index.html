@@ -1,39 +1,46 @@
 {$layUI}
-<blockquote class="layui-elem-quote">Business设备管理</blockquote>
+<blockquote class="layui-elem-quote">广告商管理</blockquote>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">增加</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add_ad">新增广告</a>
+    <a href="{:U('Ad/add')}" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add_ad">新增广告</a>
 </script>
-<table id="area" lay-filter="area-manage"></table>
+
+<button class="layui-btn layui-btn-danger" id="getCheckData" data-type="getCheckData">删除所选</button>
+<button class="layui-btn" id="addBusiness" >新增广告商</button>
+
+<table id="dataTable" lay-filter="data-manage"></table>
 
 <script>
     //一般直接写在一个js文件中
-    layui.use(['form', 'table'], function(){
-        var layer = layui.layer
-        var table = layui.table, $ = layui.jquery;
-        //第一个实例
+    layui.use(['table','form' ], function(){
+        var layer = layui.layer;
+        var table = layui.table;
+        $ = layui.jquery;
+
+
+        //表单操作
         table.render({
-            elem: '#area'
+            elem: '#dataTable'
             ,height: 'auto'
             ,url: "{:U('Business/lists')}" //数据接口
             ,page: false //开启分页
             ,cols: [[ //表头
-                {field: 'id', title: 'id'}
-                ,{field: 'name', title: '广告商名称'}
+                {field: 'left', type:'checkbox'}
+                ,{field: 'id', title: 'id','width':80,sort:'true'}
+                ,{field: 'name', title: '广告商名称',sort:'true'}
                 ,{field: 'description', title: '广告商说明'}
-                ,{field: 'create_time', title: '创建时间'}
-                ,{fixed: 'right', title: '操作', align:'center', width:250,toolbar: '#barDemo'}
+                ,{field: 'create_time', title: '创建时间','width':250,sort:'true'}
+                ,{fixed: 'right', title: '操作', align:'center', width:220,toolbar: '#barDemo'}
             ]]
         });
-        table.on('tool(area-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(data-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'add'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '增加Business'
+                    ,title: '增加广告商'
                     ,area: ['420px', '500px']
                     ,shade: 0.5
                     ,maxmin: true
@@ -88,7 +95,7 @@
             } else if(layEvent === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '修改Business信息'
+                    ,title: '修改广告商信息'
                     ,area: ['420px', '500px']
                     ,shade: 0.5
                     ,maxmin: true
@@ -121,10 +128,64 @@
                 });
             }
         });
-        $('#layerDemo .layui-btn').on('click', function(){
-            var othis = $(this), method = othis.data('method');
-            active[method] ? active[method].call(this, othis) : '';
-        });
 
+
+        //新增
+        $("#addBusiness").on('click', function () {
+            layer.open({
+                type: 2 //此处以iframe举例
+                , title: '增加广告商'
+                , area: ['420px', '500px']
+                , shade: 0.5
+                , maxmin: true
+                , offset: []
+                , content: "{:U('Business/add')}"
+                , btn: ['确定', '放弃'] //只是为了演示
+                , yes: function (layero) {
+                    var index = "#layui-layer-iframe" + layero;
+                    var input = $(index).contents();
+                    var formData = $(input).find("form").serialize();
+
+                    $.ajax({
+                        type: "post",
+                        url: "{:U('Business/add')}",
+                        data: formData,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status > 0) {
+                                layer.closeAll();
+                                location.reload();
+                            }
+                            layer.msg(data.msg);
+                        }
+                    });
+                }
+                , btn2: function () {
+                    layer.closeAll();
+                }
+                , zIndex: layer.zIndex //重点1
+                , success: function (layero) {
+
+                }
+            });
+        });
+        //监听表格复选框选择
+        table.on('checkbox(data-manage)', function(obj){
+            //layer.alert(JSON.stringify(obj));
+            //console.log(obj);
+        });
+        //得到复选框数据
+        $('#getCheckData').on('click', function(){
+             var checkStatus = table.checkStatus('dataTable')
+                 ,data = checkStatus.data;
+                 data=JSON.stringify(data);
+                    //layer.msg(data+data[0].id);
+                layer.alert(data);
+            });
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
     });
 </script>

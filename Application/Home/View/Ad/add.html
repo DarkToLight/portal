@@ -194,7 +194,7 @@
     </div>
     <!--  <button class="layui-btn" lay-submit="" id="submit" lay-filter="submit">提交</button>-->
     <a  class="layui-btn" lay-filter="submit" id="submit">提交</a>
-    <a href="{:U('Ad/index')}" class="layui-btn" lay-filter="add">返回</a>
+    <a href="javascript:history.go(-1);" class="layui-btn" id="return" lay-filter="return">返回</a>
 </form>
 <script>
     $("#selectAreaTree").hide();
@@ -275,7 +275,7 @@
                 type: 1,
                 shade: false
                 ,title:  "场景选择"
-                //,area: ['420px', 'auto']
+                ,area: ['240px', 'auto']
                 ,content: $('#selectAreaTree') //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
                 ,cancel: function(){
                     layer.msg('选择成功', {time: 1000, icon:6});

@@ -123,33 +123,65 @@ class CrudController extends Controller
             die( "请使用Ajax请求");
         }
     }
+    # 批量删除
+    public function batchDel()
+    {
+        if (IS_AJAX) {
+            $id = (int)$_REQUEST['id'];
+            $truth = $_REQUEST['truth'];
+            if(method_exists($this,"_del")) {
+                $this->_del($id);
+            }
+            if ($truth == 'true') { # 真正的从数据库删除
+                $deleteResult = $this->model->where("id={$id}")->delete();
+            } else { # 软删除
+                $this->model->is_del = 1;
+                $deleteResult =$this->model->where("id={$id}")->save();
+
+            }
+
+            if  ($deleteResult) {
+                $backData = ['status' => 1, 'msg' => '删除成功'];
+            } else {
+                $backData = ['status' => -1, 'msg' => '删除失败'];
+            }
+
+            if(method_exists($this,'del_')){
+                $this->del_($id);
+            }
+            $this->ajaxReturn($backData,"JSON");
+        } else {
+            die( "请使用Ajax请求");
+        }
+    }
     # 分页列出数据
     public function lists()
     {
+        $where['is_del'] = 0;
         if(method_exists($this,'_lists')){
-            $this->_lists();
+            $this->_lists($where);
         }
         $tgtPage = abs(I('get.page', 1));
         $pageSize = abs(I('get.limit', 10));
         $getAll = I('get.getAll', false);
         # 获取所有
         if ($getAll == "true") {
-            $crtData = $this->model->where('is_del = 0')->select();
+            $crtData = $this->model->where($where)->select();
             $back = new \stdClass();
             $back->code = 0;
             $back->msg = "成功";
             $back->data = $crtData;
         } else {   # 分页获取
-            $rowCnt = $this->model->where("is_del = 0")->count('id');
+            $rowCnt = $this->model->where($where)->count('id');
             $total = ceil($rowCnt / $pageSize);
             if ($tgtPage > $total) {
                 $tgtPage = $total;
             }
             $offset = ($tgtPage - 1) * $pageSize;
-            $crtData = $this->model->where('is_del = 0')->limit($offset, $pageSize)->select();
+            $crtData = $this->model->where($where)->limit($offset, $pageSize)->select();
             $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
             $back = new \stdClass();
-            $back->code = $tgtPage -1;
+            $back->code = 0;
             $back->count = $pageBar->rowCnt;
             $back->msg = "成功";
             $back->data = $pageBar->data;

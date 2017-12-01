@@ -1,12 +1,31 @@
 {$layUI}
 <blockquote class="layui-elem-quote">AP设备管理</blockquote>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">名称查询</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" lay-verify="required" placeholder="请输入AP名称或者ID" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">区域查询</label>
+        <div class="layui-input-inline">
+            <select name="ap_area_id" lay-filter="aihao">
+                <volist name="area" id="vo">
+                    <option value="{$vo.id}">{$vo.name}</option>
+                </volist>
+            </select>
+        </div>
+        <a class="layui-btn" lay-submit="" id="find" lay-filter="submit">查询</a>
+    </div>
+</form>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="add">增加</a>
-    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
-<button class="layui-btn" data-type="getCheckData">获取选数据</button>
-<table id="ap" lay-filter="ap_manage" lay-even lay-skin="line" lay-size="lg"></table>
+<button class="layui-btn layui-btn-danger" id="getCheckData"data-type="getCheckData">删除所选AP</button>
+<button class="layui-btn" id="addAp" >新增AP</button>
+
+<table id="dataTable" lay-filter="dataManage" lay-even lay-skin="line" lay-size="lg"></table>
 
 <script>
     //一般直接写在一个js文件中
@@ -15,7 +34,7 @@
         var table = layui.table, $ = layui.jquery;
         //第一个实例
         table.render({
-            elem: '#ap'
+            elem: '#dataTable'
             ,height: 'auto'
             ,url: "{:U('Ap/lists')}" //数据接口
             ,page: true //开启分页
@@ -27,12 +46,12 @@
                 ,{field: 'ap_area_id', title: '所属区域',sort:'true'}
                 ,{field: 'longitude', title: '经度'}
                 ,{field: 'latitude', title: '纬度'}
-                ,{fixed: 'right', title: '操作', align:'center', width:200,toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '操作', align:'center', width:160,toolbar: '#barDemo'}
             ]]
         });
 
         //表单操作
-        table.on('tool(ap_manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        table.on('tool(dataManage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'add'){
@@ -127,23 +146,63 @@
             }
         });
         //监听表格复选框选择
-        table.on('checkbox(ap_manage)', function(obj){
-           // console.log(obj);
-            data=JSON.stringify(obj);
-            layer.msg("数据："+data);
+        table.on('checkbox(dataManage)', function(obj){
+            //layer.alert(JSON.stringify(obj));
+            console.log(obj);
         });
-        //获取选中数据
-        var $ = layui.$, active = {
-            getCheckData: function () { //获取选中数据
-                var checkStatus = table.checkStatus('ap_manage')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-            }
-        };
-        $('#layerDemo .layui-btn').on('click', function(){
-            var othis = $(this), method = othis.data('method');
-            active[method] ? active[method].call(this, othis) : '';
+        //得到复选框数据
+        $('#getCheckData').on('click', function(){
+            var checkStatus = table.checkStatus('dataTable')
+                ,data = checkStatus.data;
+            ///layer.alert(JSON.stringify(data));
+            layer.alert((JSON.stringify(data)));
         });
+
+        $('.demoTable .layui-btn').on('click', function(){
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    /*新增*/
+        $(document).on("click", "#addAp", function() {
+            layer.open({
+                type: 2 //此处以iframe举例
+                , title: '增加AP'
+                , area: ['420px', '500px']
+                , shade: 0
+                , maxmin: true
+                , offset: []
+                , content: "{:U('Ap/add')}"
+                , btn: ['确定', '放弃'] //只是为了演示
+                , yes: function (layero) {
+                    var index = "#layui-layer-iframe" + layero;
+                    var input = $(index).contents();
+                    var formData = $(input).find("form").serialize();
+
+                    $.ajax({
+                        type: "post",
+                        url: "{:U('Ap/add')}",
+                        data: formData,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status > 0) {
+                                layer.closeAll();
+                            }
+                            layer.msg(data.msg);
+                            location.reload();
+                        }
+                    });
+                }
+                , btn2: function () {
+                    layer.closeAll();
+                }
+                , zIndex: layer.zIndex //重点1
+                , success: function (layero) {
+
+                }
+            });
+
+        });
+
 
     });
 </script>
