@@ -29,7 +29,7 @@ class CrudController extends Controller
         }
         $this->model = M(CONTROLLER_NAME);
         if (empty(session("login_user"))) {
-            redirect('Index/login');
+            redirect(U('Index/index'));
         }
     }
     # 新增数据
@@ -161,9 +161,9 @@ class CrudController extends Controller
         if(method_exists($this,'_lists')){
             $this->_lists($where);
         }
-        $tgtPage = abs(I('request.page', 1));
-        $pageSize = abs(I('request.limit', 10));
-        $getAll = I('request.getAll', false);
+        $tgtPage = abs(I('get.page', 1));
+        $pageSize = abs(I('get.limit', 10));
+        $getAll = I('get.getAll', false);
         # 获取所有
         if ($getAll == "true") {
             $crtData = $this->model->where($where)->select();
@@ -173,23 +173,18 @@ class CrudController extends Controller
             $back->data = $crtData;
         } else {   # 分页获取
             $rowCnt = $this->model->where($where)->count('id');
+            $total = ceil($rowCnt / $pageSize);
+            if ($tgtPage > $total) {
+                $tgtPage = $total;
+            }
+            $offset = ($tgtPage - 1) * $pageSize;
+            $crtData = $this->model->where($where)->limit($offset, $pageSize)->select();
+            $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
             $back = new \stdClass();
             $back->code = 0;
+            $back->count = $pageBar->rowCnt;
             $back->msg = "成功";
-            if ($rowCnt == 0) { # 没有数据
-                $back->count =0;
-                $back->data = [];
-            } else {
-                $total = ceil($rowCnt / $pageSize);
-                if ($tgtPage > $total) {
-                    $tgtPage = $total;
-                }
-                $offset = ($tgtPage - 1) * $pageSize;
-                $crtData = $this->model->where($where)->limit($offset, $pageSize)->select();
-                $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
-                $back->count = $pageBar->rowCnt;
-                $back->data = $pageBar->data;
-            }
+            $back->data = $pageBar->data;
         }
 
         if(method_exists($this,'lists_')){

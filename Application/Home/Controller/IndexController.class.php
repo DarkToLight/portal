@@ -5,21 +5,14 @@ class IndexController extends Controller {
 	
     public function index()
     {
-
         if (!empty(session("login_user"))) {
             redirect(U("Business/index"));
         } else {
             layout(false);
             $this->display('Index/login');
         }
+
 	}
-    public function main()
-    {
-            layout(false);
-            $this->display();
-
-    }
-
     public function login($status = '1')
     {
 		layout(false);
