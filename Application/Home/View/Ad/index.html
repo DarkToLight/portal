@@ -1,46 +1,58 @@
 {$layUI}
+<style>
+    #checkedLg{
+        width: 340px;
+    }
+</style>
 <blockquote class="layui-elem-quote">广告列表</blockquote>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
 
         <label class="layui-form-label">名称查询</label>
         <div class="layui-input-inline">
-            <input type="text" name="name" lay-verify="required" placeholder="请输入广告名称或者ID" autocomplete="off" class="layui-input">
+            <input type="text" name="name" id="name" placeholder="请输入广告名称或者ID"  class="layui-input">
         </div>
         <label class="layui-form-label">广告商查询</label>
-        <div class="layui-input-inline">
-            <select name="business_id"  lay-filter="aihao">
-                <option value="">请选择</option>
+        <div class="layui-input-inline" >
+            <select name="business_id" lay-filter=""  lay-search="">
+                <option value="">直接选择或搜索选择</option>
                 <volist name="business" id="vo">
-                    <option value="{$vo.id}" <if condition="$vo.id eq $data.business_id ">selected</if>>{$vo.name}
+                    <option value="{$vo.id}" <if condition="$vo.id eq $checkedBusiness ">selected</if>>{$vo.name}
                     </option>
                 </volist>
             </select>
         </div>
         <label class="layui-form-label">区域查询</label>
-        <div class="layui-input-inline">
-            <select name="ap_area_id" lay-filter="aihao">
+        <div class="layui-input-inline"  id="checkedLg">
+            <select name="area_id" lay-filter=""  lay-search="">
+                <option value="">直接选择或搜索选择</option>
                 <volist name="area" id="vo">
                     <option value="{$vo.id}">{$vo.name}</option>
                 </volist>
             </select>
         </div>
-        <a class="layui-btn" lay-submit="" id="find" lay-filter="submit">查询</a>
+        <a class="layui-btn" lay-submit="" id="dataFind" lay-filter="submit">查询</a>
     </div>
+
 </form>
+
 <button class="layui-btn layui-btn-danger" id="getCheckData"data-type="getCheckData">删除所选</button>
 <a href="{:U('Ad/add')}" class="layui-btn" lay-filter="add">新增广告</a>
-<table id="order" lay-filter="order-manage"></table>
+
+<table id="dataTable" lay-filter="dataTable-manage"></table>
+
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 </script>
 <script>
-    layui.use(['form', 'table','layedit', 'laydate'], function(){
+    layui.use(['form', 'table','layedit', 'laydate','jquery'], function(){
         var form = layui.form
             ,layer = layui.layer
             ,layedit = layui.layedit
+            ,table = layui.table
             ,laydate = layui.laydate;
+        var  $ = layui.jquery;
 
         //时间范围
         laydate.render({
@@ -55,52 +67,22 @@
             ,range: true
         });
 
-        //自定义验证规则
-        form.verify({
-            title: function(value){
-                if(value.length < 5){
-                    return '标题至少得5个字符啊';
-                }
-            }
-
-            ,content: function(value){
-                layedit.sync(editIndex);
-            }
-        });
-
-        //监听指定开关
-        form.on('switch(switchTest)', function(data){
-            layer.msg('开关checked：'+ (this.checked ? 'true' : 'false'), {
-                offset: '6px'
-            });
-            layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
-        });
-
-        //监听提交
-
-        form.on('submit(submit)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
-            return false;
-        });
-
         //表单处理
-        var table = layui.table, $ = layui.jquery;
-        //第一个实例
+
         table.render({
-            elem: '#order'
+            elem: '#dataTable'
             ,height: 'auto'
-            ,url: "{:U('Ad/lists')}" //数据接口
+            ,url: "{:U('Ad/lists', array('business_id' => $checkedBusiness))}" //数据接口
             ,page: true //开启分页
+            ,id: 'testReload'
             ,cols: [[ //表头
                 {field: 'left', type:'checkbox'}
                 ,{field: 'id', title: 'ID',width:'60',sort:'true'}
                 ,{field: 'name', title: '广告名称',width:'140', align:'center',sort:'true'}
-                ,{field: 'ad_type_id', title: '类型',width:'80',  align:'center',sort:'true'}
+                //,{field: 'ad_type_id', title: '类型',width:'80',  align:'center',sort:'true'}
                 ,{field: 'ad_position_id', title: '广告位', width:'100', align:'center',sort:'true'}
-                ,{field: 'weight', title: '比例', width:'60', align:'center',sort:'true'}
-                ,{field: 'create_time', title: '创建时间',width:'180', align:'center',sort:'true'}
+                ,{field: 'weight', title: '比例', width:'80', align:'center',sort:'true'}
+               // ,{field: 'create_time', title: '创建时间',width:'180', align:'center',sort:'true'}
                 ,{field: 'start_time_over_time', title: '投放时段',width:'200',  align:'center'}
                 ,{field: 'exposure_time', title: '曝光时段',width:'140',  align:'center'}
                 ,{field: 'ad_area', title: '投放区域',width:'300', align:'center',sort:'true'}
@@ -109,7 +91,8 @@
 
             ]]
         });
-        table.on('tool(order-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+
+        table.on('tool(dataTable-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
             var data = obj.data //获得当前行数据
                 ,layEvent = obj.event; //获得 lay-event 对应的值
             if(layEvent === 'add'){
@@ -120,7 +103,7 @@
                     ,shade: 0
                     ,maxmin: true
                     ,offset: []
-                    ,content: "{:U('Order/add')}"
+                    ,content: "{:U('dataTable/add')}"
                     ,btn: ['确定', '放弃'] //只是为了演示
                     ,yes: function(){
                         var input = $("#layui-layer-iframe1").contents().find("input");
@@ -172,6 +155,26 @@
             } else if(layEvent === 'edit'){
                 window.location.href="{:U('Ad/edit')}"+"?id=" + data.id;
             }
+        });
+        //监听提交   查找数据
+        form.on('submit(submit)', function(data){
+            data= data.field;
+            table.reload('testReload', {
+                url: "{:U('Ad/lists')}",
+                where: {
+                    name: data.name,
+                    business_id: data.business_id,
+                    area_id:data.area_id
+                }
+            });
+            //layer.msg("请求成功");
+        });
+        //得到复选框数据
+        $('#getCheckData').on('click', function(){
+            var checkStatus = table.checkStatus('dataTable')
+                ,data = checkStatus.data;
+            ///layer.alert(JSON.stringify(data));
+            layer.alert((JSON.stringify(data)));
         });
         $('#layerDemo .layui-btn').on('click', function(){
             var othis = $(this), method = othis.data('method');

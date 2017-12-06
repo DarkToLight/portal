@@ -24,6 +24,21 @@ class UserController extends CrudController
         layout(true);
         $this->display();
     }
+    public function myloginfo()
+    {
+        layout(true);
+        $this->display();
+    }
+    public function personInfo()
+    {
+        layout(true);
+        $this->display();
+    }
+    public function changepwd()
+    {
+        layout(true);
+        $this->display();
+    }
     public function _add() {
         if (IS_AJAX) {
             $_POST['addtime'] = date("Y-m-d H:i:s");

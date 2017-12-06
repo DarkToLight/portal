@@ -21,8 +21,11 @@ class  AdPositionController extends CrudController
     public function _add()
     {
         if (IS_AJAX) {
-
             # 新增数据唯一性判断
+            $where = ['name' => $_POST['name']];
+            if ($this->exists($where)) {
+                $this->ajaxReturn(['status' => -2, 'msg' =>'名称已经存在'], "JSON");
+            }
 
         } else {
             # 渲染界面时获取相关数据

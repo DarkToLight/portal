@@ -70,10 +70,28 @@ class ApController extends CrudController
     {
         $area = $_REQUEST['area_id'];
         if (!empty($area)) {
-            $where['area_id'] = $area;
+            $adWhere['is_del'] = 0;
+            $adWhere['area_id'] = $area;
+            $areaAd = array_column(M("area_ad")->where($adWhere)->field("ad_id")->select(), 'ad_id');
+            if (!empty($areaAd)) {
+                $where['id'] = array('in', $areaAd);
+            } else {
+                $where['id'] = '';
+            }
+        }
+
+        $name = $_REQUEST['name'];
+        if (!empty($name)) {
+            $where['name'] = array('like', '%' . $name . '%');
+        }
+
+        $status = $_REQUEST['status'];
+        if (!empty($status)) {
+            $where['status'] = $status;
         }
         $area = M('area');
         $this->assign('area', $area->where('is_del=0')->select());
+
     }
     public function lists_(&$back)
     {

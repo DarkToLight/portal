@@ -12,8 +12,10 @@
     <div style="margin:20px 0;">
 
         <button class="layui-btn" onclick="getChecked()">选择确定</button>
+        <!--
         <button class="layui-btn layui-btn-normal"onclick="expandAll()">打开树</button>
         <button class="layui-btn layui-btn-warm"  onclick="collapseAll()">关闭树</button>
+         -->
 
     </div>
 </div>
@@ -57,7 +59,7 @@
             <select name="business_id"  lay-filter="aihao">
                 <option value="">请选择</option>
                 <volist name="business" id="vo">
-                    <option value="{$vo.id}" <if condition="$vo.id eq $data.business_id ">selected</if>>{$vo.name}
+                    <option value="{$vo.id}" <if condition="$vo.id eq $checkedBusiness ">selected</if>>{$vo.name}
                     </option>
                 </volist>
             </select>

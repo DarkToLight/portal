@@ -13,7 +13,7 @@ class Tree {
      * @param Int $count       //第几级分类
      * @return Array $treeList
      */
-    static public function tree(&$data, $pid = 0, $count = 1, $parent_name) {
+    static public function tree($data, $pid = 0, $count = 1, $parent_name) {
         foreach ($data as $key => $value){
             if($value['parent_id']==$pid){
                 $value['count'] = $count;

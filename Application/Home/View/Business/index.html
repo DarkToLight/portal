@@ -3,7 +3,11 @@
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-    <a href="{:U('Ad/add')}" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="add_ad">新增广告</a>
+
+</script>
+<script type="text/html" id="barDemo1">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="businessLookAd" id="businessLookAd">查看广告</a>
+    <a class="layui-btn layui-btn-xs" lay-event="businessAddAd" id="businessAddAd">新增广告</a>
 </script>
 
 <button class="layui-btn layui-btn-danger" id="getCheckData" data-type="getCheckData">删除所选</button>
@@ -31,7 +35,8 @@
                 ,{field: 'name', title: '广告商名称',sort:'true'}
                 ,{field: 'description', title: '广告商说明'}
                 ,{field: 'create_time', title: '创建时间','width':250,sort:'true'}
-                ,{fixed: 'right', title: '操作', align:'center', width:220,toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '广告商管理', align:'center', width:150,toolbar: '#barDemo'}
+                ,{fixed: 'right', title: '广告管理', align:'center', width:200,toolbar: '#barDemo1'}
             ]]
         });
         table.on('tool(data-manage)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
@@ -92,18 +97,17 @@
                     layer.close(index);
                     //向服务端发送删除指令
                 });
-            } else if(layEvent === 'edit'){
+            } else if(layEvent === 'edit') {
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '修改广告商信息'
-                    ,area: ['420px', '500px']
-                    ,shade: 0.5
-                    ,maxmin: true
-                    ,offset: [
-                    ]
-                    ,content: "{:U('Business/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
-                    ,yes: function(layero){
+                    , title: '修改广告商信息'
+                    , area: ['420px', '500px']
+                    , shade: 0.5
+                    , maxmin: true
+                    , offset: []
+                    , content: "{:U('Business/edit')}" + "?id=" + data.id
+                    , btn: ['确定', '放弃'] //只是为了演示
+                    , yes: function (layero) {
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
                         var formData = $(input).find("form").serialize();
@@ -112,7 +116,7 @@
                             url: "{:U('Business/edit')}",
                             data: formData,
                             dataType: "json",
-                            success: function(data){
+                            success: function (data) {
                                 if (data.status > 0) {
                                     layer.close(layero);
                                     location.reload();
@@ -121,12 +125,16 @@
                             }
                         });
                     }
-                    ,btn2: function(layero){
+                    , btn2: function (layero) {
                         layer.close(layero);
                     }
-                    ,zIndex: layer.zIndex //重点1
+                    , zIndex: layer.zIndex //重点1
                 });
-            }
+            }else if(layEvent === 'businessLookAd') {  // 查看广告列表
+                  window.location.href="{:U('Ad/index')}"+"?business_id=" + data.id;
+            }else if(layEvent === 'businessAddAd') { //广告新增
+                 window.location.href="{:U('Ad/add')}"+"?business_id=" + data.id;
+             }
         });
 
 
@@ -174,6 +182,7 @@
             //layer.alert(JSON.stringify(obj));
             //console.log(obj);
         });
+
         //得到复选框数据
         $('#getCheckData').on('click', function(){
              var checkStatus = table.checkStatus('dataTable')

@@ -26,7 +26,7 @@ class AdController extends CrudController
         $this->assign('area', $areaTree);
 
         $this->assign('business', $business->where($where)->select());
-
+        $this->assign('checkedBusiness', $_REQUEST['business_id']);
         $this->display();
     }
     public function _add()
@@ -57,6 +57,7 @@ class AdController extends CrudController
             $this->assign('area', Tree::tree($area->where($where)->select()));
             $this->assign('adPosition', $apPosition->where($where)->select());
             $this->assign('business', $business->where($where)->select());
+            $this->assign('checkedBusiness', $_REQUEST['business_id']);
             $this->assign('adType', $adType->where($where)->select());
         }
     }
@@ -140,7 +141,23 @@ class AdController extends CrudController
     {
         $area = $_REQUEST['area_id'];
         if (!empty($area)) {
-            $where['area_id'] = $area;
+            $adWhere['is_del'] = 0;
+            $adWhere['area_id'] = $area;
+            $areaAd = array_column(M("area_ad")->where($adWhere)->field("ad_id")->select(), 'ad_id');
+            if (!empty($areaAd)) {
+                $where['id'] = array('in', $areaAd);
+            }else {
+                $where['id'] = '';
+            }
+        }
+
+        $business = $_REQUEST['business_id'];
+        if (!empty($business)) {
+            $where['business_id'] = $business;
+        }
+        $name = $_REQUEST['name'];
+        if (!empty($name)) {
+            $where['name'] = array('like', '%' . $name . '%');
         }
         $area = M('area');
         $this->assign('area', $area->where('is_del=0')->select());

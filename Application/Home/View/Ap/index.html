@@ -1,22 +1,39 @@
 {$layUI}
+<style>
+    #checkedLg{
+        width: 340px;
+    }
+</style>
 <blockquote class="layui-elem-quote">AP设备管理</blockquote>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
 
         <label class="layui-form-label">名称查询</label>
         <div class="layui-input-inline">
-            <input type="text" name="name" lay-verify="required" placeholder="请输入AP名称或者ID" autocomplete="off" class="layui-input">
+            <input type="text" name="name"  placeholder="请输入AP名称或者ID" autocomplete="off" class="layui-input">
+        </div>
+        <label class="layui-form-label">状态查询</label>
+
+        <div class="layui-input-inline" >
+            <select name="area_id" lay-filter=""  lay-search="">
+                <option value="">直接选择或搜索选择</option>
+                <option value="1"  name="status" selected="">正常</option>
+                <option value="-1" name="status">维修</option>
+                <option value="-2" name="status">异常</option>
+            </select>
         </div>
         <label class="layui-form-label">区域查询</label>
-        <div class="layui-input-inline">
-            <select name="ap_area_id" lay-filter="aihao">
+        <div class="layui-input-inline"  id="checkedLg" >
+            <select name="status" lay-filter=""  lay-search="">
+                <option value="">直接选择或搜索选择</option>
                 <volist name="area" id="vo">
                     <option value="{$vo.id}">{$vo.name}</option>
                 </volist>
             </select>
         </div>
-        <a class="layui-btn" lay-submit="" id="find" lay-filter="submit">查询</a>
+        <a class="layui-btn" lay-submit="" id="dataFind" lay-filter="submit">查询</a>
     </div>
+
 </form>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
@@ -29,15 +46,18 @@
 
 <script>
     //一般直接写在一个js文件中
-    layui.use(['form', 'table','layer'], function(){
+    layui.use(['form', 'table','layer','jquery'], function(){
         var layer = layui.layer
-        var table = layui.table, $ = layui.jquery;
-        //第一个实例
+            ,table = layui.table
+            ,form = layui.form;
+        var  $ = layui.jquery;
+        //表单处理
         table.render({
             elem: '#dataTable'
             ,height: 'auto'
             ,url: "{:U('Ap/lists')}" //数据接口
             ,page: true //开启分页
+            ,id: 'testReload'
             ,cols: [[ //表头
                 {field: 'left', type:'checkbox'}
                 ,{field: 'name', title: '设备名称',sort:'true'}
@@ -145,10 +165,27 @@
                 });
             }
         });
+
+
         //监听表格复选框选择
         table.on('checkbox(dataManage)', function(obj){
             //layer.alert(JSON.stringify(obj));
             console.log(obj);
+        });
+        //监听提交   查找数据
+        form.on('submit(submit)', function(data){
+            data= data.field;
+
+            table.reload('testReload', {
+                url: "{:U('Ad/lists')}",
+                where: {
+                    name: data.name,
+                    status:data.status,
+                    area_id:data.area_id
+                }
+
+            });
+           //layer.msg("请求成功");
         });
         //得到复选框数据
         $('#getCheckData').on('click', function(){

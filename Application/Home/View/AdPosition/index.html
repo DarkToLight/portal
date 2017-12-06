@@ -1,5 +1,5 @@
 {$layUI}
-<blockquote class="layui-elem-quote">上刊广告位置管理</blockquote>
+<blockquote class="layui-elem-quote">上刊广告位管理</blockquote>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-xs" lay-event="edit">查看&编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -22,7 +22,7 @@
             ,cols: [[ //表头
                 {field: 'left', type:'checkbox'}
                 ,{field: 'id', title: 'id',width:80,sort:'true'}
-                ,{field: 'name', title: '上刊广告位置',sort:'true'}
+                ,{field: 'name', title: '上刊广告位',sort:'true'}
                 ,{field: 'identifier', title: '位置标识符',sort:'true'}
                 ,{fixed: 'right', title: '操作', align:'left', width:200,toolbar: '#barDemo'}
             ]]
@@ -33,7 +33,7 @@
             if(layEvent === 'add'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '增加上刊广告位位置'
+                    ,title: '增加上刊广告位'
                     ,area: ['300px', '250px']
                     ,shade: 0.5
                     ,maxmin: true
@@ -88,7 +88,7 @@
             } else if(layEvent === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '修改AdPosition信息'
+                    ,title: '修改上刊广告位信息'
                     ,area: ['300px', '250px']
                     ,shade: 0.5
                     ,maxmin: true
@@ -125,7 +125,7 @@
         $(document).on("click", "#add", function() {
             layer.open({
                 type: 2 //此处以iframe举例
-                , title: '增加上刊广告位位置'
+                , title: '增加上刊广告位'
                 , area: ['300px', '250px']
                 , shade: 0.5
                 , maxmin: true

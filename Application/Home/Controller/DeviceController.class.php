@@ -21,6 +21,19 @@ class DeviceController  extends Controller
         $apWhere['mac'] = array('like', $mac . '%');
         $apInfo = $mAp->where($apWhere)->find();
 
+        $adPosition = M('ad_position')->where("is_del = 0")->select();
+        $adPosition = array_column($adPosition, 'id', 'identifier');
+
+        $_auth = $this->getAd($date, $time, $apInfo, $adPosition['REN_ZHENG']);
+        $au_th = $this->getAd($date, $time, $apInfo, $adPosition['DENG_LU']);
+
+        $this->assign('client_ip',$clientIp);
+        $this->assign('adpath',$_auth['resource']);
+        $this->assign('au_th',$au_th['resource']);
+        $this->display();
+    }
+    public function getAd($date, $time, $apInfo, $adPosition)
+    {
         $mArea = M('area');
         $areaInfo = $mArea->where("id='{$apInfo['ap_area_id']}'")->find();
 
@@ -33,7 +46,7 @@ class DeviceController  extends Controller
             $adWhere['id'] = ['in', array_column($areaAdList, 'ad_id')];
             $adWhere['start_time'] = array("ELT", $date);
             $adWhere['over_time'] = array("EGT", $date);
-            $adWhere['ad_position_id'] = "1";
+            $adWhere['ad_position_id'] = $adPosition;
             $adInfo = $mAd->where($adWhere)->select();
             # 曝光时间判断
             foreach ($adInfo as $k => $info) {
@@ -53,13 +66,10 @@ class DeviceController  extends Controller
             }
         }
         if(empty($adInfo)) {
-            $adWhere = ['is_default' => 1]; # 当前时间没有广告投放
+            $adWhere = ['is_default' => 1, "ad_position_id" => $adPosition]; # 当前时间没有广告投放
             $adInfo = $mAd->where($adWhere)->select();
         }
-        $adInfo = $this->weightChoose($adInfo); # 一个区域根据权重来随机展示广告
-        $this->assign('client_ip',$clientIp);
-        $this->assign('adpath',$adInfo['resource']);
-        $this->display();
+        return $this->weightChoose($adInfo); # 一个区域根据权重来随机展示广告
     }
     # 根据权重随机选择数组中的一个
     private function weightChoose($array)
