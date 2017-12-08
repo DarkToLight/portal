@@ -41,7 +41,7 @@
                     ,offset: [
                     ]
                     ,content: "{:U('AdType/add')}"
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -70,7 +70,7 @@
                     }
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除?', function(index){
+                layer.confirm('确定是否删除？', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('AdType/del')}",
@@ -89,14 +89,14 @@
             } else if(layEvent === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '修改AdType信息'
+                    ,title: '修改上刊广告位类型'
                     ,area: ['300px', '250px']
                     ,shade: 0.5
                     ,maxmin: true
                     ,offset: [
                     ]
                     ,content: "{:U('AdType/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -133,7 +133,7 @@
                 ,offset: [
                 ]
                 ,content: "{:U('AdType/add')}"
-                ,btn: ['确定', '放弃'] //只是为了演示
+                ,btn: ['确定', '取消'] //只是为了演示
                 ,yes: function(layero){
                     var index = "#layui-layer-iframe" + layero;
                     var input = $(index).contents();

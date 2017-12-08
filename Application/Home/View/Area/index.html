@@ -32,7 +32,7 @@
                     ,maxmin: true
                     ,offset: []
                     ,content: "{:U('Area/add')}"
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -62,7 +62,7 @@
                     ,zIndex: layer.zIndex //重点1
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('确认是否删除？', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('Area/del')}",
@@ -90,7 +90,7 @@
                     ,offset: [
                     ]
                     ,content: "{:U('Area/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();

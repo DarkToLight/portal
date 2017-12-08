@@ -39,8 +39,11 @@
     img {
         width:180px;
     }
+    input.checkedTime{
+        height: 34px;
+    }
 </style>
-<blockquote class="layui-elem-quote">编辑广告</blockquote>
+<blockquote class="layui-elem-quote">新增广告</blockquote>
 <form class="layui-form layui-form-pane" action="{:U('Ad/edit')}">
     <input type="hidden" name="id" value="{$data.id}">
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
@@ -157,20 +160,25 @@
             </div>
         </div>
     </div>
+
     <div class="layui-form-item" id="timeAdd">
         <volist name="exposure_time" id="vo">
             <div class="layui-form-item">
                 <label class="layui-form-label">曝光时段：</label>
-                <div class="layui-input-inline">
-                    <input type="text" class="layui-input checkedTime" value="{$vo.start_time}" name="checkedTimeStart[]" />
+                <div class="layui-input-inline ">
+                    <div class="layui-input">
+                      <input type="text" class="checkedTime" value="{$vo.start_time}" name="checkedTimeStart[]" />
+                     </div>
                 </div>
                 <div class="layui-input-inline">
-                    <input type="text" class="layui-input checkedTime" value="{$vo.over_time}" name="checkedTimeEnd[]" />
+                    <input type="text" class="checkedTime" value="{$vo.over_time}" name="checkedTimeEnd[]" />
                 </div>
                 <div class="layui-btn layui-btn-danger checkedDel" lay-submit lay-filter="del">删除</div>
             </div>
         </volist>
     </div>
+
+
     <!--
     <div class="layui-form-item">
         <label class="layui-form-label">日投放量：</label>
@@ -234,13 +242,15 @@
             ,type: 'time'
         });
         //同时绑定多个
+        /*
         lay('.checkedTime').each(function(){
             laydate.render({
                 elem: this
                 ,type: 'time'
                 ,trigger: 'click'
             });
-        });
+        });*/
+
         //拖拽上传
         upload.render({
             elem: '#test10'
@@ -289,19 +299,31 @@
             var checked = '<div class="layui-form-item">' +
                 '<label class="layui-form-label">曝光时段：</label>' +
                 '<div class="layui-input-inline">' +
-                '<input class="layui-input checkedTime"  type="text"  name="checkedTimeStart[]"></input></div>' +
+                '<input class="checkedTime"  type="text"  name="checkedTimeStart[]"></input></div>' +
                 '<div class="layui-input-inline">' +
-                '<input class="layui-input checkedTime" type="text"  name="checkedTimeEnd[]"></input></div>' +
+                '<input class="checkedTime" type="text"  name="checkedTimeEnd[]"></input></div>' +
                 '<div class="layui-btn layui-btn-danger checkedDel">删除</div></div>';
             $("#timeAdd").append(checked);
 
-        });//曝光时间添加结束
-
+        });
+        //曝光时间添加结束
         $(document).on("click", ".checkedDel", function(){
             $(this).parent().remove();
         });
+        //时间选择
+        $(document).on("mouseup click", ".checkedTime", function(){
+            //同时绑定多个
+            lay('.checkedTime').each(function(){
+                laydate.render({
+                    elem: this
+                    ,type: 'time'
+                    ,trigger: 'click'
+                });
+            });
+        });
 
-    })//layui结束
+    })/
+    // /layui结束
     //关闭所有树形
     function collapseAll(){
         $('#tt').tree('collapseAll');

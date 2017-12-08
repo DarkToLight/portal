@@ -40,7 +40,7 @@
                     ,offset: [
                     ]
                     ,content: "{:U('AdPosition/add')}"
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -69,7 +69,7 @@
                     }
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除?', function(index){
+                layer.confirm('确定是否删除？', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('AdPosition/del')}",
@@ -95,7 +95,7 @@
                     ,offset: [
                     ]
                     ,content: "{:U('AdPosition/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -131,7 +131,7 @@
                 , maxmin: true
                 , offset: []
                 , content: "{:U('AdPosition/add')}"
-                , btn: ['确定', '放弃'] //只是为了演示
+                , btn: ['确定', '取消'] //只是为了演示
                 , yes: function (layero) {
                     var index = "#layui-layer-iframe" + layero;
                     var input = $(index).contents();

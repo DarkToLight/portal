@@ -44,6 +44,18 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">生产商</label>
+        <div class="layui-input-inline">
+            <input   name="producter" value="{$data.producter}"  placeholder="生产商" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">型号</label>
+        <div class="layui-input-inline">
+            <input   name="model" value="{$data.model}" placeholder="型号" class="layui-input" type="text">
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">状态</label>
         <div class="layui-input-block">
             <input name="status" value="1" title="正常" <if condition="$data.status eq 1 ">checked</if> type="radio">

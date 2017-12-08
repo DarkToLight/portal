@@ -34,14 +34,14 @@
             if(layEvent === 'add'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '增加User'
+                    ,title: '增加用户'
                     ,dataTable: ['300px', '250px']
                     ,shade: 0.5
                     ,maxmin: true
                     ,offset: [
                     ]
                     ,content: "{:U('User/add')}"
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -70,7 +70,7 @@
                     }
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除?', function(index){
+                layer.confirm('是否确认删除?', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('User/del')}",
@@ -89,14 +89,14 @@
             } else if(layEvent === 'edit'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '修改User信息'
+                    ,title: '修改用户信息'
                     ,dataTable: ['300px', '250px']
                     ,shade: 0.5
                     ,maxmin: true
                     ,offset: [
                     ]
                     ,content: "{:U('User/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -126,14 +126,14 @@
         $(document).on("click", "#add", function() {
             layer.open({
                 type: 2 //此处以iframe举例
-                ,title: '增加User'
+                ,title: '增加用户'
                 ,dataTable: ['300px', '250px']
                 ,shade: 0.5
                 ,maxmin: true
                 ,offset: [
                 ]
                 ,content: "{:U('User/add')}"
-                ,btn: ['确定', '放弃'] //只是为了演示
+                ,btn: ['确定', '取消'] //只是为了演示
                 ,yes: function(layero){
                     var index = "#layui-layer-iframe" + layero;
                     var input = $(index).contents();

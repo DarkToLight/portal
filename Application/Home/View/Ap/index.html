@@ -15,16 +15,16 @@
         <label class="layui-form-label">状态查询</label>
 
         <div class="layui-input-inline" >
-            <select name="area_id" lay-filter=""  lay-search="">
+            <select name="status" lay-filter=""  lay-search="">
                 <option value="">直接选择或搜索选择</option>
                 <option value="1"  name="status" selected="">正常</option>
-                <option value="-1" name="status">维修</option>
-                <option value="-2" name="status">异常</option>
+                <option value="-1" name="status">异常</option>
+                <option value="-2" name="status">维修</option>
             </select>
         </div>
         <label class="layui-form-label">区域查询</label>
         <div class="layui-input-inline"  id="checkedLg" >
-            <select name="status" lay-filter=""  lay-search="">
+            <select name="area_id" lay-filter=""  lay-search="">
                 <option value="">直接选择或搜索选择</option>
                 <volist name="area" id="vo">
                     <option value="{$vo.id}">{$vo.name}</option>
@@ -66,6 +66,8 @@
                 ,{field: 'ap_area_id', title: '所属区域',sort:'true'}
                 ,{field: 'longitude', title: '经度'}
                 ,{field: 'latitude', title: '纬度'}
+                ,{field: 'producter', title: '生产商',sort:'true'}
+                ,{field: 'model', title: '型号',sort:'true'}
                 ,{fixed: 'right', title: '操作', align:'center', width:160,toolbar: '#barDemo'}
             ]]
         });
@@ -84,7 +86,7 @@
                     ,offset: [
                     ]
                     ,content: "{:U('Ap/add')}"
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -113,7 +115,7 @@
                     }
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除?', function(index){
+                layer.confirm('确定是否删除?', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('Ap/del')}",
@@ -139,7 +141,7 @@
                     ,offset: [
                     ]
                     ,content: "{:U('Ap/edit')}"+"?id=" + data.id
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -177,7 +179,7 @@
             data= data.field;
 
             table.reload('testReload', {
-                url: "{:U('Ad/lists')}",
+                url: "{:U('Ap/lists')}",
                 where: {
                     name: data.name,
                     status:data.status,
@@ -209,7 +211,7 @@
                 , maxmin: true
                 , offset: []
                 , content: "{:U('Ap/add')}"
-                , btn: ['确定', '放弃'] //只是为了演示
+                , btn: ['确定', '取消'] //只是为了演示
                 , yes: function (layero) {
                     var index = "#layui-layer-iframe" + layero;
                     var input = $(index).contents();

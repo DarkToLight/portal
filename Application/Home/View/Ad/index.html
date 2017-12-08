@@ -98,7 +98,7 @@
             if(layEvent === 'add'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '增加广告'
+                    ,title: '取消广告'
                     ,area: ['390px', '260px']
                     ,shade: 0
                     ,maxmin: true
@@ -135,7 +135,7 @@
                     }
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除行么', function(index){
+                layer.confirm('确定是否删除？', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('Ad/del')}",

@@ -45,14 +45,14 @@
             if(layEvent === 'add'){
                 layer.open({
                     type: 2 //此处以iframe举例
-                    ,title: '增加广告商'
+                    ,title: '新增广告商'
                     ,area: ['420px', '500px']
                     ,shade: 0.5
                     ,maxmin: true
                     ,offset: [
                     ]
                     ,content: "{:U('Business/add')}"
-                    ,btn: ['确定', '放弃'] //只是为了演示
+                    ,btn: ['确定', '取消'] //只是为了演示
                     ,yes: function(layero){
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -81,7 +81,7 @@
                     }
                 });
             } else if(layEvent === 'del'){
-                layer.confirm('真的删除?', function(index){
+                layer.confirm('确认是否删除?', function(index){
                     $.ajax({
                         type: "post",
                         url: "{:U('Business/del')}",
@@ -106,7 +106,7 @@
                     , maxmin: true
                     , offset: []
                     , content: "{:U('Business/edit')}" + "?id=" + data.id
-                    , btn: ['确定', '放弃'] //只是为了演示
+                    , btn: ['确定', '取消'] //只是为了演示
                     , yes: function (layero) {
                         var index = "#layui-layer-iframe" + layero;
                         var input = $(index).contents();
@@ -142,13 +142,13 @@
         $("#addBusiness").on('click', function () {
             layer.open({
                 type: 2 //此处以iframe举例
-                , title: '增加广告商'
+                , title: '新增广告商'
                 , area: ['420px', '500px']
                 , shade: 0.5
                 , maxmin: true
                 , offset: []
                 , content: "{:U('Business/add')}"
-                , btn: ['确定', '放弃'] //只是为了演示
+                , btn: ['确定', '取消'] //只是为了演示
                 , yes: function (layero) {
                     var index = "#layui-layer-iframe" + layero;
                     var input = $(index).contents();
