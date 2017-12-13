@@ -12,7 +12,7 @@ class DeviceController  extends Controller
         $time = date("H:i:s");
         $date = date("Y-m-d");
 
-        $mac = isset($_GET['AP-MAC'])?trim($_GET['AP-MAC']):'00:00:00:00:00:00';
+        $mac = I('request.ap-mac','00:00:00:00:00:00');
         $mac = preg_replace("/[:_]*/", '', $mac);
 
         $clientIp = get_client_ip();
