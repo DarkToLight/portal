@@ -23,8 +23,9 @@
             ,page: false //开启分页
             ,cols: [[ //表头
                 {field: 'left', type:'checkbox'}
-                ,{field: 'id', title: 'ID',width:80,sort:'true'}
-                ,{field: 'username', title: '用户名'}
+                ,{type:'numbers',title: '序号',width:80}
+                //,{field: 'id', title: 'ID',width:80,sort:'true'}
+                ,{field: 'username', title: '用户名',sort:'true'}
                 ,{fixed: 'right', title: '操作', align:'left', width:200,toolbar: '#barDemo'}
             ]]
         });

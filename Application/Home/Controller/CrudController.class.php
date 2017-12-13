@@ -173,13 +173,8 @@ class CrudController extends Controller
             $back->data = $crtData;
         } else {   # 分页获取
             $rowCnt = $this->model->where($where)->count('id');
-            $total = ceil($rowCnt / $pageSize);
-            if ($tgtPage > $total && $total > 0) {
-                $tgtPage = $total;
-            } else {
-                $tgtPage = 1;
-            }
-            $offset = ($tgtPage - 1) * $pageSize;
+	    $total = ceil($rowCnt / $pageSize);
+            $offset =abs ($tgtPage - 1) * $pageSize;
             $crtData = $this->model->where($where)->limit($offset, $pageSize)->select();
             $pageBar = new PageBar($tgtPage, $crtData, $rowCnt, '', $_GET);
             $back = new \stdClass();

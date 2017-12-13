@@ -7,6 +7,11 @@
     div{
         margin-top:20px;
     }
+    .layui-textarea{
+        margin: 0 auto;
+        padding: 0px;
+        text-align: left;
+    }
 </style>
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
@@ -17,9 +22,9 @@
 
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">广告商说明</label>
+        <label class="layui-form-label" style="margin: 130px auto">广告商说明</label>
         <div class="layui-input-inline">
-            <textarea  name="description" placeholder="请输入广告商说明" class="layui-textarea">
+            <textarea  name="description" style="height: 300px" placeholder="请输入广告商说明" class="layui-textarea">
                 {$data.description}
             </textarea>
         </div>

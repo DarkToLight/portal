@@ -60,14 +60,15 @@
             ,id: 'testReload'
             ,cols: [[ //表头
                 {field: 'left', type:'checkbox'}
-                ,{field: 'name', title: '设备名称',sort:'true'}
-                ,{field: 'status', title: '设备状态',sort:'true'}
-                ,{field: 'mac', title: 'MAC地址',sort:'true'}
-                ,{field: 'ap_area_id', title: '所属区域',sort:'true'}
-                ,{field: 'longitude', title: '经度'}
-                ,{field: 'latitude', title: '纬度'}
-                ,{field: 'producter', title: '生产商',sort:'true'}
-                ,{field: 'model', title: '型号',sort:'true'}
+                ,{type:'numbers',title: '序号',width:60,align:'center'}
+                ,{field: 'name', title: '设备名称',sort:'true',align:'center'}
+                ,{field: 'status', title: '设备状态',sort:'true',align:'center'}
+                ,{field: 'mac', title: 'MAC地址',sort:'true',align:'center'}
+                ,{field: 'ap_area_id', title: '所属区域',sort:'true',align:'center'}
+                ,{field: 'longitude', title: '经度',align:'center'}
+                ,{field: 'latitude', title: '纬度',align:'center'}
+                ,{field: 'producter', title: '生产商',sort:'true',align:'center'}
+                ,{field: 'model', title: '型号',sort:'true',align:'center'}
                 ,{fixed: 'right', title: '操作', align:'center', width:160,toolbar: '#barDemo'}
             ]]
         });
@@ -80,7 +81,7 @@
                 layer.open({
                     type: 2 //此处以iframe举例
                     ,title: '增加AP'
-                    ,area: ['420px', '500px']
+                    ,area: ['420px', '600px']
                     ,shade: 0
                     ,maxmin: true
                     ,offset: [
@@ -135,7 +136,7 @@
                 layer.open({
                     type: 2 //此处以iframe举例
                     ,title: '修改AP信息'
-                    ,area: ['420px', '500px']
+                    ,area: ['420px', '620px']
                     ,shade: 0.8
                     ,maxmin: true
                     ,offset: [
@@ -206,7 +207,7 @@
             layer.open({
                 type: 2 //此处以iframe举例
                 , title: '增加AP'
-                , area: ['420px', '500px']
+                , area: ['420px', '620px']
                 , shade: 0
                 , maxmin: true
                 , offset: []
